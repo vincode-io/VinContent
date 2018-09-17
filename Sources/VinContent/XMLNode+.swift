@@ -1,4 +1,4 @@
-//
+//  Copyright © 2017 Vincode. All rights reserved.
 
 import Foundation
 
