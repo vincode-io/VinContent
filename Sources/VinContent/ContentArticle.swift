@@ -1,8 +1,15 @@
+//
+//  ExtractedArticle.swift
+//  VinFoundation
+//
+//  Created by Maurice Parker on 2/4/17.
 //  Copyright © 2017 Vincode. All rights reserved.
+//
 
 import Foundation
+import VinXML
 
-public struct ContentArticle {
+public struct ExtractedArticle {
     
     public var title: String?
     public var publisher: String?
@@ -12,8 +19,8 @@ public struct ContentArticle {
     public var publishDate: Date?
     public var image: URL?
     public var length: Int?
-    public var mangledDocument: XMLDocument?
-    public var content: [XMLElement]?
+    public var mangledDocument: VinXML.XMLDocument?
+    public var content: [VinXML.XMLNode]?
     
     public var wrappedContent: String? {
         
@@ -21,7 +28,11 @@ public struct ContentArticle {
             return nil
         }
         
-        let xhtml = content!.reduce("") { $0 + $1.xmlString }
+        var xhtml = ""
+        for node in content! {
+            xhtml.append(node.raw ?? "")
+        }
+        
         return "<div>\(xhtml)</div>"
         
     }

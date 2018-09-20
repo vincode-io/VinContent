@@ -1,6 +1,14 @@
+//
+//  ScoredElement.swift
+//  VinFoundation
+//
+//  Created by Maurice Parker on 2/21/17.
 //  Copyright © 2017 Vincode. All rights reserved.
+//
 
-extension XMLElement {
+import VinXML
+
+extension VinXML.XMLNode {
     
     /**
      * Store the content score as an XML attribute so that it can be used by
@@ -10,7 +18,7 @@ extension XMLElement {
     var score: Int {
         
         get {
-            if let score = self.attribute(forName: ContentExtractor.scoreAttrName)?.stringValue {
+            if let score = self.attributes[ContentExtractor.scoreAttrName] {
                 return Int(score)!
             }
             return 0
@@ -22,13 +30,7 @@ extension XMLElement {
                 return
             }
             
-            
-            if let attr = attribute(forName: ContentExtractor.scoreAttrName) {
-                attr.stringValue = String(newValue)
-            } else {
-                let attr = XMLNode.attribute(withName: ContentExtractor.scoreAttrName, stringValue: String(newValue)) as! XMLNode
-                self.addAttribute(attr)
-            }
+            self.attributes[ContentExtractor.scoreAttrName] = String(newValue)
             
         }
         
@@ -37,7 +39,7 @@ extension XMLElement {
     var scoreCounter: Double {
         
         get {
-            if let score = self.attribute(forName: ContentExtractor.scoreCounterAttrName)?.stringValue {
+            if let score = self.attributes[ContentExtractor.scoreCounterAttrName] {
                 return Double(score)!
             }
             return 0
@@ -49,12 +51,7 @@ extension XMLElement {
                 return
             }
             
-            if let attr = attribute(forName: ContentExtractor.scoreCounterAttrName) {
-                attr.stringValue = String(newValue)
-            } else {
-                let attr = XMLNode.attribute(withName: ContentExtractor.scoreCounterAttrName, stringValue: String(newValue)) as! XMLNode
-                self.addAttribute(attr)
-            }
+            self.attributes[ContentExtractor.scoreCounterAttrName] = String(newValue)
             
         }
         
@@ -73,12 +70,12 @@ extension XMLElement {
     
     func hasHighLinkDensity() throws -> Bool {
         
-        let links = try self.nodes(forXPath: ".//a | .//*[@onclick]")
+        let links = try self.query(xpath: ".//a | .//*[@onclick]")
         
         if !links.isEmpty {
-            let wordCount = self.stringValue?
+            let wordCount = self.content?
                 .components(separatedBy: .whitespacesAndNewlines).filter({$0 != ""}).count ?? 0
-            let linkWordCount = links.map( {$0.stringValue?.components(separatedBy: .whitespacesAndNewlines).count })
+            let linkWordCount = links.map( {$0.text?.components(separatedBy: .whitespacesAndNewlines).count })
                 .reduce(0, { $0 + ($1 ?? 0) })
             // We need to have at least twice as many words as link words
             let highLinkDensity = (linkWordCount * 2) > wordCount

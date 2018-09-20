@@ -1,6 +1,13 @@
+//
+//  ContentExtractor.swift
+//  VinFoundation
+//
+//  Created by Maurice Parker on 2/4/17.
 //  Copyright © 2017 Vincode. All rights reserved.
+//
 
 import Foundation
+import VinXML
 
 public class ContentExtractor {
     
@@ -8,19 +15,18 @@ public class ContentExtractor {
     static let scoreCounterAttrName = "scoreCounter.vincode.io"
     static let scoreThreshold = 30
 
-    public static func extractArticle(from htmlURL: URL) throws -> ContentArticle {
+    public static func extractArticle(from htmlURL: URL) throws -> ExtractedArticle {
         let htmlContents = try String(contentsOf: htmlURL)
         return try ContentExtractor.extractArticle(from: htmlContents, source: htmlURL)
     }
     
-    public static func extractArticle(from htmlString: String, source: URL) throws -> ContentArticle {
+    public static func extractArticle(from htmlString: String, source: URL) throws -> ExtractedArticle {
         
-        let options = Int(XMLNode.Options.documentTidyHTML.rawValue)
-        guard let doc = try? XMLDocument(xmlString: htmlString, options: options) else {
+        var article = ExtractedArticle()
+        
+        guard let doc = try VinXML.XMLDocument(html: htmlString) else {
             throw ContentExtractorError.UnableToParseHTML
         }
-        
-        var article = ContentArticle()
         
         article.title = try extractTitle(doc: doc)
         article.byline = try extractByline(doc: doc)
@@ -30,15 +36,11 @@ public class ContentExtractor {
         article.publishDate = try extractPublishDate(doc: doc)
         article.image = try extractImage(doc: doc)
         
-        guard let rootElement = doc.rootElement() else {
-            throw ContentExtractorError.UnableToParseHTML
-        }
-        
-        try rootElement.host(visitor: ContentPreScrubbingVisitor())
-        try rootElement.host(visitor: ContentScoringVisitor())
+        try doc.root?.host(visitor: ContentPreScrubbingVisitor())
+        try doc.root?.host(visitor: ContentScoringVisitor())
 
         let contentExtractingVisitor = ContentExtractingVisitor()
-        try rootElement.host(visitor: contentExtractingVisitor)
+        try doc.root?.host(visitor: contentExtractingVisitor)
         
         let clusters = contentExtractingVisitor.clusters
         
@@ -51,35 +53,30 @@ public class ContentExtractor {
             try cluster.host(visitor: postScrubber)
         }
         
-        let systemScrubber = ContentSystemScrubbingVisitor()
-        for cluster in clusters {
-            try cluster.host(visitor: systemScrubber)
-        }
-        
         article.mangledDocument = doc
         article.content = clusters
-        
+    
         return article
         
     }
     
-    private static func extractTitle(doc: XMLDocument) throws -> String? {
+    private static func extractTitle(doc: VinXML.XMLDocument) throws -> String? {
         
         var title: String?
         
         let titlePath = "//*/meta[@property='og:title' or @name='og:title' or @property='twitter:title' or @name='twitter:title']"
-        if let node = try doc.firstNode(forXPath: titlePath) as? XMLElement {
-            title = node.attribute(forName: "content")?.stringValue
+        if let node = try doc.queryFirst(xpath: titlePath) {
+            title = node.attributes["content"]
         }
         
         if title == nil {
-            if let node = try doc.firstNode(forXPath: "//*/title") {
-                title = node.stringValue
+            if let node = try doc.queryFirst(xpath: "//*/title") {
+                title = node.text
             }
         }
         
         // Fix these messed up compound titles that web designers like to use.
-        // TODO: change this to a loop and use this list:
+        // TODO: change this to a loop and use this list from Goose:
         // """ | """, " • ", " › ", " :: ", " » ", " - ", " : ", " — ", " · "
         if let range = title?.range(of: " |") {
             title = title?.substring(to: range.lowerBound)
@@ -101,7 +98,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractByline(doc: XMLDocument) throws -> String? {
+    private static func extractByline(doc: VinXML.XMLDocument) throws -> String? {
         
         if let author = try doc.metaTagContent(forName: "author") {
             return author
@@ -112,9 +109,9 @@ public class ContentExtractor {
         }
         
         // I don't think rel is supposed to be used much anymore.
-        var nodes = try doc.nodes(forXPath: "//*[@rel='author']")
+        var nodes = try doc.query(xpath: "//*[@rel='author']")
         for node in nodes {
-            if let nodeContent = node.stringValue {
+            if let nodeContent = node.text {
                 // TODO: where you going to do something here Mo?
                 let cleanedContent = nodeContent
                 if validByLine(candidate: cleanedContent) {
@@ -124,9 +121,9 @@ public class ContentExtractor {
         }
         
         // This pulls in the schema.org author definition
-        nodes = try doc.nodes(forXPath: "//*[@itemprop='author']/*[@itemprop='name']")
+        nodes = try doc.query(xpath: "//*[@itemprop='author']/*[@itemprop='name']")
         for node in nodes {
-            if let nodeContent = node.stringValue {
+            if let nodeContent = node.text {
                 let cleanedContent = nodeContent
                 if validByLine(candidate: cleanedContent) {
                     return cleanedContent
@@ -136,8 +133,8 @@ public class ContentExtractor {
         
         // This is a this is a final attempt to do something crazy and get the author.  Believe it or not, it actually works.
         let classPath = "//*[contains(translate(@class, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'author') or contains(translate(@class, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'byline')]"
-        if let node = try doc.firstNode(forXPath: classPath) {
-            if let title = node.stringValue {
+        if let node = try doc.queryFirst(xpath: classPath) {
+            if let title = node.text {
                 return title.trimmed()
             }
         }
@@ -150,10 +147,10 @@ public class ContentExtractor {
         guard let candidate = candidate else {
             return false
         }
-        return candidate.count > 0 && candidate.count < 100
+        return candidate.characters.count > 0 && candidate.characters.count < 100
     }
     
-    private static func extractPublisher(doc: XMLDocument, source: URL) throws -> String? {
+    private static func extractPublisher(doc: VinXML.XMLDocument, source: URL) throws -> String? {
         
         if let publisher = try doc.metaTagContent(forName: "og:site_name") {
             return publisher
@@ -171,7 +168,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractDescription(doc: XMLDocument) throws -> String? {
+    private static func extractDescription(doc: VinXML.XMLDocument) throws -> String? {
 
         if let description = try doc.metaTagContent(forName: "description") {
             return description
@@ -185,7 +182,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractSource(doc: XMLDocument, source: URL) throws -> URL? {
+    private static func extractSource(doc: VinXML.XMLDocument, source: URL) throws -> URL? {
         
         if let ogURL = try doc.metaTagContent(forName: "og:url") {
             if let result = URL(string: ogURL) {
@@ -197,7 +194,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractPublishDate(doc: XMLDocument) throws -> Date? {
+    private static func extractPublishDate(doc: VinXML.XMLDocument) throws -> Date? {
         
         if let published = try doc.metaTagContent(forName: "article:published_time") {
             return try? Date(iso8601: published)
@@ -207,7 +204,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractImage(doc: XMLDocument) throws -> URL? {
+    private static func extractImage(doc: VinXML.XMLDocument) throws -> URL? {
         
         if let image = try doc.metaTagContent(forName: "og:image") {
             return URL(string: image)
