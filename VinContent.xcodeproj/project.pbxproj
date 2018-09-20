@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		"VinContent::VinContentPackageTests::ProductTarget" /* VinContentPackageTests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_62 /* Build configuration list for PBXAggregateTarget "VinContentPackageTests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_65 /* PBXTargetDependency */,
-			);
-			name = VinContentPackageTests;
-			productName = VinContentPackageTests;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B8A074215425E900EEA621 /* VinXML.framework */; };
 		51B8A08821542E7400EEA621 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08621542E5400EEA621 /* stopwords.txt */; };
@@ -41,7 +27,6 @@
 		OBJ_51 /* VisitorHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* VisitorHost.swift */; };
 		OBJ_52 /* XMLDocument+VinCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XMLDocument+VinCE.swift */; };
 		OBJ_53 /* XMLNode+VinCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XMLNode+VinCE.swift */; };
-		OBJ_60 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_71 /* BackChannelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* BackChannelTest.swift */; };
 		OBJ_75 /* VinContent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "VinContent::VinContent::Product" /* VinContent.framework */; };
 /* End PBXBuildFile section */
@@ -53,13 +38,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = "VinContent::VinContent";
 			remoteInfo = VinContent;
-		};
-		5116331E215419AF0043643C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "VinContent::VinContentTests";
-			remoteInfo = VinContentTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -195,20 +173,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		"VinContent::SwiftPMPackageDescription" /* VinContentPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_56 /* Build configuration list for PBXNativeTarget "VinContentPackageDescription" */;
-			buildPhases = (
-				OBJ_59 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = VinContentPackageDescription;
-			productName = VinContentPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
 		"VinContent::VinContent" /* VinContent */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_34 /* Build configuration list for PBXNativeTarget "VinContent" */;
@@ -265,8 +229,6 @@
 			projectRoot = "";
 			targets = (
 				"VinContent::VinContent" /* VinContent */,
-				"VinContent::SwiftPMPackageDescription" /* VinContentPackageDescription */,
-				"VinContent::VinContentPackageTests::ProductTarget" /* VinContentPackageTests */,
 				"VinContent::VinContentTests" /* VinContentTests */,
 			);
 		};
@@ -316,14 +278,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_59 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_60 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		OBJ_70 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
@@ -335,11 +289,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_65 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "VinContent::VinContentTests" /* VinContentTests */;
-			targetProxy = 5116331E215419AF0043643C /* PBXContainerItemProxy */;
-		};
 		OBJ_76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "VinContent::VinContent" /* VinContent */;
@@ -450,36 +399,6 @@
 			};
 			name = Release;
 		};
-		OBJ_57 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4.2 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		OBJ_58 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4.2 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
-		OBJ_63 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_64 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
 		OBJ_68 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -539,24 +458,6 @@
 			buildConfigurations = (
 				OBJ_35 /* Debug */,
 				OBJ_36 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_56 /* Build configuration list for PBXNativeTarget "VinContentPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_57 /* Debug */,
-				OBJ_58 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_62 /* Build configuration list for PBXAggregateTarget "VinContentPackageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_63 /* Debug */,
-				OBJ_64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
