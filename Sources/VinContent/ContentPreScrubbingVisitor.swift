@@ -47,12 +47,15 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         if node.name == "font" {
             node.name = "span"
         }
-        
-        // Feature: Collapse multiple br tags into a single p tag (not implemented)
-        //
-        // The jury is out on if this is still useful or is legacy cruft.  It is a pain
-        // to implement elequently and I'm not convinced of its necessity.  I'm going to 
-        // have to see this one in the wild before I implement it. -Maurice
+
+        // Data based images are usually doing some weird layout stuff.
+        if node.name == "img", let imgSrc = node.attributes["src"]?.lowercased() {
+            if imgSrc.starts(with: "data:") {
+                try remove(node)
+                return false
+            }
+            
+        }
 
         if let attrContent = node.attributes["id"] {
             if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.characters.count)) > 0 {
@@ -87,7 +90,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
 //        if let classValue = node.attributes["class"] {
 //            print("--- prescrubber removing --- \(node.name ?? "n/a") *** \(classValue)")
 //        } else {
-//            print("--- prescrubber removing ---\(node.name ?? "n/a")")
+//            print("--- prescrubber removing --- \(node.name ?? "n/a")")
 //        }
         try node.remove()
     }

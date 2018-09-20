@@ -27,8 +27,10 @@ class ContentExtractingVisitor: XMLVisitor {
 //            print("--- extracting for ---\(node.name ?? "n/a") *** score: \(node.score)")
 //        }
         
-        if ContentExtractingVisitor.extractExemptTags.contains(node.name!) {
-            return true
+        if let nodeName = node.name {
+            if ContentExtractingVisitor.extractExemptTags.contains(nodeName) {
+                return true
+            }
         }
         
         if node.score >= ContentExtractor.scoreThreshold {

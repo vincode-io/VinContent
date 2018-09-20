@@ -16,16 +16,7 @@ class ContentPostScrubbingVisitor: XMLVisitor {
         guard let node = host as? VinXML.XMLNode else {
             return false
         }
-
-        // Convert article links to spans.  This makes it feel like you are reading
-        // a book, since most articles these days are splattered with links.  Besides,
-        // it feeds into the short attention span problem.  Links take people out of the
-        // article they are reading before they have finished it.
-        if node.name == "a" {
-            node.attributes["href"] = nil
-            node.name = "span"
-        }
-        
+     
         // Make sure that there aren't any wacky inline font size things
         node.attributes["style"] = nil
         
@@ -68,9 +59,9 @@ class ContentPostScrubbingVisitor: XMLVisitor {
     
     private func remove(_ node: VinXML.XMLNode) throws {
 //        if let classValue = node.attributes["class"] {
-//            print("--- \(node.name ?? "n/a") *** \(classValue)")
+//            print("--- postscrubber \(node.name ?? "n/a") *** \(classValue)")
 //        } else {
-//            print("--- \(node.name ?? "n/a")")
+//            print("--- postscrubber \(node.name ?? "n/a")")
 //        }
         try node.remove()
     }
