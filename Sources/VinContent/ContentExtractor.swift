@@ -48,7 +48,7 @@ public class ContentExtractor {
             throw ContentExtractorError.UnableToParseHTML
         }
 
-        let postScrubber = ContentPostScrubbingVisitor()
+        let postScrubber = ContentPostScrubbingVisitor(articleTitle: article.title)
         for cluster in clusters {
             try cluster.host(visitor: postScrubber)
         }
