@@ -36,8 +36,13 @@ class ContentScoringVisitor: XMLVisitor {
 
         // Boost images since they will never have stop words and we want to pick them
         // up if they are part of a cluster.
-        if elementName == "img" {
-            upscore = upscore + 3
+        if elementName == "img",
+            let width = Int(node.attributes["width"] ?? "0"),
+            let height = Int(node.attributes["height"] ?? "0") {
+            
+            upscore = upscore + (width / 100)
+            upscore = upscore + (height / 100)
+            
         }
         
         // Bump the score based on the number of conversational words found
@@ -45,20 +50,6 @@ class ContentScoringVisitor: XMLVisitor {
             let contentStopWords = StopWords.countStopWords(elementText)
             upscore = upscore + contentStopWords
         }
-        
-//        print("node: \(node.name ?? "n/a") scored: \(upscore) on content: \(node.text ?? "n/a")")
-
-        // This is to exclude comments since they tend to be at the bottom of the article
-//        if (numberOfNodes > 15) {
-//            if ((numberOfNodes - i) <= bottomNodesForNegativeScore) {
-//                val booster: Float = bottomNodesForNegativeScore.toFloat - (numberOfNodes - i).toFloat
-//                boostScore = -math.pow(booster.toDouble, 2.toDouble).toFloat
-//                val negscore: Float = math.abs(boostScore) + negativeScoring
-//                if (negscore > 40) {
-//                    boostScore = 5
-//                }
-//            }
-//        }
 
         var elementToScore: XMLNode? = node
         while elementToScore != nil && !elementToScore!.blockElement {
