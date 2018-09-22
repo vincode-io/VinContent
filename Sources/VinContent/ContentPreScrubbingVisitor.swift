@@ -11,15 +11,15 @@ import VinXML
 
 class ContentPreScrubbingVisitor: XMLVisitor {
     
-    static let keepTagNames: Set = ["body", "html", "article"]
-    static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "svg"]
+    static let keepTagNames: Set = ["body", "html", "article", "math"]
+    static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form"]
     static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
         "navbar|comment(?!ed)|PopularQuestions|contact|footer|Footer|footnote|cnn_strycaptiontxt|" +
         "links|meta$|scroll(?!able)|shoutbox|sponsor|tags|socialnetworking|socialNetworking|" +
         "cnnStryHghLght|cnn_stryspcvbx|^inset$|pagetools|post-attributes|welcome_form|contentTools2|" +
         "the_answers|remember-tool-tip|communitypromo|promo_holder|runaroundLeft|^subscribe$|vcard|" +
         "articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|" +
-        "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print", options: .caseInsensitive)
+        "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup", options: .caseInsensitive)
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
@@ -88,11 +88,12 @@ class ContentPreScrubbingVisitor: XMLVisitor {
     }
     
     private func remove(_ node: VinXML.XMLNode) throws {
-        if let classValue = node.attributes["class"] {
-            print("--- prescrubber removing --- \(node.name ?? "n/a") *** \(classValue)")
-        } else {
-            print("--- prescrubber removing --- \(node.name ?? "n/a")")
-        }
+//        if let classValue = node.attributes["class"] {
+//            print("--- prescrubber removing --- \(node.name ?? "n/a") *** \(classValue)")
+//        } else {
+//            print("--- prescrubber removing --- \(node.name ?? "n/a")")
+//        }
         try node.remove()
     }
+    
 }

@@ -31,9 +31,15 @@ class ContentScoringVisitor: XMLVisitor {
         // still sometimes don't have conversational words that would be picked up
         // with the stop words.
         if ["h1", "h2", "h3", "h4", "h5", "h6"].contains(elementName) {
-            upscore = upscore + 3
+            upscore = 3
         }
 
+        // We are going to boost math elements assuming that advertisers won't abuse
+        // this tag.  Since there are may not be words, let's max them.
+        if elementName == "math" {
+            upscore = ContentExtractor.scoreThreshold
+        }
+        
         // Boost images since they will never have stop words and we want to pick them
         // up if they are part of a cluster.
         if elementName == "img",
