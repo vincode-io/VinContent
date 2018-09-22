@@ -23,8 +23,8 @@
 		OBJ_47 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* DateFormatter+.swift */; };
 		OBJ_48 /* StopWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* StopWords.swift */; };
 		OBJ_49 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* String+.swift */; };
-		OBJ_52 /* XMLDocument+VinCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XMLDocument+VinCE.swift */; };
-		OBJ_53 /* XMLNode+VinCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XMLNode+VinCE.swift */; };
+		OBJ_52 /* XMLDocument+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XMLDocument+.swift */; };
+		OBJ_53 /* XMLNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XMLNode+.swift */; };
 		OBJ_71 /* BackChannelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* BackChannelTest.swift */; };
 		OBJ_75 /* VinContent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "VinContent::VinContent::Product" /* VinContent.framework */; };
 /* End PBXBuildFile section */
@@ -56,8 +56,8 @@
 		OBJ_18 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		OBJ_19 /* StopWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWords.swift; sourceTree = "<group>"; };
 		OBJ_20 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		OBJ_23 /* XMLDocument+VinCE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLDocument+VinCE.swift"; sourceTree = "<group>"; };
-		OBJ_24 /* XMLNode+VinCE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLNode+VinCE.swift"; sourceTree = "<group>"; };
+		OBJ_23 /* XMLDocument+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLDocument+.swift"; sourceTree = "<group>"; };
+		OBJ_24 /* XMLNode+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLNode+.swift"; sourceTree = "<group>"; };
 		OBJ_27 /* BackChannelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackChannelTest.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* ContentArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArticle.swift; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 				OBJ_19 /* StopWords.swift */,
 				51B8A08621542E5400EEA621 /* stopwords.txt */,
 				OBJ_20 /* String+.swift */,
-				OBJ_23 /* XMLDocument+VinCE.swift */,
-				OBJ_24 /* XMLNode+VinCE.swift */,
+				OBJ_23 /* XMLDocument+.swift */,
+				OBJ_24 /* XMLNode+.swift */,
 			);
 			name = VinContent;
 			path = Sources/VinContent;
@@ -265,8 +265,8 @@
 				OBJ_47 /* DateFormatter+.swift in Sources */,
 				OBJ_48 /* StopWords.swift in Sources */,
 				OBJ_49 /* String+.swift in Sources */,
-				OBJ_52 /* XMLDocument+VinCE.swift in Sources */,
-				OBJ_53 /* XMLNode+VinCE.swift in Sources */,
+				OBJ_52 /* XMLDocument+.swift in Sources */,
+				OBJ_53 /* XMLNode+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
