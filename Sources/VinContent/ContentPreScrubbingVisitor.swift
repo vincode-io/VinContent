@@ -59,14 +59,14 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         }
 
         if let attrContent = node.attributes["id"] {
-            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.characters.count)) > 0 {
+            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.count)) > 0 {
                 try remove(node)
                 return false
             }
         }
         
         if let attrContent = node.attributes["name"] {
-            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.characters.count)) > 0 {
+            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.count)) > 0 {
                 try remove(node)
                 return false
             }
@@ -77,7 +77,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
             if attrContent == "CommentsPage" {
                 return true
             }
-            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.characters.count)) > 0 {
+            if ContentPreScrubbingVisitor.scrubRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.count)) > 0 {
                 try remove(node)
                 return false
             }

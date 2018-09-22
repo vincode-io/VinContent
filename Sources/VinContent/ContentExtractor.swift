@@ -75,26 +75,30 @@ public class ContentExtractor {
             }
         }
         
+        guard let unparsedTitle = title else {
+            return nil
+        }
+        
         // Fix these messed up compound titles that web designers like to use.
         // TODO: change this to a loop and use this list from Goose:
         // """ | """, " • ", " › ", " :: ", " » ", " - ", " : ", " — ", " · "
-        if let range = title?.range(of: " |") {
-            title = title?.substring(to: range.lowerBound)
+        if let range = unparsedTitle.range(of: " |") {
+            return String(unparsedTitle[..<range.lowerBound])
         }
-        if let range = title?.range(of: " »") {
-            title = title?.substring(to: range.lowerBound)
+        if let range = unparsedTitle.range(of: " »") {
+            return String(unparsedTitle[..<range.lowerBound])
         }
-        if let range = title?.range(of: " :") {
-            title = title?.substring(to: range.lowerBound)
+        if let range = unparsedTitle.range(of: " :") {
+            return String(unparsedTitle[..<range.lowerBound])
         }
-        if let range = title?.range(of: " -") {
-            title = title?.substring(to: range.lowerBound)
+        if let range = unparsedTitle.range(of: " -") {
+            return String(unparsedTitle[..<range.lowerBound])
         }
-        if let range = title?.range(of: " •") {
-            title = title?.substring(to: range.lowerBound)
+        if let range = unparsedTitle.range(of: " •") {
+            return String(unparsedTitle[..<range.lowerBound])
         }
     
-        return title?.trimmed()
+        return unparsedTitle.trimmed()
         
     }
     
@@ -147,7 +151,7 @@ public class ContentExtractor {
         guard let candidate = candidate else {
             return false
         }
-        return candidate.characters.count > 0 && candidate.characters.count < 100
+        return candidate.count > 0 && candidate.count < 100
     }
     
     private static func extractPublisher(doc: VinXML.XMLDocument, source: URL) throws -> String? {
