@@ -7,13 +7,13 @@ class ContentSystemScrubbingVisitor: XMLVisitor {
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let element = host as? XMLElement else {
+        guard let node = host as? VinXML.XMLNode else {
             return false
         }
         
         // Clean up the scoring attributes now that we don't need them any more
-        element.removeAttribute(forName: ContentExtractor.scoreAttrName)
-        element.removeAttribute(forName: ContentExtractor.scoreCounterAttrName)
+        node.attributes[ContentExtractor.scoreAttrName] = nil
+        node.attributes[ContentExtractor.scoreCounterAttrName] = nil
         
         return true
         

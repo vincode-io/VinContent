@@ -56,7 +56,7 @@ class ContentPostScrubbingVisitor: XMLVisitor {
 //                }
 //                print("removing content: \(node.text ?? "")")
 //            #endif
-            try node.remove()
+            try remove(node)
             return false
         } else {
 //            #if DEBUG

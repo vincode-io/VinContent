@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5130A01021571965009205CB /* wired-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A00F21571965009205CB /* wired-expected.html */; };
 		51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B8A074215425E900EEA621 /* VinXML.framework */; };
 		51B8A08821542E7400EEA621 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08621542E5400EEA621 /* stopwords.txt */; };
-		51B8A08A21542F9200EEA621 /* backchannel.html in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08921542F9200EEA621 /* backchannel.html */; };
-		51B8A08C21542FA700EEA621 /* backchannel.html in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08921542F9200EEA621 /* backchannel.html */; };
+		51B8A10F215706B700EEA621 /* wired-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A10D215706B700EEA621 /* wired-input.html */; };
+		51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B8A1102157071700EEA621 /* VinContentBaseTest.swift */; };
 		OBJ_38 /* ContentArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ContentArticle.swift */; };
 		OBJ_39 /* ContentExtractingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ContentExtractingVisitor.swift */; };
 		OBJ_40 /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ContentExtractor.swift */; };
@@ -25,7 +26,7 @@
 		OBJ_49 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* String+.swift */; };
 		OBJ_52 /* XMLDocument+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XMLDocument+.swift */; };
 		OBJ_53 /* XMLNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XMLNode+.swift */; };
-		OBJ_71 /* BackChannelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* BackChannelTest.swift */; };
+		OBJ_71 /* WiredTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* WiredTest.swift */; };
 		OBJ_75 /* VinContent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "VinContent::VinContent::Product" /* VinContent.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,10 +42,12 @@
 
 /* Begin PBXFileReference section */
 		5116331F215419DB0043643C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5130A00F21571965009205CB /* wired-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "wired-expected.html"; sourceTree = "<group>"; };
 		51B8A074215425E900EEA621 /* VinXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VinXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B8A07F215429E500EEA621 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		51B8A08621542E5400EEA621 /* stopwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stopwords.txt; sourceTree = "<group>"; };
-		51B8A08921542F9200EEA621 /* backchannel.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = backchannel.html; sourceTree = "<group>"; };
+		51B8A10D215706B700EEA621 /* wired-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "wired-input.html"; sourceTree = "<group>"; };
+		51B8A1102157071700EEA621 /* VinContentBaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinContentBaseTest.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ContentExtractingVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractingVisitor.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ContentExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; };
 		OBJ_12 /* ContentExtractorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractorError.swift; sourceTree = "<group>"; };
@@ -58,7 +61,7 @@
 		OBJ_20 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		OBJ_23 /* XMLDocument+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLDocument+.swift"; sourceTree = "<group>"; };
 		OBJ_24 /* XMLNode+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLNode+.swift"; sourceTree = "<group>"; };
-		OBJ_27 /* BackChannelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackChannelTest.swift; sourceTree = "<group>"; };
+		OBJ_27 /* WiredTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiredTest.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* ContentArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArticle.swift; sourceTree = "<group>"; };
 		"VinContent::VinContent::Product" /* VinContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VinContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,8 +108,10 @@
 		OBJ_26 /* VinContentTests */ = {
 			isa = PBXGroup;
 			children = (
-				51B8A08921542F9200EEA621 /* backchannel.html */,
-				OBJ_27 /* BackChannelTest.swift */,
+				51B8A1102157071700EEA621 /* VinContentBaseTest.swift */,
+				51B8A10D215706B700EEA621 /* wired-input.html */,
+				5130A00F21571965009205CB /* wired-expected.html */,
+				OBJ_27 /* WiredTest.swift */,
 			);
 			name = VinContentTests;
 			path = Tests/VinContentTests;
@@ -234,7 +239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				51B8A08821542E7400EEA621 /* stopwords.txt in Resources */,
-				51B8A08A21542F9200EEA621 /* backchannel.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +246,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51B8A08C21542FA700EEA621 /* backchannel.html in Resources */,
+				5130A01021571965009205CB /* wired-expected.html in Resources */,
+				51B8A10F215706B700EEA621 /* wired-input.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_71 /* BackChannelTest.swift in Sources */,
+				51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */,
+				OBJ_71 /* WiredTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
