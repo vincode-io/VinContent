@@ -11,15 +11,21 @@ import VinXML
 
 class ContentPreScrubbingVisitor: XMLVisitor {
     
-    static let keepTagNames: Set = ["body", "html", "article", "math"]
-    static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form"]
-    static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
+    private static let keepTagNames: Set = ["body", "html", "article", "math"]
+    private static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form"]
+    private static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
         "navbar|comment(?!ed)|PopularQuestions|contact|footer|Footer|footnote|cnn_strycaptiontxt|" +
         "links|meta$|scroll(?!able)|shoutbox|sponsor|tags|socialnetworking|socialNetworking|" +
         "cnnStryHghLght|cnn_stryspcvbx|^inset$|pagetools|post-attributes|welcome_form|contentTools2|" +
         "the_answers|remember-tool-tip|communitypromo|promo_holder|runaroundLeft|^subscribe$|vcard|" +
         "articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|" +
         "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup", options: .caseInsensitive)
+    
+    private var articleTitle: String?
+    
+    init(articleTitle: String?) {
+        self.articleTitle = articleTitle
+    }
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
@@ -48,6 +54,10 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         if node.name == "font" {
             node.name = "span"
         }
+
+        // Make sure that there aren't any wacky inline font size things
+        node.attributes["style"] = nil
+        
 
         // Data based images are usually doing some weird layout stuff.
         if node.name == "img", let imgSrc = node.attributes["src"]?.lowercased() {
@@ -81,6 +91,18 @@ class ContentPreScrubbingVisitor: XMLVisitor {
                 try remove(node)
                 return false
             }
+        }
+        
+        // We are assuming that the title is being displayed by using the
+        // extracted metadata.
+        if node.name == "h1" && node.content == articleTitle {
+            try remove(node)
+            return false
+        }
+        
+        if try node.hasHighLinkDensity() {
+            try remove(node)
+            return false
         }
         
         return true

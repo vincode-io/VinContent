@@ -36,7 +36,7 @@ public class ContentExtractor {
         article.publishDate = try extractPublishDate(doc: doc)
         article.image = try extractImage(doc: doc)
         
-        try docRoot.host(visitor: ContentPreScrubbingVisitor())
+        try docRoot.host(visitor: ContentPreScrubbingVisitor(articleTitle: article.title))
         try docRoot.host(visitor: ContentScoringVisitor())
 
         let contentExtractingVisitor = ContentExtractingVisitor()
@@ -48,7 +48,7 @@ public class ContentExtractor {
             throw ContentExtractorError.UnableToParseHTML
         }
         
-        let postScrubber = ContentPostScrubbingVisitor(articleTitle: article.title)
+        let postScrubber = ContentPostScrubbingVisitor()
         for cluster in clusters {
             try cluster.host(visitor: postScrubber)
         }

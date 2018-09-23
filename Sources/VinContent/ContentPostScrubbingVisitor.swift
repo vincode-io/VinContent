@@ -11,38 +11,17 @@ import VinXML
 
 class ContentPostScrubbingVisitor: XMLVisitor {
     
-    private var articleTitle: String?
-    
-    init(articleTitle: String?) {
-        self.articleTitle = articleTitle
-    }
-    
     func visit(host: XMLVisitorHost) throws -> Bool {
         
         guard let node = host as? VinXML.XMLNode else {
             return false
         }
      
-        // Make sure that there aren't any wacky inline font size things
-        node.attributes["style"] = nil
-        
         // Only remove block elements
         if !node.blockElement {
             return true
         }
 
-        // We are assuming that the title is being displayed by using the
-        // extracted metadata.
-        if node.name == "h1" && node.content == articleTitle {
-            try remove(node)
-            return false
-        }
-        
-        if try node.hasHighLinkDensity() {
-            try remove(node)
-            return false
-        }
-        
         let avgSiblingScore = Double(node.parent?.score ?? 0) / (node.parent?.scoreCounter ?? 1)
         let scoreThreshold = avgSiblingScore * 0.1
         
