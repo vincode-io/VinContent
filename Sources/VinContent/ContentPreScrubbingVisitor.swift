@@ -54,11 +54,10 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         if node.name == "font" {
             node.name = "span"
         }
-
+        
         // Make sure that there aren't any wacky inline font size things
         node.attributes["style"] = nil
         
-
         // Data based images are usually doing some weird layout stuff.
         if node.name == "img", let imgSrc = node.attributes["src"]?.lowercased() {
             if imgSrc.starts(with: "data:") {
@@ -103,6 +102,14 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         if try node.hasHighLinkDensity() {
             try remove(node)
             return false
+        }
+        
+        // Ditch empty anchor tags as they seem to confuse Safari
+        if node.name == "a" {
+            if node.content?.trimmed() == nil {
+                try remove(node)
+                return false
+            }
         }
         
         return true

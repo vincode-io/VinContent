@@ -13,7 +13,7 @@ public class ContentExtractor {
     
     static let scoreAttrName = "score.vincode.io"
     static let scoreCounterAttrName = "scoreCounter.vincode.io"
-    static let scoreThreshold = 30
+    static let scoreThreshold = 20
 
     public static func extractArticle(from htmlURL: URL) throws -> ExtractedArticle {
         let htmlContents = try String(contentsOf: htmlURL)
