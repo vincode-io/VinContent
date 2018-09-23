@@ -42,13 +42,17 @@ class ContentScoringVisitor: XMLVisitor {
         
         // Boost images since they will never have stop words and we want to pick them
         // up if they are part of a cluster.
-        if elementName == "img",
-            let width = Int(node.attributes["width"] ?? "0"),
-            let height = Int(node.attributes["height"] ?? "0") {
-            
-            upscore = upscore + (width / 100)
-            upscore = upscore + (height / 100)
-            
+        if elementName == "img" {
+            if let width = node.attributes["width"], let height = node.attributes["height"] {
+                let pixelCount = (Int(width) ?? 0) * (Int(height) ?? 0)
+                if pixelCount > 800 {
+                    upscore += (ContentExtractor.scoreThreshold / 2)
+                }
+            } else if node.attributes.contains("srcset") {
+                upscore += (ContentExtractor.scoreThreshold / 2)
+            } else {
+                upscore += (ContentExtractor.scoreThreshold / 4)
+            }
         }
         
         // Bump the score based on the number of conversational words found
