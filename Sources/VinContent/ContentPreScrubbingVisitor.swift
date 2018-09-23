@@ -19,7 +19,8 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         "cnnStryHghLght|cnn_stryspcvbx|^inset$|pagetools|post-attributes|welcome_form|contentTools2|" +
         "the_answers|remember-tool-tip|communitypromo|promo_holder|runaroundLeft|^subscribe$|vcard|" +
         "articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|" +
-        "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup", options: .caseInsensitive)
+        "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup|^jp-relatedposts$|" +
+        "robots-nocontent", options: .caseInsensitive)
     
     private var articleTitle: String?
     
