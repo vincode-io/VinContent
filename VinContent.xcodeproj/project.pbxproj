@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5130A01021571965009205CB /* wired-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A00F21571965009205CB /* wired-expected.html */; };
+		5130A0242159B525009205CB /* NYTimesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130A0232159B525009205CB /* NYTimesTest.swift */; };
+		5130A0272159B5A9009205CB /* nytimes-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A0252159B5A9009205CB /* nytimes-expected.html */; };
+		5130A0282159B5A9009205CB /* nytimes-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A0262159B5A9009205CB /* nytimes-input.html */; };
 		51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B8A074215425E900EEA621 /* VinXML.framework */; };
 		51B8A08821542E7400EEA621 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08621542E5400EEA621 /* stopwords.txt */; };
 		51B8A10F215706B700EEA621 /* wired-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A10D215706B700EEA621 /* wired-input.html */; };
@@ -43,6 +46,9 @@
 /* Begin PBXFileReference section */
 		5116331F215419DB0043643C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5130A00F21571965009205CB /* wired-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "wired-expected.html"; sourceTree = "<group>"; };
+		5130A0232159B525009205CB /* NYTimesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesTest.swift; sourceTree = "<group>"; };
+		5130A0252159B5A9009205CB /* nytimes-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "nytimes-expected.html"; sourceTree = "<group>"; };
+		5130A0262159B5A9009205CB /* nytimes-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "nytimes-input.html"; sourceTree = "<group>"; };
 		51B8A074215425E900EEA621 /* VinXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VinXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B8A07F215429E500EEA621 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		51B8A08621542E5400EEA621 /* stopwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stopwords.txt; sourceTree = "<group>"; };
@@ -112,6 +118,9 @@
 				51B8A10D215706B700EEA621 /* wired-input.html */,
 				5130A00F21571965009205CB /* wired-expected.html */,
 				OBJ_27 /* WiredTest.swift */,
+				5130A0252159B5A9009205CB /* nytimes-expected.html */,
+				5130A0262159B5A9009205CB /* nytimes-input.html */,
+				5130A0232159B525009205CB /* NYTimesTest.swift */,
 			);
 			name = VinContentTests;
 			path = Tests/VinContentTests;
@@ -248,6 +257,8 @@
 			files = (
 				5130A01021571965009205CB /* wired-expected.html in Resources */,
 				51B8A10F215706B700EEA621 /* wired-input.html in Resources */,
+				5130A0272159B5A9009205CB /* nytimes-expected.html in Resources */,
+				5130A0282159B5A9009205CB /* nytimes-input.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +292,7 @@
 			files = (
 				51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */,
 				OBJ_71 /* WiredTest.swift in Sources */,
+				5130A0242159B525009205CB /* NYTimesTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

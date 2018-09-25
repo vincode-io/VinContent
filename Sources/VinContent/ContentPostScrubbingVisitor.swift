@@ -23,7 +23,7 @@ class ContentPostScrubbingVisitor: XMLVisitor {
         }
 
         let avgSiblingScore = Double(node.parent?.score ?? 0) / (node.parent?.scoreCounter ?? 1)
-        let scoreThreshold = avgSiblingScore * 0.1
+        let scoreThreshold = avgSiblingScore * 0.3
         
         if Double(node.score) < scoreThreshold {
 //            #if DEBUG

@@ -30,7 +30,7 @@ public struct ExtractedArticle {
         
         var xhtml = ""
         for node in content! {
-            xhtml.append(node.raw ?? "")
+            xhtml.append(node.html ?? "")
         }
         
         return "<div>\(xhtml)</div>"

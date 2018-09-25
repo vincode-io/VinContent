@@ -12,7 +12,7 @@ import VinXML
 class ContentPreScrubbingVisitor: XMLVisitor {
     
     private static let keepTagNames: Set = ["body", "html", "article", "math"]
-    private static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form"]
+    private static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form", "nav"]
     private static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
         "navbar|comment(?!ed)|PopularQuestions|contact|footer|Footer|footnote|cnn_strycaptiontxt|" +
         "links|meta$|scroll(?!able)|shoutbox|sponsor|tags|socialnetworking|socialNetworking|" +
@@ -20,7 +20,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         "the_answers|remember-tool-tip|communitypromo|promo_holder|runaroundLeft|^subscribe$|vcard|" +
         "articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|" +
         "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup|^jp-relatedposts$|" +
-        "robots-nocontent", options: .caseInsensitive)
+        "robots-nocontent|RelatedCoverage", options: .caseInsensitive)
     
     private var articleTitle: String?
     
@@ -103,14 +103,6 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         if try node.hasHighLinkDensity() {
             try remove(node)
             return false
-        }
-        
-        // Ditch empty anchor tags as they seem to confuse Safari
-        if node.name == "a" {
-            if node.content?.trimmed() == nil {
-                try remove(node)
-                return false
-            }
         }
         
         return true

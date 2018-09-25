@@ -64,7 +64,7 @@ extension VinXML.XMLNode {
         return ["html", "body", "head", "meta", "p", "h1", "h2", "h3", "h4", "h5", "h6", "ol", "ul",
                 "pre", "address", "blockquote", "dl", "div", "fieldset", "form", "hr", "noscript", "table",
                 "main", "mark", "summary", "time", "figure", "figcaption", "details",
-                "article", "section", "aside", "footer", "nav", "br", "img", "a"].contains(name)
+                "article", "section", "aside", "footer", "nav", "br", "img"].contains(name)
         
     }
     

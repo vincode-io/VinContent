@@ -6,10 +6,14 @@
 //  Copyright © 2017 Vincode. All rights reserved.
 //
 
+import Foundation
 import VinXML
 
 class ContentScoringVisitor: XMLVisitor {
-    
+
+    private static let embedTagNames: Set = ["object", "embed", "iframe"]
+    private static let videoRegEx = try? NSRegularExpression(pattern: "//(www.)?(dailymotion|youtube|youtube-nocookie|player.vimeo).com", options: .caseInsensitive)
+
     func visit(host: XMLVisitorHost) throws -> Bool {
         
         guard let node = host as? VinXML.XMLNode else {
@@ -51,7 +55,16 @@ class ContentScoringVisitor: XMLVisitor {
             } else if node.attributes.contains("srcset") {
                 upscore += (ContentExtractor.scoreThreshold / 2)
             } else {
-                upscore += (ContentExtractor.scoreThreshold / 4)
+                upscore += (ContentExtractor.scoreThreshold / 6)
+            }
+        }
+        
+        // Boost Video
+        if ContentScoringVisitor.embedTagNames.contains(elementName) {
+            if let attrContent = node.attributes["src"] {
+                if ContentScoringVisitor.videoRegEx!.numberOfMatches(in: attrContent, options: [], range: NSMakeRange(0, attrContent.count)) > 0 {
+                    upscore += (ContentExtractor.scoreThreshold / 2)
+                }
             }
         }
         
@@ -61,7 +74,7 @@ class ContentScoringVisitor: XMLVisitor {
             upscore = upscore + contentStopWords
         }
 
-        var elementToScore: XMLNode? = node
+        var elementToScore: VinXML.XMLNode? = node
         while elementToScore != nil && !elementToScore!.blockElement {
             elementToScore = elementToScore!.parent
         }
