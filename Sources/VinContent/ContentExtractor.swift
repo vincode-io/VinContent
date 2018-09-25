@@ -24,7 +24,7 @@ public class ContentExtractor {
         
         var article = ExtractedArticle()
         
-        guard let doc = try VinXML.XMLDocument(html: htmlString), let docRoot = doc.root else {
+        guard let doc = try VinXML.XMLDocument(html: htmlString) else {
             throw ContentExtractorError.UnableToParseHTML
         }
         
@@ -36,11 +36,11 @@ public class ContentExtractor {
         article.publishDate = try extractPublishDate(doc: doc)
         article.image = try extractImage(doc: doc)
         
-        try docRoot.host(visitor: ContentPreScrubbingVisitor(articleTitle: article.title))
-        try docRoot.host(visitor: ContentScoringVisitor())
+        try doc.root?.host(visitor: ContentPreScrubbingVisitor(articleTitle: article.title))
+        try doc.root?.host(visitor: ContentScoringVisitor())
 
         let contentExtractingVisitor = ContentExtractingVisitor()
-        try docRoot.host(visitor: contentExtractingVisitor)
+        try doc.root?.host(visitor: contentExtractingVisitor)
         
         let clusters = contentExtractingVisitor.clusters
         
@@ -53,7 +53,7 @@ public class ContentExtractor {
             try cluster.host(visitor: postScrubber)
         }
         
-        try docRoot.host(visitor: ContentSystemScrubbingVisitor())
+        try doc.root?.host(visitor: ContentSystemScrubbingVisitor())
         
         article.mangledDocument = doc
         article.content = clusters
