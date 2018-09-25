@@ -12,7 +12,7 @@ import VinXML
 class ContentPreScrubbingVisitor: XMLVisitor {
     
     private static let keepTagNames: Set = ["body", "html", "article", "math"]
-    private static let scrubTagNames: Set = ["footer", "script", "noscript", "style", "form", "nav"]
+    private static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form", "nav"]
     private static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
         "navbar|comment(?!ed)|PopularQuestions|contact|footer|Footer|footnote|cnn_strycaptiontxt|" +
         "links|meta$|scroll(?!able)|shoutbox|sponsor|tags|socialnetworking|socialNetworking|" +
