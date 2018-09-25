@@ -26,23 +26,8 @@ class ContentPostScrubbingVisitor: XMLVisitor {
         let scoreThreshold = avgSiblingScore * 0.3
         
         if Double(node.score) < scoreThreshold {
-//            #if DEBUG
-//                print()
-//                if let classValue = node.attributes["class"] {
-//                    print("removing node: \(node.name ?? "") *** \(classValue), score: \(node.score), parentScore: \(node.parent?.score ?? 0) ")
-//                } else {
-//                    print("removing node: \(node.name ?? ""), score: \(node.score), parentScore: \(node.parent?.score ?? 0) ")
-//                }
-//                print("removing content: \(node.text ?? "")")
-//            #endif
             try remove(node)
             return false
-        } else {
-//            #if DEBUG
-//                print()
-//                print("keeping node: \(node.name ?? ""), score: \(node.score), scoreThreshold: \(scoreThreshold), parentScore: \(node.parent?.score ?? 0) ")
-//                print("keeping content: \(node.text ?? "")")
-//            #endif
         }
     
         return true

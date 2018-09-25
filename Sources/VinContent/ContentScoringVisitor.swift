@@ -35,7 +35,7 @@ class ContentScoringVisitor: XMLVisitor {
         // still sometimes don't have conversational words that would be picked up
         // with the stop words.
         if ["h1", "h2", "h3", "h4", "h5", "h6"].contains(elementName) {
-            upscore = 3
+            upscore = (ContentExtractor.scoreThreshold / 6)
         }
 
         // We are going to boost math elements assuming that advertisers won't abuse
@@ -49,7 +49,7 @@ class ContentScoringVisitor: XMLVisitor {
         if elementName == "img" {
             if let width = node.attributes["width"], let height = node.attributes["height"] {
                 let pixelCount = (Int(width) ?? 0) * (Int(height) ?? 0)
-                if pixelCount > 800 {
+                if pixelCount > 80000 {
                     upscore += (ContentExtractor.scoreThreshold / 2)
                 }
             } else if node.attributes.contains("srcset") {
@@ -82,6 +82,8 @@ class ContentScoringVisitor: XMLVisitor {
         guard elementToScore != nil else {
             return true
         }
+        
+//        print("--- elementToScore ---\(node.name ?? "")->\(elementToScore!.name ?? "") upscore = \(upscore)" )
         
         elementToScore!.score = elementToScore!.score + upscore
         elementToScore!.scoreCounter = node.scoreCounter + 1

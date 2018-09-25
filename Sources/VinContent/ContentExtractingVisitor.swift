@@ -20,12 +20,6 @@ class ContentExtractingVisitor: XMLVisitor {
         guard let node = host as? VinXML.XMLNode else {
             return false
         }
-     
-//        if let classValue = node.attributes["class"] {
-//            print("--- extracting for --- \(node.name ?? "n/a") *** \(classValue) *** score: \(node.score)")
-//        } else {
-//            print("--- extracting for ---\(node.name ?? "n/a") *** score: \(node.score)")
-//        }
         
         if let nodeName = node.name {
             if ContentExtractingVisitor.extractExemptTags.contains(nodeName) {
@@ -43,6 +37,12 @@ class ContentExtractingVisitor: XMLVisitor {
             return false
         }
         
+//        if let classValue = node.attributes["class"] {
+//            print("--- bypassing for --- \(node.name ?? "n/a") *** \(classValue) *** score: \(node.score)")
+//        } else {
+//            print("--- bypassing for ---\(node.name ?? "n/a") *** score: \(node.score)")
+//        }
+
         return true
         
     }

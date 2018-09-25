@@ -12,7 +12,7 @@ import VinXML
 class ContentPreScrubbingVisitor: XMLVisitor {
     
     private static let keepTagNames: Set = ["body", "html", "article", "math"]
-    private static let scrubTagNames: Set = ["head", "footer", "script", "noscript", "style", "form", "nav"]
+    private static let scrubTagNames: Set = ["footer", "script", "noscript", "style", "form", "nav"]
     private static let scrubRegEx = try? NSRegularExpression(pattern: "^side$|^sidebar$|combx|retweet|mediaarticlerelated|menucontainer|" +
         "navbar|comment(?!ed)|PopularQuestions|contact|footer|Footer|footnote|cnn_strycaptiontxt|" +
         "links|meta$|scroll(?!able)|shoutbox|sponsor|tags|socialnetworking|socialNetworking|" +
@@ -34,16 +34,20 @@ class ContentPreScrubbingVisitor: XMLVisitor {
             return false
         }
         
-        // Remove tags by name
-        if ContentPreScrubbingVisitor.scrubTagNames.contains(node.name!) {
-            try remove(node)
-            return false
-        }
+        if let elementName = node.name {
+            
+            // Remove tags by name
+            if ContentPreScrubbingVisitor.scrubTagNames.contains(elementName) {
+                try remove(node)
+                return false
+            }
 
-        // For some reason people put stuff in these tags that triggers our regex checks.
-        // There is never a reason to remove one of these tags, so give it a pass.
-        if ContentPreScrubbingVisitor.keepTagNames.contains(node.name!) {
-            return true
+            // For some reason people put stuff in these tags that triggers our regex checks.
+            // There is never a reason to remove one of these tags, so give it a pass.
+            if ContentPreScrubbingVisitor.keepTagNames.contains(elementName) {
+                return true
+            }
+            
         }
         
         // Only scrub block elements
@@ -115,6 +119,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
 //        } else {
 //            print("--- prescrubber removing --- \(node.name ?? "n/a")")
 //        }
+//        print(node.html ?? "n/a")
         try node.remove()
     }
     
