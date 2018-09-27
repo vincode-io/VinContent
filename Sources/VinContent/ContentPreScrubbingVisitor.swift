@@ -21,6 +21,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         "articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|" +
         "KonaFilter|breadcrumbs|^fn$|wp-caption-text|overlay|dont-print|signup|^jp-relatedposts$|" +
         "robots-nocontent|RelatedCoverage", options: .caseInsensitive)
+    private static let lazyImgRegEx = try? NSRegularExpression(pattern: "^data.*-src", options: .caseInsensitive)
     
     private var articleTitle: String?
     
@@ -63,7 +64,19 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         // Make sure that there aren't any wacky inline font size things
         node.attributes["style"] = nil
         
-        // Data based images are usually doing some weird layout stuff.
+        // Try to catch lazy loaded images and make them work without javascript.  We do this by
+        // finding any img tag attributes named data-src, data-lazy-src, or something like that.
+        // We then swap out the src attribute for the data- one.
+        if node.name == "img" {
+            for name in node.attributes.names {
+                if ContentPreScrubbingVisitor.lazyImgRegEx!.numberOfMatches(in: name, options: [], range: NSMakeRange(0, name.count)) > 0 {
+                    node.attributes["src"] = node.attributes[name]
+                    break
+                }
+            }
+        }
+        
+        // Data based images are usually doing some weird stuff.
         if node.name == "img", let imgSrc = node.attributes["src"]?.lowercased() {
             if imgSrc.starts(with: "data:") {
                 try remove(node)
