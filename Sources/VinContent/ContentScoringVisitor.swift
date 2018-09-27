@@ -19,11 +19,13 @@ class ContentScoringVisitor: XMLVisitor {
         guard let node = host as? VinXML.XMLNode else {
             return false
         }
-        
-        // If this node is mostly links, don't score it
-        if try node.hasHighLinkDensity() {
-            return true
-        }
+
+        // TODO: Delete this.  It shouldn't be doing anything as high link density
+        // stuff should have been removed by the prescrubber
+//        // If this node is mostly links, don't score it
+//        if try node.hasHighLinkDensity() {
+//            return true
+//        }
 
         guard let elementName = node.name else {
             return true
@@ -49,7 +51,9 @@ class ContentScoringVisitor: XMLVisitor {
         if elementName == "img" {
             if let width = node.attributes["width"], let height = node.attributes["height"] {
                 let pixelCount = (Int(width) ?? 0) * (Int(height) ?? 0)
-                if pixelCount > 80000 {
+                if pixelCount > 999999 {
+                    upscore += ContentExtractor.scoreThreshold
+                } else if pixelCount > 80000 {
                     upscore += (ContentExtractor.scoreThreshold / 2)
                 }
             } else if node.attributes.contains("srcset") {
@@ -83,7 +87,7 @@ class ContentScoringVisitor: XMLVisitor {
             return true
         }
         
-//        print("--- elementToScore ---\(node.name ?? "")->\(elementToScore!.name ?? "") upscore = \(upscore)" )
+        print("--- elementToScore ---\(node.name ?? "")->\(elementToScore!.name ?? "") upscore = \(upscore)" )
         
         elementToScore!.score = elementToScore!.score + upscore
         elementToScore!.scoreCounter = node.scoreCounter + 1
