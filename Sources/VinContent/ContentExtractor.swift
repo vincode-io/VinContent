@@ -48,12 +48,10 @@ public class ContentExtractor {
             throw ContentExtractorError.UnableToParseHTML
         }
 
-        // I'm wondering if the PostScrubber doesn't do more harm than good...  Leave it out and
-        // do some testing.
-//        let postScrubber = ContentPostScrubbingVisitor()
-//        for cluster in clusters {
-//            try cluster.host(visitor: postScrubber)
-//        }
+        let postScrubber = ContentPostScrubbingVisitor()
+        for cluster in clusters {
+            try cluster.host(visitor: postScrubber)
+        }
         
         try doc.root?.host(visitor: ContentSystemScrubbingVisitor())
         
