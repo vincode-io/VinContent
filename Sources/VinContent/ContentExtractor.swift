@@ -9,18 +9,112 @@
 import Foundation
 import VinXML
 
+public enum ContentExtractorState {
+    case ready
+    case unableToParse
+    case processing
+    case failedToParse
+    case complete
+}
+
+public protocol ContentExtractorDelegate {
+    func processDidFail(with: Error)
+    func processDidComplete(article: ExtractedArticle)
+}
+
+public enum ContentExtractorError: Error {
+    case UnableToParseHTML
+    case MissingURL
+    case UnableToLoadURL
+}
+
 public class ContentExtractor {
     
     static let scoreAttrName = "score.vincode.io"
     static let scoreCounterAttrName = "scoreCounter.vincode.io"
     static let scoreThreshold = 20
-
-    public static func extractArticle(from htmlURL: URL) throws -> ExtractedArticle {
-        let htmlContents = try String(contentsOf: htmlURL)
-        return try ContentExtractor.extractArticle(from: htmlContents, source: htmlURL)
+    
+    private lazy var incompatibleHosts: [String] = {
+        let bundle = Bundle(for: ContentExtractor.self)
+        let url = bundle.url(forResource: "incompatible_hosts", withExtension: "txt")
+        if let words = try? String(contentsOf: url!) {
+            return words.components(separatedBy: .whitespacesAndNewlines).map( { $0.lowercased() } )
+        }
+        return [String]()
+    }()
+    
+    
+    public var state: ContentExtractorState!
+    public var delegate: ContentExtractorDelegate?
+    
+    private var url: URL!
+    
+    public init(_ url: URL) {
+        self.url = url
+        state = compatibleURL(url) ? .ready : .unableToParse
     }
     
-    public static func extractArticle(from htmlString: String, source: URL) throws -> ExtractedArticle {
+    public func process() {
+        
+        state = .processing
+
+        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            
+            guard let strongSelf = self else { return }
+            
+            if let error = error {
+                strongSelf.state = .failedToParse
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.processDidFail(with: error)
+                }
+                return
+            }
+            
+            guard let data = data, let html = String(data: data, encoding: .utf16) else {
+                strongSelf.state = .failedToParse
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.processDidFail(with: ContentExtractorError.UnableToLoadURL)
+                }
+                return
+            }
+ 
+            do {
+                let article = try strongSelf.extractArticle(from: html, source: strongSelf.url)
+                strongSelf.state = .complete
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.processDidComplete(article: article)
+                }
+            } catch {
+                strongSelf.state = .failedToParse
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.processDidFail(with: error)
+                }
+            }
+            
+        }
+        
+        dataTask.resume()
+        
+    }
+    
+    private func compatibleURL(_ url: URL) -> Bool {
+
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+            let host = components.host else {
+            return false
+        }
+
+        for badHost in incompatibleHosts {
+            if host.contains(badHost) {
+                return false
+            }
+        }
+        
+        return true
+        
+    }
+    
+    private func extractArticle(from htmlString: String, source: URL) throws -> ExtractedArticle {
         
         var article = ExtractedArticle()
         
@@ -62,7 +156,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractTitle(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractTitle(doc: VinXML.XMLDocument) throws -> String? {
         
         var title: String?
         
@@ -104,7 +198,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractByline(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractByline(doc: VinXML.XMLDocument) throws -> String? {
         
         if let author = try doc.metaTagContent(forName: "author") {
             return author
@@ -149,14 +243,14 @@ public class ContentExtractor {
         
     }
     
-    private static func validByLine(candidate: String?) -> Bool {
+    private func validByLine(candidate: String?) -> Bool {
         guard let candidate = candidate else {
             return false
         }
         return candidate.count > 0 && candidate.count < 100
     }
     
-    private static func extractPublisher(doc: VinXML.XMLDocument, source: URL) throws -> String? {
+    private func extractPublisher(doc: VinXML.XMLDocument, source: URL) throws -> String? {
         
         if let publisher = try doc.metaTagContent(forName: "og:site_name") {
             return publisher
@@ -174,7 +268,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractDescription(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractDescription(doc: VinXML.XMLDocument) throws -> String? {
 
         if let description = try doc.metaTagContent(forName: "description") {
             return description
@@ -188,7 +282,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractSource(doc: VinXML.XMLDocument, source: URL) throws -> URL? {
+    private func extractSource(doc: VinXML.XMLDocument, source: URL) throws -> URL? {
         
         if let ogURL = try doc.metaTagContent(forName: "og:url") {
             if let result = URL(string: ogURL) {
@@ -200,7 +294,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractPublishDate(doc: VinXML.XMLDocument) throws -> Date? {
+    private func extractPublishDate(doc: VinXML.XMLDocument) throws -> Date? {
         
         if let published = try doc.metaTagContent(forName: "article:published_time") {
             return try? Date(iso8601: published)
@@ -210,7 +304,7 @@ public class ContentExtractor {
         
     }
     
-    private static func extractImage(doc: VinXML.XMLDocument) throws -> URL? {
+    private func extractImage(doc: VinXML.XMLDocument) throws -> URL? {
         
         if let image = try doc.metaTagContent(forName: "og:image") {
             return URL(string: image)

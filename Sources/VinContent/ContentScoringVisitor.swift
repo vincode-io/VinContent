@@ -13,6 +13,7 @@ class ContentScoringVisitor: XMLVisitor {
 
     private static let embedTagNames: Set = ["object", "embed", "iframe"]
     private static let videoRegEx = try? NSRegularExpression(pattern: "//(www.)?(dailymotion|youtube|youtube-nocookie|player.vimeo).com", options: .caseInsensitive)
+    private static let stopWords = StopWords()
 
     func visit(host: XMLVisitorHost) throws -> Bool {
         
@@ -74,7 +75,7 @@ class ContentScoringVisitor: XMLVisitor {
         
         // Bump the score based on the number of conversational words found
         if let elementText = node.text {
-            let contentStopWords = StopWords.countStopWords(elementText)
+            let contentStopWords = ContentScoringVisitor.stopWords.countStopWords(elementText)
             upscore = upscore + contentStopWords
         }
 
@@ -87,7 +88,7 @@ class ContentScoringVisitor: XMLVisitor {
             return true
         }
         
-        print("--- elementToScore ---\(node.name ?? "")->\(elementToScore!.name ?? "") upscore = \(upscore)" )
+//        print("--- elementToScore ---\(node.name ?? "")->\(elementToScore!.name ?? "") upscore = \(upscore)" )
         
         elementToScore!.score = elementToScore!.score + upscore
         elementToScore!.scoreCounter = node.scoreCounter + 1

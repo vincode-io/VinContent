@@ -4,7 +4,7 @@ import Foundation
 
 public class StopWords {
     
-    private static var stopWords: [String] = {
+    private lazy var stopWords: [String] = {
         let bundle = Bundle(for: StopWords.self)
         let url = bundle.url(forResource: "stopwords", withExtension: "txt")
         if let words = try? String(contentsOf: url!) {
@@ -15,7 +15,7 @@ public class StopWords {
     
     private static var punctuationRegEx = try? NSRegularExpression(pattern: "[^\\p{Ll}\\p{Lu}\\p{Lt}\\p{Lo}\\p{Nd}\\p{Pc}\\s]", options: [])
         
-    public static func countStopWords(_ content: String) -> Int {
+    public func countStopWords(_ content: String) -> Int {
     
         guard !content.isEmpty else {
             return 0
@@ -26,7 +26,7 @@ public class StopWords {
         var overlappingStopWords = [String]()
 
         candidateWords.forEach() { word in
-            if StopWords.stopWords.contains(word.lowercased()) {
+            if stopWords.contains(word.lowercased()) {
                 overlappingStopWords.append(word)
             }
         }

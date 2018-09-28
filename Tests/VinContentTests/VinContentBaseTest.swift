@@ -5,6 +5,26 @@ import XCTest
 
 @testable import VinContent
 
+class TestDelegate: ContentExtractorDelegate {
+    
+    var baseTest: VinContentBaseTest!
+    
+    init(baseTest: VinContentBaseTest) {
+        self.baseTest = baseTest
+    }
+    
+    func processDidFail(with error: Error) {
+        baseTest.errorResult = error
+        baseTest.expectation!.fulfill()
+    }
+    
+    func processDidComplete(article: ExtractedArticle) {
+        baseTest.articleResult = article
+        baseTest.expectation!.fulfill()
+    }
+    
+}
+
 class VinContentBaseTest: XCTestCase {
 
     var testHandle: String? = nil
@@ -14,25 +34,37 @@ class VinContentBaseTest: XCTestCase {
     var expectedByline: String? = nil
     var expectedDescription: String? = nil
     var expectedSource: String? = nil
+
+    var expectation: XCTestExpectation? = nil
+    var errorResult: Error? = nil
+    var articleResult: ExtractedArticle? = nil
     
     func commonTest() {
+        
+        expectation = XCTestExpectation(description: "Load and parse article")
+        
+        let delegate = TestDelegate(baseTest: self)
         
         let bundleURL = Bundle(for: type(of: self)).resourceURL
         let inputURL = bundleURL!.appendingPathComponent("\(testHandle!)-input.html")
         
-        let article = try! ContentExtractor.extractArticle(from: inputURL)
+        let contentExtractor = ContentExtractor(inputURL)
+        contentExtractor.delegate = delegate
+        contentExtractor.process()
         
-        XCTAssertEqual(expectedTitle, article.title)
-        XCTAssertEqual(expectedPublisher, article.publisher)
-        XCTAssertEqual(expectedPublishDate, article.publishDate)
-        XCTAssertEqual(expectedByline, article.byline)
-        XCTAssertEqual(expectedDescription, article.description)
-        XCTAssertEqual(expectedSource, article.source?.absoluteString)
+        wait(for: [expectation!], timeout: 5.0)
+        
+        XCTAssertEqual(expectedTitle, articleResult!.title)
+        XCTAssertEqual(expectedPublisher, articleResult!.publisher)
+        XCTAssertEqual(expectedPublishDate, articleResult!.publishDate)
+        XCTAssertEqual(expectedByline, articleResult!.byline)
+        XCTAssertEqual(expectedDescription, articleResult!.description)
+        XCTAssertEqual(expectedSource, articleResult!.source?.absoluteString)
         
         let expectedURL = bundleURL!.appendingPathComponent("\(testHandle!)-expected.html")
         let expectedContent = try! String(contentsOf: expectedURL)
 
-        XCTAssertEqual(expectedContent, article.wrappedContent)
+        XCTAssertEqual(expectedContent, articleResult!.wrappedContent)
         
     }
     
