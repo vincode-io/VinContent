@@ -70,7 +70,7 @@ public class ContentExtractor {
                 return
             }
             
-            guard let data = data, let html = String(data: data, encoding: .utf16) else {
+            guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 strongSelf.state = .failedToParse
                 DispatchQueue.main.async {
                     strongSelf.delegate?.processDidFail(with: ContentExtractorError.UnableToLoadURL)
@@ -127,6 +127,7 @@ public class ContentExtractor {
         article.publisher = try extractPublisher(doc: doc, source: source)
         article.description = try extractDescription(doc: doc)
         article.source = try extractSource(doc: doc, source: source)
+        article.sourceHTML = htmlString
         article.publishDate = try extractPublishDate(doc: doc)
         article.image = try extractImage(doc: doc)
         

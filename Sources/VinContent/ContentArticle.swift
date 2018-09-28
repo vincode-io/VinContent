@@ -16,6 +16,7 @@ public struct ExtractedArticle {
     public var byline: String?
     public var description: String?
     public var source: URL?
+    public var sourceHTML: String?
     public var publishDate: Date?
     public var image: URL?
     public var length: Int?

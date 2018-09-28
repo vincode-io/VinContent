@@ -12,7 +12,7 @@ class NYTimesTest: VinContentBaseTest {
         expectedPublisher = nil // should be "www.nytimes.com"
         expectedPublishDate = nil
         expectedByline = nil
-        expectedDescription = "After an attack that killed 25 people, including 12 members of the elite unit, Iran promises to strike back against the United States and its Gulf allies."
+        expectedDescription = "After an attack that killed 25 people, including 12 members of the elite unit, Iran promises to strike back against the United States and its gulf allies."
         expectedSource = "https://www.nytimes.com/2018/09/24/world/middleeast/iran-attack-military-parade.html"
     }
     
