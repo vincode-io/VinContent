@@ -57,7 +57,7 @@ class ContentScoringVisitor: XMLVisitor {
                 } else if pixelCount > 80000 {
                     upscore += (ContentExtractor.scoreThreshold / 2)
                 }
-            } else if node.attributes.contains("srcset") {
+            } else if node.attributes.names.contains("srcset") {
                 upscore += (ContentExtractor.scoreThreshold / 2)
             } else {
                 upscore += (ContentExtractor.scoreThreshold / 6)
