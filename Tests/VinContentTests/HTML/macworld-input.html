@@ -1,0 +1,4731 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+
+	
+		
+	
+	
+		
+	
+	
+	
+	
+
+<html lang="en">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+	
+	<meta charset="utf-8" />
+	<title>macOS Mojave and the future of the Mac | Macworld</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	
+	<script>
+	function getQueryVariable(variable) {
+		var query = window.location.search.substring(1);
+		var vars = query.split("&");
+		for (var i=0;i<vars.length;i++) {
+			var pair = vars[i].split("=");
+			if(pair[0] == variable){return pair[1];}
+		}
+		return(false);
+	}
+	</script>
+	
+	<!-- ad-related js -->
+	
+	<script src="/www/js/jquery/jquery-1.10.2.min.js"></script>
+	
+	<script type="text/javascript" src="/www/js/jquery/jquery_cookie.js"></script>
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+!function(t,o,e){e=t.createElement(o),t=t.getElementsByTagName(o)[0],e.async=1,e.src="https://spiffymachine.com/v2/0/soz43Z90Ya301tyXyaiysf_JwIN8WL9UxveYtEOn-A78Mt4sBMUH2bEz8dxDyNRTgqcdA",t.parentNode.insertBefore(e,t)}(document,"script"),function(t,o){t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)}}(document,window,"script","admiral");!function(t,e,a,n){function o(t){try{return t=localStorage.getItem("v4ac1eiZr0"),t&&t.split(",")[4]>0}catch(e){}return!1}function r(){var n=o();if(n){var r=t[e].pubads();typeof r.setTargeting===a&&r.setTargeting("admiral-engaged","true")}}n=t[e]=t[e]||{},n.cmd=n.cmd||[],typeof n.pubads===a?r():typeof n.cmd.unshift===a?n.cmd.unshift(r):n.cmd.push(r)}(window,"googletag","function");;;;!function(t,e,a,n){function o(){if(!window.frames[n]){var e=t.body;if(e){var a=t.createElement("iframe");a.style="display:none",a.name=n,e.appendChild(a)}else setTimeout(o,5)}}function r(){for(var t=[],a=0;a<arguments.length;a++)t.push(arguments[a]);i.q=i.q||[],"ping"===t[0]?t[2]({gdprAppliesGlobally:e.__cmpGdprAppliesGlobally||!1,cmpLoaded:!1},!0):t.length&&i.q.push(t)}function c(t){try{return JSON.parse(t)}catch(e){}}function s(t){if(t){var e,a="__cmpCall",n="string"==typeof t.data&&t.data.indexOf(a)>=0;e=n?(c(t.data)||{})[a]:(t.data||{})[a],e&&i(e.command,e.parameter,function(a,o){var r={__cmpReturn:{returnValue:a,success:o,callId:e.callId}};t.source.postMessage(n?JSON.stringify(r):r,"*")})}}var i=e[a];o(),"function"!=typeof i&&(i=e[a]=r,e.addEventListener?e.addEventListener("message",s,!1):e.attachEvent&&e.attachEvent("onmessage",s))}(document,window,"__cmp","__cmpLocator");;
+</script>
+
+<script>
+window.admiral = window.admiral || function() {(admiral.q = admiral.q || []).push(arguments)};
+/*
+var checkIfInEU = new Promise((resolve, reject) => {
+    var promiseResolved = false;
+    setTimeout(function(){
+        console.log('GDPR checkIfInEU timeout reached promiseResolved',promiseResolved);
+        if (!promiseResolved){
+            promiseResolved=true;
+            resolve();//in eu
+            console.log('too slow; assuming you are EU');
+        }
+    },10000);
+
+    window.admiral('after', 'cmp.loaded', function(e){
+        if(promiseResolved)return;//timeout reached            
+        promiseResolved = true;
+        
+        console.log('GDPR checkIfInEU - cmp.loaded',e);
+        var isEuVisitor = e.euVisitor || false;             
+        if (isEuVisitor)resolve();
+        else reject();    
+    });
+});
+*/
+
+var consent = consent || {};
+consent.isEU = consent.isEU || null;
+consent.personalization = consent.personalization || null;
+consent.ads = consent.ads || {};
+consent.ads.queue = consent.ads.queue || [];
+
+consent.infostorage = consent.infostorage || {};
+consent.infostorage.queue = consent.infostorage.queue || [];
+
+consent.adsel = consent.adsel || {};
+consent.adsel.queue = consent.adsel.queue || [];
+
+consent.contentsel = consent.contentsel || {};
+consent.contentsel.queue = consent.contentsel.queue || [];
+
+consent.socmedia = consent.socmedia || {};
+consent.socmedia.queue = consent.socmedia.queue || [];
+
+window.admiral('addEventListener', 'cmp.loaded', function(e){
+	console.log('*****GDPR: EU user?', e);
+	consent.isEU = e.euVisitor;
+	if (!consent.isEU) {
+		console.log('*****GDPR: not EU, run ALL queues!');
+		consent.personalization=true;
+		$(window).trigger("runConsent", [consent.ads.queue]);
+		$(window).trigger("runConsent", [consent.infostorage.queue]);
+		$(window).trigger("runConsent", [consent.adsel.queue]);
+		$(window).trigger("runConsent", [consent.contentsel.queue]);
+		$(window).trigger("runConsent", [consent.socmedia.queue]);
+	}
+	else if (e.consentKnown == true) { // else if.. visitor is from EU and consent is known...
+		window.admiral('get', 'cmp.consent', function(e) {
+			//console.log('*****GDPR: we know your personalization setting (' + e.publisherPurposes['2'] + '), running ad queue.');
+			//consent.personalization = e.publisherPurposes['2'];
+			//console.log('*****GDPR: we know your info storage setting (' + e.publisherPurposes['1'] + '), running queue if TRUE.');
+			//console.log('*****GDPR: we know your ad selection setting (' + e.publisherPurposes['3'] + '), running queue if TRUE.');
+			//console.log('*****GDPR: we know your content selection setting (' + e.publisherPurposes['4'] + '), running queue if TRUE.');
+			console.log('*****GDPR: we know your social media setting. It is (' + e.publisherCustomPurposes['25'] + '), running queue if TRUE.');
+			
+			$(window).trigger("runConsent", [consent.ads.queue]);
+			if (e.publisherPurposes['1']) { // if information storage consent is TRUE run queue
+				//console.log('***** Known consent and true - run info storage queue');
+				$(window).trigger("runConsent", [consent.infostorage.queue]);
+			}
+			if (e.publisherPurposes['3']) { // if ad selection consent is TRUE run queue
+				//console.log('***** Known consent and true - run ad selection queue');
+				$(window).trigger("runConsent", [consent.adsel.queue]);
+			}
+			if (e.publisherPurposes['4']) { // if content selection consent is TRUE run queue
+				//console.log('***** Known consent and true - run content selection queue');
+				$(window).trigger("runConsent", [consent.contentsel.queue]);
+			}
+			if (e.publisherCustomPurposes['25']) { // if social media consent is TRUE run queue
+				console.log('***** Known consent and true - run social media queue');
+				$(window).trigger("runConsent", [consent.socmedia.queue]);
+			}
+			bindReshowCmp();
+		});
+	}
+	else {//else consent is not known
+		try {
+	    	__cmp('getPublisherConsents',[],function(publisherConsents,success){
+	    		if (typeof publisherConsents.standardPurposes['2'] !== 'undefined' && publisherConsents.standardPurposes['2']) {
+	    			//console.log('*****GDPR: personalization allowed, start running personalized ads');	
+	    		}
+	    		else if (typeof publisherConsents.standardPurposes['2'] !== 'undefined' && !publisherConsents.standardPurposes['2']) {
+	    			console.log('*****GDPR: personalization not allowed, start running non-personalized ads');
+	    		}
+	    		consent.personalization = publisherConsents.standardPurposes['2'];
+	    		$(window).trigger("runConsent", [consent.ads.queue]);
+	    		
+	    		if (typeof publisherConsents.standardPurposes['1'] !== 'undefined' && publisherConsents.standardPurposes['1']) {
+	    			//console.log('*****GDPR: getPublishersConsent - information storage allowed, run infostorage queue');
+	    			$(window).trigger("runConsent", [consent.infostorage.queue]);
+	    		} else if (typeof publisherConsents.standardPurposes['1'] !== 'undefined' && !publisherConsents.standardPurposes['1']) {
+	    			console.log('*****GDPR: getPublishersConsent - information storage NOT allowed, do not run infostorage queue');
+	    		}
+	    		if (typeof publisherConsents.standardPurposes['3'] !== 'undefined' && publisherConsents.standardPurposes['3']) {
+	    			//console.log('*****GDPR: getPublishersConsent - ad selection allowed, run adsel queue');
+	    			$(window).trigger("runConsent", [consent.adsel.queue]);
+	    		} else if (typeof publisherConsents.standardPurposes['3'] !== 'undefined' && !publisherConsents.standardPurposes['3']) {
+	    			console.log('*****GDPR: getPublishersConsent - ad selection NOT allowed, do not run adsel queue');
+	    		}
+	    		if (typeof publisherConsents.standardPurposes['4'] !== 'undefined' && publisherConsents.standardPurposes['4']) {
+	    			//console.log('*****GDPR: getPublishersConsent - content selection allowed, run contentsel queue');
+	    			$(window).trigger("runConsent", [consent.contentsel.queue]);
+	    		} else if (typeof publisherConsents.standardPurposes['4'] !== 'undefined' && !publisherConsents.standardPurposes['4']) {
+	    			console.log('*****GDPR: getPublishersConsent - content selection NOT allowed, do not run contentsel queue');
+	    		}
+	    		if (typeof publisherConsents.customPurposes['25'] !== 'undefined' && publisherConsents.customPurposes['25']) {
+	    			console.log('*****GDPR: getPublishersConsent - social media allowed, run socmedia queue');
+	    			$(window).trigger("runConsent", [consent.socmedia.queue]);
+	    		} else if (typeof publisherConsents.customPurposes['25'] !== 'undefined' && !publisherConsents.customPurposes['25']) {
+	    			console.log('*****GDPR: getPublishersConsent - social media NOT allowed, do not run socmedia queue');
+	    		}
+			});
+	    		bindReshowCmp();
+	    }
+	    catch (e) {
+	    	console.log(e);
+	    }
+	}
+});
+
+window.admiral('addEventListener', 'cmp.updated', function(e){
+	__cmp('getPublisherConsents',[],function(publisherConsents,success){	
+		//console.log('*****GDPR: Consent updated (cmp.updated fired). personalization ok? ',typeof publisherConsents.standardPurposes['2'] !== 'undefined' && publisherConsents.standardPurposes['2']);
+		//console.log('*****GDPR: Consent updated (cmp.updated fired). information storage ok? ',typeof publisherConsents.standardPurposes['1'] !== 'undefined' && publisherConsents.standardPurposes['1']);
+		//console.log('*****GDPR: Consent updated (cmp.updated fired). ad selection ok? ',typeof publisherConsents.standardPurposes['3'] !== 'undefined' && publisherConsents.standardPurposes['3']);
+		//console.log('*****GDPR: Consent updated (cmp.updated fired). content selection ok? ',typeof publisherConsents.standardPurposes['4'] !== 'undefined' && publisherConsents.standardPurposes['4']);
+		console.log('*****GDPR: Consent updated (cmp.updated fired). social media ok? ',typeof publisherConsents.customPurposes['25'] !== 'undefined' && publisherConsents.customPurposes['25']);
+		if (typeof publisherConsents.standardPurposes['1'] !== 'undefined' && publisherConsents.standardPurposes['1']) {
+			$(window).trigger("runConsent", [consent.infostorage.queue]);
+		}
+		if (typeof publisherConsents.standardPurposes['3'] !== 'undefined' && publisherConsents.standardPurposes['3']) {
+			$(window).trigger("runConsent", [consent.adsel.queue]);
+		}
+		if (typeof publisherConsents.standardPurposes['4'] !== 'undefined' && publisherConsents.standardPurposes['4']) {
+			$(window).trigger("runConsent", [consent.contentsel.queue]);
+		}
+		if (typeof publisherConsents.customPurposes['25'] !== 'undefined' && publisherConsents.customPurposes['25']) {
+			$(window).trigger("runConsent", [consent.socmedia.queue]);
+		}
+	});	
+	$(window).trigger("runConsent", [consent.ads.queue]);	
+});
+
+$(window).on("runConsent", function(event, queueToRun) {
+		watchConsentQueue(queueToRun)
+});
+
+function runQueue(queue){
+	for (var x=0;x<queue.length;x++) {
+		var nextFn = queue.shift();
+		nextFn();
+		console.log('*****GDPR: running queue');
+	}	
+}
+
+function watchConsentQueue(queue){
+	setInterval(function() { runQueue(queue); },100);
+}
+function bindReshowCmp() {
+	var url = document.location.pathname;
+	if (url.indexOf("/about/member-preferences") > -1) {
+		$(".cmpSettings").show();
+		$(".reshowLink").on("click", function(e) {
+			e.preventDefault();
+			window.admiral('show','cmp.settings');
+		});
+	}
+}
+</script>
+
+
+
+
+	
+    <script src="/www/js/init_device.js"></script>    
+    
+    
+    
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/www/js/ads/gpt_includes.js?v=20181018112446"></script>
+
+<script type="text/javascript">
+	if (adLayer==null || adLayer=='undefined') {
+		var adLayer=[];
+	}
+	
+		
+			adLayer["itemType"]="article";
+		
+		
+	
+</script>
+	
+<script type="text/javascript">
+	// Set up ad related variables
+	try {
+		IDG.GPT.unitName = "/8456/IDG.US_CSMB_Macworld.com";
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+
+	try {
+		IDG.GPT.unitName = IDG.GPT.unitName + "/" + "macs_section";
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+	// global variables
+	var global_ShowSuper = true;
+	var global_ShowHero = false;
+	
+	//XFP global targeting, more targeting thm_pre
+	var url = window.location.href;
+	if(url.indexOf("?")>1){
+		url=url.split('?')[0];
+	}
+	
+
+	try {
+		IDG.GPT.addTarget("URL", encodeURIComponent(url));
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}
+	try {IDG.GPT.addTarget("zone", 'article-blog/os-x');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try{IDG.GPT.addTarget("channel", 'mac-os-x,macs');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("blogId", '1490');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("articleId", '3309580');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("type", 'opinion');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("typeId", '5');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("manufacturer", 'microsoft');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}try{IDG.GPT.addTarget("templateType", 'article-default');}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	
+	try {IDG.GPT.addTarget("categoryIds", [3675,3800,3029]);}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try{IDG.GPT.addTarget("categorySlugs", ['os-x','macs','software']);}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try {IDG.GPT.addTarget("goldenIds", [229,740,2]);}	catch (exception) {console.log ("google_dfp can't use IDG.GPT "+ exception);}
+	try {
+		if (null != IDG.GPT.getQsVal("env")) {		
+			IDG.GPT.addTarget("env", IDG.GPT.getQsVal("env").replace(/\W/g, "") );
+		}
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}	
+	
+		try {
+			IDG.GPT.addTarget("author", 'Dan Moren');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+		
+
+	try {
+		IDG.GPT.addTarget("page_type", '');
+	}
+	catch (exception) {
+		console.log ("google_dfp can't use IDG.GPT "+ exception);
+	}	
+
+	
+		try {
+			IDG.GPT.addTarget("blog_name", 'Stay Foolish');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+		try {
+			IDG.GPT.addTarget("tagNames", 'Mac App Store,MacOS Mojave');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+		try {
+			IDG.GPT.addTarget("insiderContent", 'false');
+		}
+		catch (exception) {
+			console.log ("google_dfp can't use IDG.GPT "+ exception);
+		}
+	
+	
+	
+	
+	
+	try {
+		IDG.GPT.welcomeFreqCap = true;
+	}
+	catch (exception) {
+        console.log("Welcome Ad Frequency Cap: google_dfp can't use IDG.GPT " + exception);
+	}
+	
+</script>
+
+
+
+<script type="text/javascript">
+	
+	
+	
+	
+		
+		
+		
+		
+		
+		
+		
+		
+	
+</script>
+  
+<script src="/www.idgcsmb/js/thm_pre.js?v=20181018112446"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+	
+
+
+
+	
+		<script type="text/javascript">
+			//console.log("PROXIMIC RESPONSE: PAGE-LEVEL");
+			(function () {
+			    try {
+                    var proximic_data = {"data":["300003","121100","131100","131123","240000","240002","240003","240004","240001","240005","240006","240007","240008","240009","240011","240012","240013","240014","240017","240015","240016","e2co9k","20f4sh","folvaf","r03wnl","z7xuj9","bkwp85","3i8pvm","xks7sj","yn3dkv","7grvv1","njkqk2","agtqg7","agt9m3","m853gr","1o8fv9","8hdk5f","500247"]};
+                    IDG.GPT.addTarget("proximic", proximic_data.data);
+                }
+                catch (e){
+			        console.log("Error: " + e);
+                }
+			})();
+		</script>
+	
+	
+
+
+
+	
+	
+
+<script type="text/javascript" src="/www/js/ads/gpt_starter.js?1234"></script>
+	<script>
+		loadGPT();
+	</script>
+<script type="text/javascript" src="/www/js/ads/gpt_launcher.js"></script>
+
+	
+
+	
+
+    <link rel="canonical" href="https://www.macworld.com/article/3309580/os-x/article.html" />
+	
+	
+	
+	
+	
+	<meta name="description" content="While one of Mojave&#039;s signature features involves running iOS apps on the Mac, Dan Moren thinks the latest macOS update proves Apple is still interested in keeping the Mac a tool for power users." />
+	
+	<meta itemprop="image" content="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-medium.jpg">
+	
+	
+		
+			<meta name="DC.date.issued" content="2018-09-28" />
+			<meta name="date" content="2018-09-28" />
+			
+		
+		
+		 
+	
+	
+	<link rel="amphtml" href="https://www.macworld.com/article/3309580/os-x/article.amp.html" />
+
+	
+		<script type="text/javascript" src="//fonts.staticworld.net/lzq5miu.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	
+	
+	<meta property="twitter:account_id" content="611823" />
+	<meta property="fb:app_id" content="865450560227169" />
+	
+		
+		
+		
+			
+			
+				
+			
+			
+			
+		
+		
+	<meta property="og:type" content="article">	
+	<meta property="og:url" content="https://www.macworld.com/article/3309580/os-x/article.html">
+    <meta property="og:site_name" content="Macworld">   
+    
+    
+    	<meta property="og:image" content="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-large.3x2.jpg">
+    	<meta property="og:image:width" content="700">
+    	<meta property="og:image:height" content="467">
+    
+    
+    
+    
+    
+    
+    	<meta property="og:title" content="macOS Mojave and the future of the Mac"> 
+    
+    
+    <meta property="og:description" content="While one of Mojave&#039;s signature features involves running iOS apps on the Mac, Dan Moren thinks the latest macOS update proves Apple is still interested in keeping the Mac a tool for power users.">
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Sailthru -->
+	
+		<meta name="sailthru.tags" content="os-x,macs,software,macappstore,macos-mojave,dan-moren,stay-foolish,opinion,medium"/>
+	
+		<meta name="sailthru.image.thumb" content="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-small.jpg"/>
+	
+		<meta name="sailthru.image.full" content="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-large.3x2.jpg"/>
+	
+
+    
+    	<meta name="sailthru.title" content="macOS Mojave and the future of the Mac" />
+    
+    
+    	<meta name="sailthru.description" content="While one of Mojave&#039;s signature features involves running iOS apps on the Mac, Dan Moren thinks the latest macOS update proves Apple is still interested in keeping the Mac a tool for power users." />
+    
+
+	
+	<meta name="displaytype" content="article" />
+	
+	<meta name="blogs" content="stay foolish" />
+	
+	<meta name="source" content="macworld" />
+	
+	<meta name="category" content="macos,macs,software" />
+	
+	<meta name="storytype" content="opinion" />
+	
+	<meta name="tags" content="mac app store,macos mojave" />
+	
+	
+	
+		<meta name="google-site-verification" content="1NJELq6F-S44I5ACepf9_rYYEBLuwwVjJUv5PrT91SA" />
+	
+	
+	
+		<meta name="msvalidate.01" content="05F49F041AAA61528A0A3329A6C0C02D" />
+	
+	
+	
+	
+	
+		<link id="mobile-size" rel="stylesheet" href="/www.idgcsmb/css/inline-header-mobile.css?v=20181018112446" />
+		<script>
+			if (window.matchMedia("(min-width: 768px)").matches) {
+				document.getElementById('mobile-size').insertAdjacentHTML('afterend', '<link id="desktop-size" rel="stylesheet" href="/www.idgcsmb/css/inline-header.css?v=20181018112446" />');
+			}
+		</script>
+		<link rel="stylesheet" href="/www.idgcsmb.mw/css/inline-header.css?v=20181018112446" />
+	 
+	
+	
+	    
+	
+	<link rel="stylesheet" href="/www.idgcsmb/css/print.css" media="print" />
+	
+	<!-- this must be first -->
+	<link href="/www.idgcsmb/css/colorbox.css" rel="stylesheet" />
+	<!-- <link href="/www.idgcsmb/css/equalizer.css" rel="stylesheet" /> -->
+	<link href="/www.idgcsmb/css/global-layout.css?v=20181018112446" rel="stylesheet" />
+	<link href="/www.idgcsmb.mw/css/global-layout.css?v=20181018112446" rel="stylesheet" />
+	<link href="/www.idgcsmb/css/global-colors.css?v=20181018112446" rel="stylesheet" />
+	<link href="/www.idgcsmb.mw/css/global-colors.css?v=20181018112446" rel="stylesheet" />
+	<link href="/www.idgcsmb/css/global-typography.css?v=20181018112446" rel="stylesheet" />
+	<link href="/www.idgcsmb.mw/css/global-typography.css?v=20181018112446" rel="stylesheet" />
+	
+	
+	
+	
+		
+		
+			
+			
+			
+				<link rel="stylesheet" href="/www/css/article.css?v=20181018112446" />	
+			
+			
+		<link href="/www.idgcsmb.mw/css/article.css?v=20181018112446" rel="stylesheet" />
+	
+	
+	<link href="/www.idgcsmb/css/video.player.css?v=20181018112446" rel="stylesheet" media="all" />
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	  
+	<!-- this must be last -->
+	<link href="/www.idgcsmb/css/helpers.css" rel="stylesheet" />
+	
+	
+	<!--  fav and touch icons -->
+	<link rel="shortcut icon" href="/www.idgcsmb.mw/favicon.ico"/>
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://csmb.staticworld.net/images/furniture/macworld/mw-apple-touch-icon-precomposed-144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="129x129" href="https://csmb.staticworld.net/images/furniture/macworld/mw-apple-touch-icon-precomposed-129.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://csmb.staticworld.net/images/furniture/macworld/mw-apple-touch-icon-precomposed-114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://csmb.staticworld.net/images/furniture/macworld/mw-apple-touch-icon-precomposed-72.png" />
+	<link rel="apple-touch-icon" href="https://csmb.staticworld.net/images/furniture/macworld/mw-apple-touch-icon-precomposed.png" />
+	
+	
+
+	
+		
+	
+	
+	
+	
+	<script type="text/javascript">
+	var _sf_async_config={};
+	_sf_async_config.uid = 29363;
+	
+	
+	
+		_sf_async_config.useCanonical = true;
+	
+	
+	
+		
+						
+	_sf_async_config.authors="Dan Moren";
+			
+		
+			
+			
+	_sf_async_config.sections="os-x";	
+		
+		
+		
+		
+	_sf_async_config.domain = "macworld.com";
+	</script>
+	
+	
+	
+	
+	
+	<!-- <link href="/www.idgcsmb/webfonts/ss-social.css" rel="stylesheet" />
+	<link href="/www.idgcsmb/webfonts/ss-standard.css" rel="stylesheet" />  -->
+	<!--[if lte IE 8]>  
+		<link href="/www.idgcsmb/webfonts/ss-ie8.css" rel="stylesheet" />
+	<![endif]-->
+
+
+	
+	<!-- Use Twitter Summary Card with Large Image for articles and videos; summary otherwise -->
+	
+		
+				<meta name="twitter:card" content="summary_large_image">
+		
+		
+	
+	<meta property="twitter:description" content="While one of Mojave&#039;s signature features involves running iOS apps on the Mac, Dan Moren thinks the latest macOS update proves Apple is still interested in keeping the Mac a tool for power users.">
+	
+	
+		
+			<meta name="twitter:site" content="@macworld">
+			
+			
+				
+					<meta name="twitter:image" content="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-orig.jpg" />
+				
+				
+						
+			
+				
+				
+					<meta name="twitter:title" content="macOS Mojave and the future of the Mac">
+				
+				
+			
+			
+				
+				
+					<meta name="twitter:url" content="www.macworld.com">
+				
+			
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "WebSite",
+		"url": "https://www.macworld.com/ ",
+		"potentialAction": {
+		"@type": "SearchAction",
+		"target": "https://www.macworld.com/search?query={search_term}",
+		"query-input": "required name=search_term"
+		}
+	}
+</script>
+	
+	
+	<script type="text/javascript" src="//s.ntv.io/serve/load.js" async></script>
+	
+	
+	<script src="/www/js/ads/ads.js"></script>
+	
+	<script>var oneRegPlacementID = "";</script>
+	
+	
+	
+	
+	
+		
+			
+				
+			
+			
+			
+			
+			
+		
+		
+		
+	
+	
+		
+	
+	
+		
+		
+		
+		
+		  
+		
+	
+	
+	
+	
+	
+	  	 
+	    
+	    
+	 
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+	
+		
+	
+		
+	
+	
+
+
+
+	
+	
+	
+	
+	
+		
+			
+				
+				
+				
+					
+				
+			
+			
+			
+			
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<script>
+	var sincePublished = '20 days';
+	sincePublished = sincePublished.split(" ")[0];
+	var idg_uuid = $.cookie('idg_uuid') || "";
+	
+	dataLayer=[{
+		'articleId': '3309580',
+		'articleDisplayId':'1',
+		'articleTitle': 'macOS Mojave and the future of the Mac',
+		'articleType': 'Opinion',
+		'audience':'consumer',
+		'author':'Dan Moren',
+		'blogName':'Stay Foolish',
+		'brandpost': '',
+		'categoryIdList':'3675,3800,3029',
+		'categoryIdPrimary': '3675',
+		'contentStrategy': '',
+		'contentType':'opinion',
+		'datePublished':'2018-09-28',
+		'dateUpdated':'',
+		'daysSincePublished':sincePublished,
+		'daysSinceUpdated':'',
+		'displayType':'article',
+		'environment':'production',
+		'ga_enabled':'true',
+		'gaTrackingId':'UA-870741-1',
+		'geolocEnabled':'true',
+		'goldenTaxonomyIdPrimary': '229',
+		'goldenTaxonomyIdList': '229,740,2',
+		'isBlog':'true',
+		'isInsiderContent':'',
+		'isICN': 'false',
+		'oneRegPlacementID':oneRegPlacementID,
+		'pageNumber':'1',
+		'platform':'Web',
+		'podcastSponsored': 'false',
+		'primaryCategory': 'macos',
+		'primaryCategoryList': 'macos,macs,software',
+		'property': 'macworld',
+		'propertyCountry':'US',
+		'purchaseIntent':'',
+		'sailthruCustomerId':'9de878b098a17dda2203b4d71c6eeac1',
+		'skimlinksId':'111346X1569486',
+		'source':'macworld',
+		'sponsorName':'',
+		'tags': 'mac app store,macos mojave',
+		'userId':idg_uuid,
+		'videoAutoplay':'false',
+		'articleHasVideo':'false'	
+	}];
+	</script>
+	 
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+<script>
+	var dataLayer = window.dataLayer = window.dataLayer || [];
+	var adBlockStatus = 'false';
+	
+	function AdBlockEnabled() {
+		var ad = document.createElement('ins');
+		ad.className = 'AdSense';
+		ad.style.display = 'block';
+		ad.style.position = 'absolute';
+		ad.style.top = '-1px';
+		ad.style.height = '1px';
+
+		if (document.body != null) {
+			document.body.appendChild(ad);
+			var isAdBlockEnabled = !ad.clientHeight;
+			document.body.removeChild(ad);
+		}
+
+		return isAdBlockEnabled; 
+	}
+	// AdBlockEnabled() was successful document.body not null
+	if (AdBlockEnabled() != undefined) {
+		adBlockStatus = AdBlockEnabled().toString();
+	}
+	// not successful - look for ads.js
+	if (document.body == null) {
+		if (window.canRunAds === undefined) {
+			adBlockStatus = 'true';
+		} else {
+			adBlockStatus = 'false';
+		}
+	}
+	
+	dataLayer.push({
+		'adBlockStatus': adBlockStatus
+	});
+</script>
+
+
+
+
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?GTM-WHLJC4"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-WHLJC4');</script>
+	<!-- End Google Tag Manager -->
+
+	
+	
+	
+	
+	
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	
+	
+	
+		<script async src="//js-sec.indexww.com/ht/p/187051-274202188545692.js"></script>
+	
+	
+	
+	
+	
+</head>
+
+	<body id="article3309580" class="article blog1490 macworld">
+		 
+		
+			<div id="skinAdTarget"></div>
+		
+
+		
+			<div id="superadunit" class="hidden">
+			    <div class="ad">
+			    	<div class="ad-header">
+						<div class="brand-logo"></div>
+						<a href="javascript:unhide('superadunit');" id="superstitial-text">Close Ad</a>
+					</div>
+					
+						
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+			
+		  		<script type="text/javascript">
+		  		
+		  		
+				document.write('<div id="gpt-superstitial" class=" ad-container"></div>');
+				consent.ads.queue.push(function(){
+			  		try {			  			
+			   			IDG.GPT.addDisplayedAd("gpt-superstitial", "true");
+			   			$('#gpt-superstitial').responsiveAd({screenSize:'971 1115', scriptTags: []});
+			   			IDG.GPT.log("Creating ad: gpt-superstitial [971 1115]");
+			   		}
+					catch (exception) {
+						console.log("Error with IDG.GPT: " + exception);
+					}
+		  		});
+				
+				</script>
+		
+		
+	
+ 
+ 
+	
+			    </div><!-- / ad -->
+			</div><!-- / super -->		
+		
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="page-top">
+		<div class="page-top-inner" itemscope itemtype="http://schema.org/Organization">
+		<link itemprop="url" href="http://www.macworld.com"> 
+	    
+
+
+
+
+<div class="network-header">
+		<div class="network-header-inner">
+			<div id="network-tools">
+
+				<div id="saved-comparisons"></div>				
+				<ul class="hmenu" id="heroLogin">				
+					
+					<li class="subscribeHeader"><a href="https://ssl.palmcoastd.com/31401/apps/MCWDIGITAL?ikey=I**A02">Subscribe</a><div class="subscribe-hover" style="">
+                        <div class="pointer">&#9650;</div>
+                        <span>Learn more about Macworld's Digital Edition</span>
+                        <img alt="Macworld Magazine Cover" src="//alt.idgesg.net/images/furniture/macworld/footer-subscribe-mag-mw.png">
+                      </div></li>
+				</ul>
+			</div><!-- /#network-tools -->
+
+				<div id="network-social">					
+                  
+					
+					<a href="http://www.facebook.com/Macworld" class="network-fb ss-icon ss-social-circle banner-social banner-fb" alt="Facebook" itemprop="sameAs" rel="nofollow">
+						&#xF610;
+					</a>
+					<a href="https://twitter.com/macworld" class="network-tw ss-icon ss-social-circle banner-social banner-tw" alt="Twitter" itemprop="sameAs" rel="nofollow">
+						&#xF611;
+					</a>
+					<a href="https://plus.google.com/+macworld/posts" class="network-google ss-icon ss-social-circle banner-social banner-google" alt="Google+" itemprop="sameAs" rel="publisher">
+						&#xF613;
+					</a>
+					<a href="https://www.youtube.com/user/macworld" class="network-youtube ss-icon ss-social-circle banner-social banner-youtube" alt="YouTube">
+						&#xF630;
+					</a>
+
+				<form id="search-form" action="/search">
+					<input type="search" name="query" id="banner-search-term" class="inactive searchbox-input-class" value="">
+					<input type="submit" name="submit" id="banner-search-submit" value="search" />
+					<a id="magGlassClick" class="ss-icon ss-standard" type="submit">&#x1F50E;</a>
+				</form>
+
+				</div><!-- /#network-social -->
+			
+				
+		</div>
+	</div><!-- /.network-header -->
+
+
+	<header id="banner">
+		<a id="mobile-offscreen-toggle" class="ss-standard ss-rows" href="javascript://"></a>
+		<div id="logo">
+			<a href="/" class="ir banner-logo" id="logoImage">Home</a>		
+		</div>
+		<div id="mobile-search-toggle" class="ss-standard ss-search"></div>
+	</header>
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="main-nav">
+	<div class="container clearfix">
+		<ul class="fmenu" id="panel-nav">
+			<li class="newsNav"><a href="/news/" id="whatsHotNav">News</a></li>
+			<li class="reviewsNav"><a href="/reviews/" id="reviewsNav">Reviews</a></li>
+			<li class="howtoNav"><a href="/howto/" id="howtoNav">How-To</a></li>
+			<li class="videoNav"><a href="/video/" id="videoNav">Video</a></li>
+		</ul>
+
+		<ul class="fmenu" id="site-nav">
+			
+				<li><a href="/category/macs/">Macs</a>
+					
+				</li>
+			
+				<li><a href="/category/iphone-ipad/">iPhone/iPad</a>
+					
+				</li>
+			
+				<li class="selected"><a href="/category/os-x/" class="active">macOS</a>
+				
+					<ul>
+						
+								
+									
+										<li><a href="/column/mac911">Mac 911</a></li>
+									
+									
+													
+						
+								
+									
+										<li><a href="/column/macgems">Mac Gems</a></li>
+									
+									
+													
+						
+								
+									
+										<li><a href="/column/macosxhints">MacOS Hints</a></li>
+									
+									
+													
+						
+								
+									
+										<li><a href="/column/mac-101/">Mac 101</a></li>
+									
+									
+													
+						
+					</ul>
+					
+				</li>
+			
+				<li><a href="/category/ios-apps/">iOS</a>
+					
+				</li>
+			
+				<li><a href="/category/mac-apps/">Apps</a>
+					
+				</li>
+			
+				<li><a href="/category/computers-accessories/">Accessories</a>
+					
+				</li>
+			
+				<li><a href="/category/entertainment/">Entertainment</a>
+					
+				</li>
+			
+				<li><a href="/category/business/">Business</a>
+					
+				</li>
+			
+			
+					
+					<li class="displayMobileOnly"><a href="/subscribe/">Subscribe</a></li>
+		</ul>
+		
+			<div id="extra-nav-toggle"><a href="#extra-nav" class="ss-dropdown"></a></div>
+			
+			<div id="extra-nav">
+				<ul>
+					
+						<li><a href="/resources/">Resources</a></li>
+					
+						<li><a href="/category/macs/">Macs</a></li>
+					
+						<li><a href="/category/macbook/">MacBooks</a></li>
+					
+						<li><a href="/category/mac-desktop/">iMacs</a></li>
+					
+						<li><a href="/category/apple-phone/">iPhones</a></li>
+					
+					<li><a href="/blogs">Blogs</a></li>
+				</ul>
+				<ul>
+					
+						<li><a href="/category/ipad/">iPads</a></li>
+					
+						<li><a href="/category/computers-accessories/">Accessories</a></li>
+					
+						<li><a href="/category/mac-apps/">Apps</a></li>
+					
+						<li><a href="/category/software-music/">Audio</a></li>
+					
+						<li><a href="/category/enterprise/">Enterprise</a></li>
+					
+						<li><a href="/category/cameras/">Cameras</a></li>
+					
+						<li><a href="/category/components/">Components</a></li>
+					
+						<li><a href="/category/software-development/">Development Software</a></li>
+					
+				</ul>
+				<ul>
+					
+						<li><a href="/category/displays/">Displays</a></li>
+					
+						<li><a href="/category/e-readers/">E-readers</a></li>
+					
+						<li><a href="/category/home-theater/">Home Theater</a></li>
+					
+						<li><a href="/category/ios-apps/">iOS</a></li>
+					
+						<li><a href="/category/phone-accessories/">iPhone Accessories</a></li>
+					
+						<li><a href="/category/ipad-accessories/">iPad Accessories</a></li>
+					
+						<li><a href="/category/ipods/">iPods</a></li>
+					
+						<li><a href="/category/os-x/">macOS</a></li>
+					
+				</ul>
+				<ul>
+					
+						<li><a href="/category/printers/">Printers</a></li>
+					
+						<li><a href="/category/networking/">Networking</a></li>
+					
+						<li><a href="/category/software-productivity/">Productivity Software</a></li>
+					
+						<li><a href="/category/smartwatches/">Smartwatches</a></li>
+					
+						<li><a href="/category/storage/">Storage</a></li>
+					
+						<li><a href="/category/input-stylus/">Styluses</a></li>
+					
+				</ul>
+			</div>
+		
+	</div>
+</div>	<!--/#main-nav-->
+
+
+<div id="section-nav">
+		<div class="container clearfix">
+			<ul class="fmenu">
+				
+					<li >
+						
+							
+								<a href="/column/mac911">Mac 911</a>
+							
+							
+						
+					</li>
+
+				
+					<li >
+						
+							
+								<a href="/column/macgems">Mac Gems</a>
+							
+							
+						
+					</li>
+
+				
+					<li >
+						
+							
+								<a href="/column/macosxhints">MacOS Hints</a>
+							
+							
+						
+					</li>
+
+				
+					<li >
+						
+							
+								<a href="/column/mac-101/">Mac 101</a>
+							
+							
+						
+					</li>
+
+				
+			</ul>
+		</div>
+</div><!--/#section-nav-->
+
+
+
+
+
+
+
+
+
+
+		</div> 
+	</div> 
+
+
+
+
+			<!-- Events Header -->
+		
+			
+				
+				 
+					
+						
+						
+						
+						<!-- blogId: 1490 -->
+						
+							
+								
+				   				
+				   				
+				   			
+								
+				   				
+				   				
+				   					    			
+						
+					
+					
+					
+					
+					
+				
+				 
+				 
+				 
+				 
+				  
+				   
+				  
+				  
+				 
+				 
+			
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+		
+
+
+<script>
+$(document).ready(function(){
+	$('.searchbox-input-class').each(function(){
+	    $(this).change(function(){
+	    	var qStr=$(this).val();
+	    	if($(this).val().indexOf('@')!=-1){
+	    		qStr=qStr.replace(/@/g,' ');
+	    		$(this).val(qStr);
+	    	}
+	    });
+	});
+});
+</script>
+
+
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+<div id="page-wrapper" class="page-wrapper">
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	<section role="main">
+
+		<article itemscope itemtype="http://schema.org/BlogPosting"  class="blog" >
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header  class='cat'>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<!-- CSMB Horizontal Responsive -->
+<ins class="adsbygoogle"
+     style="display:block;"
+     data-ad-client="ca-pub-4268075595326305"
+     data-ad-slot="9945794902"
+     data-ad-format="link"></ins>
+
+
+<script>
+consent.ads.queue.push(function(){
+	$.getScript( "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" )
+		  .done(function( script, textStatus ) {
+		    //need to add  && publisherConsents.gdprApplies back to the end of this conditional after testing
+			  if (!consent.personalization && consent.isEU)  {
+				   (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1
+				   console.log('*****GDPR: loaded adsense in non-personalized mode')
+			  }
+			  else {
+			   		(adsbygoogle = window.adsbygoogle || []).push({});
+			   	 	console.log('*****GDPR: loaded adsense in normal mode');
+			  } 
+		  })
+		  .fail(function( jqxhr, settings, exception ) {
+		    console.log( "Triggered ajaxError handler." );
+		});
+});
+</script>
+	
+	
+	
+	<nav class="breadcrumbs horiz">
+		<ul itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a href="/" itemprop="url"><span itemprop="title">Home</span></a></li>
+			
+				
+				
+					<li><a href="/category/os-x/" itemprop="url"><span itemprop="title">macOS</span></a></li>
+				
+				
+			
+		</ul>
+	</nav>
+	
+	
+	
+		<div class="blog-byline vcard author with-image" itemscope itemtype="http://schema.org/Person" itemprop="author">
+			<div class="brand ">
+				
+				
+					
+					
+						
+							
+							
+							
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="/author/Dan-Moren/" rel="author" title="Dan Moren"><img  class="bylineImage  imgId100006021 " src="https://images.techhive.com/images/article/2012/09/dmoren-headsho-100006021-byline.png" width="34" width="34" alt="Dan Moren" itemprop="image" /></a>
+
+					
+					
+				
+				
+				<div class="blog-branding-text">
+					
+					
+					
+					
+						
+					
+					
+					<div class="blog-title"><a href="/column/stay-foolish/">Stay Foolish</a></div>
+					
+					
+					
+						
+							<p class="name" itemscope itemtype="http://schema.org/Person" itemprop="author">
+								
+								
+								By <span class="fn" itemprop="name"><a rel="author" itemprop="url" href="/author/Dan-Moren/"><span itemprop="name">Dan Moren</span></a></span>, 
+								
+								<span class="cn-container">
+									
+								</span>
+								
+							  	 Contributor, 
+								
+									
+								
+
+
+
+
+
+
+
+
+
+
+
+
+<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><span class="publisher" itemprop="name">Macworld</span><meta itemprop="logo" content=""/></span> 
+								
+								<span class="divider break">|</span>
+								
+								<span class="pub-date" class='break-date' itemprop="datePublished" content="2018-09-28T03:00-0700">Sep 28, 2018 3:00 AM
+									 PT
+								</span>
+							</p>
+							
+							
+																				
+										
+					
+				</div>
+			</div>
+			
+				<div class="about">
+					<div class="about-title">About <span class="divider">|</span> <a href="/column/stay-foolish/index.rss"><i class="ss-icon ss-social ss-rss"></i></a></div>
+					<p>Analyzing Apple's next moves</p>
+				</div>
+			
+		</div>
+	
+	
+	
+	
+	
+		
+		
+			<div class="category"><a href="/opinion" itemprop="genre">Opinion</a></div>
+		
+	
+	
+
+	<h1 itemprop="headline">macOS Mojave and the future of the Mac</h1>
+	
+	
+	
+	
+	
+	
+	
+		<div class="cat-social">
+			
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+				
+
+	
+	
+		
+	
+
+
+
+	
+	
+
+
+	
+
+
+<div id="sharer" class="cat sidecar show blog">
+<ul id="share-tool" class="expand">
+
+
+
+	<li class="sosh">
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.macworld.com%2Farticle%2F3309580%2Fos-x%2Farticle.html" target="_blank">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/facebook.svg" />
+		</a>
+	</li>
+	<li class="sosh">
+		<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.macworld.com%2Farticle%2F3309580%2Fos-x%2Farticle.html&via=macworld&text=macOS+Mojave+and+the+future+of+the+Mac" target="_blank">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/twitter.svg" />
+		</a>	
+	</li>
+	<li class="sosh">
+		<a href="https://plus.google.com/share?url=https%3A%2F%2Fwww.macworld.com%2Farticle%2F3309580%2Fos-x%2Farticle.html" target="_blank">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/gplus.svg" />
+		</a>	
+	</li>
+	<li class="sosh">
+		<a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3A%2F%2Fwww.macworld.com%2Farticle%2F3309580%2Fos-x%2Farticle.html&description=macOS+Mojave+and+the+future+of+the+Mac" target="_blank">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/pinterest.svg" />
+		</a>
+	</li>
+	<li class="sosh">
+		<a href="http://reddit.com/submit?url=https%3A%2F%2Fwww.macworld.com%2Farticle%2F3309580%2Fos-x%2Farticle.html&title=macOS+Mojave+and+the+future+of+the+Mac" target="_blank">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/reddit.svg" />
+		</a>
+	</li>
+	<li class="sosh cat">
+		<a href="#email" id="email-icon">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/mail.svg" />
+		</a>
+	</li>
+	<li class="sosh hide cat print">
+		<a href="javascript:window.print();">
+			<img class="sidecar-icon" src="//idge.staticworld.net/images/print.svg" />
+		</a>
+	</li>
+
+
+
+</ul>
+</div>
+<script type="text/javascript">
+var isValidEmailAddress = isValidEmailAddress || function(emailAddress) {
+    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/i);
+    return pattern.test(emailAddress);
+};
+function encodeQueryData(params) {
+	var ret = [];
+	for (var paramKey in params) {
+		ret.push(encodeURIComponent(paramKey) + "=" + encodeURIComponent(params[paramKey]));
+	}
+	return ret.join("&");
+}	
+function bindEmailModal() {
+	$('#emailModal').on("click",".close-btn",function(event) {
+		event.preventDefault();
+        $('#emailModal').hide();
+        $("#emailModal .eml-friend").show();
+        $(".eml-friend-success").hide();
+        $(".eml-friend-error").hide();
+		$('#emailModal').fadeOut(200);
+		$('#email-to').val('');
+		$('#email-from').val('');
+		$('#name').val('');
+		$('#personalization').val('');
+		$('#eml-from-address-message').html("");
+		$('#eml-to-address-message').html("");
+		$('#eml-friend-captcha-message').html("");
+	});
+
+	$('#emailModal').on("submit","form",function(event) {
+		event.preventDefault();
+		var $form = $(this);
+		var action = $form.attr('action');
+		var formData = $form.serialize();
+		var emailFrom = $('#email-from').val();
+		var emailTo = $('#email-to').val();
+		var uresponse=$('#g-recaptcha-response').val();
+		$('#eml-from-address-message').html("");
+		$('#eml-to-address-message').html("");
+		$('#eml-friend-captcha-message').html("");
+		if (isValidEmailAddress(emailFrom) && isValidEmailAddress(emailTo) && uresponse !="") {
+			// eloqua
+			
+			// email
+			$.ajax(action, {
+				type: 'POST',
+				data: formData,
+				success: function(data, textStatus, xhr) {
+					$("#emailModal .eml-friend").hide();
+					$(".eml-friend-success").fadeIn(800);	
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					$("#emailModal .eml-friend").hide();
+					$(".eml-friend-error").fadeIn(800);						
+				}
+			});
+		}
+		else {	
+			if(uresponse==""){
+				$('#eml-friend-captcha-message').html("Please verify you're not a robot!");	
+			}
+			if(!isValidEmailAddress(emailTo)){
+			  $('#eml-to-address-message').html("Please enter a valid email address.");		
+			}
+			if(!isValidEmailAddress(emailFrom)){
+			  $('#eml-from-address-message').html("Please enter a valid email address.");		
+			}
+		}
+	});
+} //bindEmailModal() end
+
+$(document).ready(function() {
+	$(document).on("click","#email-icon",function(event) {
+		event.preventDefault();
+		bindEmailModal();
+		$('#emailModal').fadeIn(800);
+	});
+});
+</script>
+<div class="modal eml-friend-wrapper" id="emailModal" style="display:none;">	
+	<form class="eml-friend" action="/eloquaemail/article?eloqua=false&id=3309580">
+		<input type="hidden" name="title" value="macOS Mojave and the future of the Mac" />
+		<input type="hidden" name="url" value="https://www.macworld.com/article/3309580/os-x/article.html" />
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Email a friend</h3>
+
+		<div class="input-row">
+			<div id="eml-to-address-message" class="error-msg"></div>
+			<h4 class="input-label">To</h4>
+			<input id="email-to" value="" placeholder="Email address (required)" type="email" name="recipients" tabindex="1">
+			<p class="addl-text">Use commas to separate multiple email addresses</p>
+		</div>
+		<hr />
+		<div class="input-row">
+			<div id="eml-from-address-message" class="error-msg"></div>
+			<h4 class="input-label">From</h4>
+			<input id="name" value="" placeholder="Name (optional)" type="text" name="name" tabindex="2">
+		</div>
+		<div class="input-row">
+			<input id="email-from" value="" placeholder="Email address (required)" type="email" name="sender" tabindex="3">
+		</div>
+		<div class="input-row">
+			<textarea name="message" placeholder="Check out this article I found on Macworld." id="personalization" tabindex="4"></textarea>
+		</div>
+		<hr />
+		<div class="input-row">
+			<div id="eml-friend-captcha-message" class="error-msg"></div>
+		
+		
+ 			
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<div class="g-recaptcha" data-sitekey="6LczmkcUAAAAANEO7J277KwH6Kzp6BEQjPTWP4S4"></div>
+ 		</div>
+		<hr />
+		<div class="submit">
+			<input type="submit" value="Send" class="input-submit" tabindex="5">
+			<a href="/about/privacy.html" class="submit-privacy" target="_blank">Privacy Policy</a>
+		</div>
+	</form>
+
+	<div class="eml-ty eml-friend-success" style="display:none;">
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Thank you</h3>
+		<p class="msg-sent">Your message has been sent.</p>
+	</div>
+	<div class="eml-friend-error" style="display:none;">
+		<a href="#" class="close-btn"><i class="ss-icon ss-delete"></i></a>
+		<h3>Sorry</h3>
+		<p class="msg-sent">There was an error emailing this page.</p>
+	</div>
+</div>
+
+		</div>
+	
+	
+	
+
+	
+		
+			
+		
+	
+	
+		
+	
+	
+	
+	
+		
+			<div id="articleLeaderboardWrapper">
+				<div id="articleLeaderboardInner">
+						
+						
+								
+									
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+			<div id="gpt-leaderboard" class=" ad-container"></div>
+    		<script type="text/javascript">
+    		consent.ads.queue.push(function(){	
+    			try {
+	    			IDG.GPT.addDisplayedAd("gpt-leaderboard", "true");
+	    			$('#gpt-leaderboard').responsiveAd({screenSize:'971 1115', scriptTags: []});
+	    			IDG.GPT.log("Creating ad: gpt-leaderboard [971 1115]");
+	    		}
+				catch (exception) {
+					console.log("Error with IDG.GPT: " + exception);
+				}
+    		});
+    		</script>
+    	
+	
+ 
+ 
+	
+						
+				</div>
+			</div>
+			
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+			<div id="gpt-leaderboardmobile" class=" ad-container"></div>
+    		<script type="text/javascript">
+    		consent.ads.queue.push(function(){	
+    			try {
+	    			IDG.GPT.addDisplayedAd("gpt-leaderboardmobile", "true");
+	    			$('#gpt-leaderboardmobile').responsiveAd({screenSize:'971 1115', scriptTags: []});
+	    			IDG.GPT.log("Creating ad: gpt-leaderboardmobile [971 1115]");
+	    		}
+				catch (exception) {
+					console.log("Error with IDG.GPT: " + exception);
+				}
+    		});
+    		</script>
+    	
+	
+ 
+ 
+	 
+		
+	
+	
+	
+</header>
+
+
+
+
+	
+	
+	
+	
+		<div class="lede-container">
+			
+			
+			
+				
+				
+					
+		                
+		                	
+		                	
+		                
+		                
+						
+						
+						
+					
+					
+					
+					
+					<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject" class="hero-img">
+						<meta itemprop="representativeOfPage" content="1" />
+						<meta itemprop="height" content="467" />
+						<meta itemprop="width" content="700" />
+			    		
+			    		<img src="https://images.idgesg.net/images/article/2018/09/apple-macbook-pro-macos-mojave-stocks-100774391-large.jpg" alt="apple macbook pro macos mojave stocks" itemprop="contentUrl" itemprop="url" />
+			    		
+			    		<figcaption>
+			    			
+			    			
+			    				<span class="credit" itemprop="copyrightHolder">
+			    					
+					    				
+					    				Apple
+				    				
+		
+					    			
+					    				
+					    				
+					    				
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+										  	
+										
+					    				
+					    				
+										
+									
+							
+								</span>
+			    			
+							
+			    		</figcaption>
+					</figure>
+					
+		
+				
+				
+			
+		</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+	
+
+
+
+<section class="epo cat-narrow" id="drr-top-ad">
+	
+		
+		
+				
+   	
+   	
+   	
+   		
+   			
+   		
+
+
+
+
+
+
+
+
+
+
+
+<!-- Related -->
+
+
+
+
+
+
+
+
+
+
+	<div class="related-promo-wrapper">
+		<div class="sector apart">
+			<div class="hed">More like this</div>
+	    	<ul class="">
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix with-image">
+	
+		
+		<a  href="/article/3306771/macs/5-reasons-why-you-should-upgrade-to-macos-mojave-right-now.html"><img  class="small.3x2Image  imgId100773765 " src="https://images.idgesg.net/images/article/2018/09/macos-mojave-home-app-100773765-small.3x2.jpg" alt="macos mojave home app" itemprop="image" /></a>
+    
+	<div class="item">
+		
+		<div class="title"><a  href="/article/3306771/macs/5-reasons-why-you-should-upgrade-to-macos-mojave-right-now.html">5 reasons why you should upgrade to macOS Mojave right now</a></div>
+	</div>
+</li>
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix with-image">
+	
+		
+		<a  href="/article/3282418/os-x/article.html"><img  class="small.3x2Image  imgId100761856 " src="https://images.idgesg.net/images/article/2018/06/macos_mojave_stock-100761856-small.3x2.jpg" alt="macos mojave imac pro" itemprop="image" /></a>
+    
+	<div class="item">
+		
+		<div class="title"><a  href="/article/3282418/os-x/article.html">macOS Mojave: Apple releases the latest version of its Macintosh operating...</a></div>
+	</div>
+</li>
+		    	
+		    		
+						
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix with-image">
+	
+		
+		<a  href="/article/3309677/ios/why-ios-apps-on-the-mac-will-not-just-improve-the-mac-but-ios-too.html"><img  class="small.3x2Image  imgId100774360 " src="https://images.idgesg.net/images/article/2018/09/wwdc-2018-ios-mac-apps-100774360-small.3x2.jpg" alt="wwdc 2018 ios mac apps" itemprop="image" /></a>
+    
+	<div class="item">
+		
+		<div class="title"><a  href="/article/3309677/ios/why-ios-apps-on-the-mac-will-not-just-improve-the-mac-but-ios-too.html">Why iOS apps on the Mac will not just improve the Mac, but iOS, too</a></div>
+	</div>
+</li>
+		    	
+		    	
+					
+					
+						
+						
+						
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+				
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+						
+						
+						
+						
+						
+							
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="clearfix with-image">
+	
+		<a  class="play" href="/video/90427/preview-of-apple-s-september-12-event-plus-your-comments-and-questions-macworld-podcast-episode-620"><i class="ss-play"></i></a>
+		<a  href="/video/90427/preview-of-apple-s-september-12-event-plus-your-comments-and-questions-macworld-podcast-episode-620"><img  class="small.3x2Image  imgId100770906 " src="https://images.idgesg.net/images/article/2018/09/mpc18_620b_macworldpodcastep620-100770906-small.3x2.jpg" alt="Macworld Podcast 620" itemprop="image" /></a>
+    
+	<div class="item">
+		<div class="item-eyebrow">Video</div>
+		<div class="title"><a  href="/video/90427/preview-of-apple-s-september-12-event-plus-your-comments-and-questions-macworld-podcast-episode-620">Preview of Apple’s September 12 event, plus your comments and questions:...</a></div>
+	</div>
+</li>
+				
+				
+			
+		
+	
+
+
+
+
+					
+				
+		    </ul>
+		</div>
+	</div>
+
+   	
+
+
+				<div class="ad top-ad">
+	
+		
+		
+			
+				
+					
+						
+					
+					
+				
+				
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+			
+			
+			
+				<div id="gpt-showcase" class="adunit ad-container">					
+				</div>				
+				<script type="text/javascript">
+				consent.ads.queue.push(function(){
+				if($(window).width() >= 930) {
+					IDG.GPT.addDisplayedAd("gpt-showcase", "true");
+					$('#gpt-showcase').responsiveAd({screenSize:'971 1115', scriptTags: []});
+                    IDG.GPT.log("Creating ad: gpt-showcase - [971 1115]");
+				}
+				});
+				</script>
+			
+		
+	
+ 	
+ 
+ 
+		
+	
+</div>
+		
+	
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<section class="bodee">
+
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+	#drr-container figure.large.video {
+		border-bottom: 0 none;
+	}
+	figure#page-lede.thm-gallery.rr-gallery-vid #bcplayer-gallery #bcplayer-gallery_ad > div {
+		width: 300px !important;
+		height: 169px !important;
+		transition: all 0.5s ease;
+	}
+	figure#page-lede.thm-gallery #bcplayer-gallery #bcplayer-gallery_ad > div {
+		width: 100%;
+		height: 100%;
+		transition: all 0.5s ease;
+	}
+</style>
+<style>
+.jwplayer.jw-state-paused .jw-display {
+	display: table !important;
+	padding: 0;
+}
+.jwplayer .jw-display-icon-container {
+    float: none;
+    padding: 0;
+    margin: 0;
+}
+.jw-flag-small-player .jw-display {
+	padding-top: 0px;
+}
+.jwplayer .jw-display-icon-container .jw-icon-rewind {
+	visibility: hidden;
+}
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-play path,
+.jw-state-idle .jw-svg-icon-play path,
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-replay path,
+.jw-state-complete .jw-svg-icon-replay path {    
+    display: none;
+}
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-play,
+.jw-state-idle .jw-svg-icon-play,
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-replay,
+.jw-state-complete .jw-svg-icon-replay {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-image: url(//idge.staticworld.net/idgtv/btn-play-default.svg);
+    background-position: center center;
+    bottom: 0;
+    border-radius: 0;
+    box-shadow: none;
+    left: 0;
+    margin: auto;
+    right: 0;
+    top: 0;
+}
+.jwplayer .jw-display-icon-container .jw-icon,
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-play,
+.jw-state-idle .jw-svg-icon-play,
+.jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-replay,
+.jw-state-complete .jw-svg-icon-replay {
+    height: 81px;
+    width: 78px;
+}
+.thm-gallery.rr-gallery-vid .jwplayer .jw-display-icon-container .jw-icon,
+.thm-gallery.rr-gallery-vid .jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-play,
+.thm-gallery.rr-gallery-vid .jw-state-idle .jw-svg-icon-play,
+.thm-gallery.rr-gallery-vid .jwplayer .jw-display-icon-container  .jw-icon-display .jw-svg-icon-replay,
+.thm-gallery.rr-gallery-vid .jw-state-complete .jw-svg-icon-replay  {
+	height: 65px;
+    width: 62px;
+}
+</style>
+
+
+	
+
+
+
+
+
+
+
+	<div class="ad placement">
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+		
+			
+			
+				<!--  Begin gpt-skin/inread -->
+				<div id="inread" class=" ad-container">					
+				</div>
+				<script type="text/javascript">
+				consent.ads.queue.push(function(){
+					IDG.GPT.addDisplayedAd("inread", "true");
+					IDG.GPT.displayGoogleTagSlot('inread');
+				});
+				</script>
+				<!--  End gpt-skin/inread -->	
+			
+			
+			
+			
+		
+	
+ 	
+ 
+ 
+	</div>
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+		<script>
+			var dataLayer = window.dataLayer = window.dataLayer || [];
+			dataLayer.push({
+				'event': 'loadTopCollectionModule'
+				});
+		</script>
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('.articleBloxAd').filter( ":visible" ).each(function(index, item) {
+		var id = $(item).attr('id');
+		var divClass = $(item).attr('class');
+		var adString = IDG.GPT.getLazyAdCode();
+		$(item).replaceWith("<div id=\"" + id + "\" class=\"lazyload_blox_ad " + divClass + "\">" + adString + "</div>");
+	});
+	try {
+		$("div.lazyload_blox_ad").lazyLoadAd({
+	        threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+	        forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+	        onLoad       : false,       // Callback function on call ad loading
+	        onComplete   : false,       // Callback function when load is loaded
+	        timeout      : 1500,        // Timeout ad load
+	        debug        : false,       // For debug use : draw colors border depends on load status
+	        xray         : false        // For debug use : display a complete page view with ad placements
+		}) ;
+	}
+	catch (exception){
+		console.log("error loading lazyload_ad " + exception);
+	}
+});
+
+</script>
+		
+
+
+		
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+<script type="text/javascript">
+$(function() {
+	var MOBILE_BREAK = 929;
+	
+	if ($(window).width() <= MOBILE_BREAK) {
+		executeDRRMobile();
+	} else {
+		// Desktop
+		executeDRRDesktop();
+	}
+	
+	
+});
+
+function executeDRRMobile() {
+	var TOP_IMU_HEIGHT = 250,
+		INTERMODULE_HEIGHT = 400,
+		GRAF_HEIGHT = 25,
+		MODULE_HEIGHT_BUFFER = 350,
+		AD_HEIGHT_BUFFER = 350,
+		RIGHT_PIXEL_WINDOW = 300,
+		DEBUG = false;
+	
+	var articleDRRModuleList = ["dealposts","products.latest-reviews"],
+		moduleUrls = [],
+		modules = [],
+		placementIndex = [],
+		moduleCounter = 0,
+		adPositions = new Array(0,1,3,5); // IMU, IMU, module, IMU, module, IMU++ 
+		cumulativeHeight = 0,
+		loopCounter = 0,
+		placementTarget = TOP_IMU_HEIGHT + MODULE_HEIGHT_BUFFER + GRAF_HEIGHT + INTERMODULE_HEIGHT; // IMU, IMU, module, IMU, module 
+	
+	if (false) {
+		var dealpostsIdx = articleDRRModuleList.indexOf("dealposts");
+		if (dealpostsIdx > -1) {
+			articleDRRModuleList.splice(dealpostsIdx, 1);
+			adPositions = [0, 1, 2, 4];
+		}
+	}
+	for (var i=0; i<articleDRRModuleList.length; i++) {
+		var articleDRRModuleName = articleDRRModuleList[i];
+		if (articleDRRModuleName == "products.latest-reviews") {
+			articleDRRModuleName += "&pageSize=3";
+			
+			articleDRRModuleName += "&categoryId=3675";
+			
+		} else if (articleDRRModuleName == "articles.latest-reviews") {
+			
+			articleDRRModuleName += "&categoryId=3800";
+			
+		} else if (articleDRRModuleName == "insider.promo.direct") {
+			var isPremium = false;//,
+			//showPromo = isPremium && (document.cookie.indexOf("nsdr") == -1);
+			showPromo = false;
+			articleDRRModuleName += "&pageSize=3&showPromo=" + showPromo;
+			
+			articleDRRModuleName += "&categoryId=3800";
+			
+		}
+		moduleUrls.push("/napi/tile?def=" + articleDRRModuleName + "&excludeCurrentArticle=true&excludeIds=3309580");
+	}
+	
+	if ($("figure.hero-img").height()) {
+		placementTarget += $("figure.hero-img").height();
+	}
+	// Add heights of all elements up through read these next (which is placed after eighth p tag) 
+	var firstModIndex = $("#drr-container > p:eq(7)").index();
+	$("#drr-container").children().slice(0, firstModIndex).each(function() {
+		placementTarget += $(this).height();
+	});
+	// Define first mobile ad here so imu counter shows imu1 first imu2 second, etc.
+	var firstMobileAdHtml = getLazyLoadAdHtml();
+
+	// Place Right-rail div containers 
+	$("#drr-container").children().each(function(index,value) {
+		//ignore any hidden elements in the body, like the mobile-only "read this next" module
+		if ($(this).is(':visible')) {
+			if (DEBUG) {
+				console.log($(this));
+			}
+			if (cumulativeHeight >= placementTarget) {
+				if (DEBUG) {
+					console.log("cumulativeHeight >= placementTarget and cumulativeHeight is " + cumulativeHeight + " and placementTarget is " + placementTarget);
+				}
+				var placementDiff = 0;
+				if ($.inArray(loopCounter, adPositions) != -1 || loopCounter >= 5) {
+					
+					try {
+                        IDG.GPT.addExtIMU();
+                        var adDivString;
+                        if (true) {
+                            adDivString = getLazyLoadAdHtml();
+                        } else {
+                            IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;
+                            var slotName = IDG.GPT.getIMUSlotName(),
+                                adString = "<div id='" + slotName + "'></div><script>$('#" + slotName + "').responsiveAd({screenSize:'971 1115', scriptTags: []});if (Object.keys(IDG.GPT.companions).length > 0) {IDG.GPT.refreshAd('" + slotName + "');}<\/script>";
+                            adDivString = "<div class='apart ad'>" + adString + "</div>";
+                            consent.ads.queue.push(function(){IDG.GPT.defineGoogleTagSlot(slotName ,[[320,50],[300,250],[300,50]],false,true);});
+                        }
+                        placementDiff = applyInsert($(this), adDivString);
+                        if (DEBUG) {
+                            console.log("Just placed an ad and the placementDiff is: " + placementDiff);
+                        }
+                        placementTarget = cumulativeHeight + placementDiff + INTERMODULE_HEIGHT + AD_HEIGHT_BUFFER;
+					}
+					catch (e){
+					    console.log("Error: "+e);
+                    }
+					
+				} 
+				else if (moduleCounter < articleDRRModuleList.length){
+					var elementId = "drr-mod-"+moduleCounter;
+					var moduleDivString = "<div id=\"" + elementId + "\" />";
+					modules.push(elementId);
+					
+					placementDiff = applyInsert($(this), moduleDivString);
+					if (DEBUG) {
+						console.log("Just placed a module and the placementDiff is: " + placementDiff);
+					}
+					placementTarget = cumulativeHeight + placementDiff + INTERMODULE_HEIGHT + MODULE_HEIGHT_BUFFER;
+					moduleCounter++;
+				}
+				loopCounter++;
+			}
+			// Avoid placing elements too soon due to non-large figures inflating the cumulative height
+			if ($(this).is("figure") && !$(this).is("figure.large")) {
+				cumulativeHeight += GRAF_HEIGHT;
+			}
+			else {
+				cumulativeHeight += $(this).height() + GRAF_HEIGHT;
+			}
+		}
+	});	// end $("#drr-container").children().each()
+		
+	// clone Related Stories module to come in after eighth para in article body for mobile breakpoint display
+	var $relatedStories = $('.related-promo-wrapper');
+	if ($relatedStories.length) {		
+		var $relatedStoriesClone = $relatedStories.clone();
+		$relatedStoriesClone.insertAfter( "#drr-container > p:eq(7)");	
+	}
+	
+	if (false) {
+		var $dealPost = $('.dealpost-mod');
+		var $amazonWidget = $('#amazon-widget');
+			if ($dealPost.length && $amazonWidget.length) {
+				var $dealPostClone = $dealPost.remove();
+				var $amazonWidgetClone = $amazonWidget.remove();
+				$dealPostClone.insertAfter( "#drr-container > p:eq(7)");
+				$amazonWidgetClone.insertAfter($dealPostClone);
+			}
+	}
+	// For mobile only, place ad after second paragraph.
+	if (firstMobileAdHtml) {
+		$(firstMobileAdHtml).insertAfter("#drr-container > p:eq(1)");
+	}
+		
+	var $insiderPromo = $('.insider-promo-wrapper');
+	if ($insiderPromo.length) {		
+		var $insiderPromoClone = $insiderPromo.clone();
+		$insiderPromoClone.insertAfter( "#drr-container > p:eq(1)");
+	}
+
+	// Add Right rail module content
+	var placeModule = function( data ) {
+		var placementId = $(data).filter('div').attr('data-placement-id');
+		$( "#"+placementId ).html( data );
+	};
+	for (i=0; i<modules.length; i++) {
+		if (moduleUrls[i] !== undefined) {
+			$.get(moduleUrls[i]+"&divId="+modules[i], placeModule);
+		}
+	}
+	
+	$("div.lazyload_ad_article").lazyLoadAd({
+		threshold    : 0,
+		forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+		onLoad       : false,       // Callback function on call ad loading
+		onComplete   : false,       // Callback function when load is loaded
+		timeout      : 1500,        // Timeout ad load
+		debug        : false,       // For debug use : draw colors border depends on load status
+		xray         : false      // For debug use : display a complete page view with ad placements
+	});
+		
+	/*
+	* Increments imu counter and generates a 'name' based on count like imu2, imu3, etc.
+	* Returns the html and code script needed for the lazy load ad js.
+	*/
+	function getLazyLoadAdHtml() {
+		try {
+            var adString = IDG.GPT.getLazyAdCode(true);
+            return "<div class=\"apart ad lazyload_ad_article\">" + adString + "</div>";
+        }
+        catch(e) {
+		    console.log("Error: "+e);
+        }
+	}
+	
+	/** 
+	 * @param jqo Original jquery object target
+	 * @param divString The div to be inserted.
+	 * @return Difference in height between original placement target and final target.
+	 * Checks first 6 elements for an allowable placement (600 pixel window).
+	 * If none, place element in first location that does not follow a reject element.
+	 */
+	function applyInsert(jqo, divString) { 
+		if (DEBUG) {
+			console.log("applyInsert at top and jqo index is: " + jqo.index());
+		}
+		
+		for (var i=0; i<=6; i++) {
+			$thisElement = jqo.nextAll().andSelf().slice(i, i+1);
+			if (DEBUG) {
+				console.log("Checking first six and i is: " + i + " and this element index is " + $thisElement.index() );
+			}
+			if ($thisElement.index() < 0) {
+				break;
+			}
+			if (allowPlacement($thisElement)) {
+				return addElement(jqo, $thisElement, divString);
+			}  
+		}
+		if (DEBUG) {
+			console.log("No nearby allows so just place in first spot that is not after reject.");
+		}
+		var numElements = jqo.nextAll().length;
+		var startIndex = jqo.index();
+		for (var i=startIndex; i<=numElements; i++) {
+			var $element = $("#drr-container").children().eq(i);
+			// This element is eligible when not null, not in placement index, and previous element is not reject
+			if ($element != null && (placementIndex == null || placementIndex.indexOf(i) == -1) && !isReject($element.prev())) {
+				return addElement(jqo, $element, divString);
+			}
+		}
+		if (DEBUG) {
+			console.log("Not going to place element: return 0.");
+		}
+		return 0; 
+	}
+		
+	/**
+	 * @param jqo Original jquery object
+	 * @param allowElement Element that is good placement for module/ad
+	 * @param divString The div to be inserted before the good element
+	 * @return placementHeightDiff Diff in height between original placement target and current target.
+	 *
+	 * If element is not too close to the end the insert the div before allowable element. 
+	 * Add element index to placementIndex to keep track of which elements already have placements
+	 */
+	function addElement(jqo, allowElement, divString) {
+		var offset = allowElement.index() - jqo.index();
+		if (DEBUG) {
+			console.log("addElement: jqo index is " + jqo.index() + " allowElement index is " + allowElement.index());
+		}
+		
+		if (elementNotNearEnd(allowElement, RIGHT_PIXEL_WINDOW)) {
+			allowElement.before(divString);
+			if (DEBUG) {
+				console.log("addElement: Adding " + allowElement.index() + " to placementIndex.");
+			}
+			placementIndex.push(allowElement.index());
+			if (offset == 0) {
+				return 0;
+			}
+			else {
+				return getHeightDifference(jqo,allowElement);
+			}
+
+		}
+		else {
+			if (DEBUG) {
+				console.log("addElement: Near the end so do NOT add.");
+			}
+			return 0;
+		} 
+	}
+	
+	function getHeightDifference(jqo,allowElement) {
+		var offset = allowElement.index() - jqo.index(),
+			height = 0,
+			children = null;
+		if (offset > 0) {
+			children = $("#drr-container").children().slice(jqo.index(), allowElement.index());
+		}
+		else {
+			children = $("#drr-container").children().slice(allowElement.index(), jqo.index());
+		
+		}
+		if (children != null) {
+			children.each(function(i) {
+				if (DEBUG) {
+					console.log("About to add this element's height to heigh diff offset");
+					console.log($(this));
+				}
+	   			height += $(this).height() + GRAF_HEIGHT;
+			});
+		}
+		if (offset < 0) {
+			height *= -1;
+		}
+		if (DEBUG) {
+			console.log("getHeightDifference: offset was " + offset + " and height diff is : " + height);
+		}		
+		return height;
+	}
+	
+	function allowPlacement(jqo) {
+		if (jqo.prev() != null && isReject(jqo.prev())) {
+			return false;
+		}
+		return true;
+	}
+	
+	function isReject(jqo) {
+		if (jqo != null) {
+			if (jqo.is('h2') || jqo.is('h3') || jqo.is('h4') || jqo.is('h5')) {
+				if (DEBUG) {
+					console.log("isReject: found header");
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+		 
+	// Returns true if height of all elements after this one is more than 500; false otherwise 
+	function elementNotNearEnd(element, pixelWindow) {
+		if (pixelWindow === null) {
+			pixelWindow = 500;
+		}
+		if (element === null) {
+			return false;
+		}
+		var remainingHeight = 0,
+			children = $("#drr-container").children().slice(element.index());
+		if (children === null) {
+			return false;
+		}
+		children.each(function(i){
+		   remainingHeight += $(this).height();
+		});
+		if ( remainingHeight > pixelWindow) {
+			return true;
+		}
+		else {
+			if (DEBUG) {
+				console.log("Element too close to end. Remaining height is: " + remainingHeight + " and window is " + pixelWindow);	 
+			}
+			return false;
+		}
+	}
+	
+} // end function executeDRRMobile()
+
+
+function executeDRRDesktop() {
+	
+	var heroImgHeight = $('figure.hero-img').outerHeight(true);
+	if (heroImgHeight === null) {
+		heroImgHeight = 0;
+	}
+	var galleryItemHeight = $('figure.thm-gallery').outerHeight(true);
+	if (galleryItemHeight === null) {
+		galleryItemHeight = 0;
+	}
+	var atAglanceTop = $('.at-a-glance.top').height();
+	if (atAglanceTop === null) {
+		atAglanceTop = 0;
+	}
+	
+	var drrContainerHeight = $('div#drr-container').outerHeight(true);
+
+	var topIMUheight = $('#topimu').height();
+	if (topIMUheight === 0) {
+		topIMUheight = 600;
+	}
+	var dealPostHeight;
+	var relatedPromoHeight;
+	
+		
+		
+			relatedPromoHeight = $('div.related-promo-wrapper').outerHeight(true);
+			if (relatedPromoHeight === null) {
+				relatedPromoHeight = 0;
+			}
+			dealPostHeight = 0;
+		
+	
+	
+	var videoHowtoHeight = $('div#video-howto-wrapper').outerHeight(true);
+	if (videoHowtoHeight === null) {
+		videoHowtoHeight = 0;
+	}
+	var teadsInreadHeight = $('div.teads-inread').height();
+	if (teadsInreadHeight === null) {
+		teadsInreadHeight = 0;
+	}
+	var unrulyAdHeight = $('.unruly_in_article_placement').height();
+	if (unrulyAdHeight === null) {
+		unrulyAdHeight = 0;
+	}
+	//just in case the in article ads are picked up...
+	var collapsibleAdHeight = unrulyAdHeight + teadsInreadHeight;
+
+	var workingRRheight = ( (heroImgHeight + galleryItemHeight + atAglanceTop + drrContainerHeight) - (topIMUheight + relatedPromoHeight + dealPostHeight + videoHowtoHeight) );
+	
+	workingRRheight = workingRRheight - collapsibleAdHeight;
+	// if there is a gallery video remove the amount of space used to push the right rail down to accommodate the video in the RR (CAT-102)
+	if (galleryItemHeight > 0) {
+		workingRRheight = workingRRheight - 1400;
+	}
+	
+	var DEBUG = false;
+	
+	if (DEBUG) {
+		console.log('-----working RR height = ' + workingRRheight);
+	}
+	
+	var articleDRRModuleList = ["dealposts","products.latest-reviews"],
+		moduleUrls = [],
+		modules = [],
+		moduleCounter = 0,
+		loopCounter = 0;
+	var adPositions = new Array(0,1,3,5); // IMU, IMU, module, IMU, module, IMU++ 
+	
+	if (false) {
+		var dealpostsIdx = articleDRRModuleList.indexOf("dealposts");
+		if (dealpostsIdx > -1) {
+			articleDRRModuleList.splice(dealpostsIdx, 1);
+			adPositions = [0,1,2,4];
+		}
+	}
+	for (var i=0; i<articleDRRModuleList.length; i++) {
+		var articleDRRModuleName = articleDRRModuleList[i];
+		if (articleDRRModuleName == "products.latest-reviews") {
+			articleDRRModuleName += "&pageSize=3";
+			
+			articleDRRModuleName += "&categoryId=3675";
+			
+		} else if (articleDRRModuleName == "articles.latest-reviews") {
+			
+			articleDRRModuleName += "&categoryId=3800";
+			
+		} else if (articleDRRModuleName == "insider.promo.direct") {
+			var isPremium = false;//,
+				//showPromo = isPremium && (document.cookie.indexOf("nsdr") == -1);
+			showPromo = false;
+			articleDRRModuleName += "&pageSize=3&showPromo=" + showPromo;
+			
+			articleDRRModuleName += "&categoryId=3800";
+			
+		}
+		moduleUrls.push("/napi/tile?def=" + articleDRRModuleName + "&excludeCurrentArticle=true&excludeIds=3309580");
+	}
+	
+	// Place Right-rail div containers 
+	var numItems = 0;
+	var minRRHeight=1000;
+	
+	if (workingRRheight > minRRHeight) {
+		numItems = 1;
+		minRRHeight = 2000;
+	} 
+	if (workingRRheight > minRRHeight) {
+		numItems = 2;
+		minRRHeight = 3000;
+	} 
+	if (workingRRheight > minRRHeight) {
+		numItems = 3;
+		minRRHeight = 4000;
+	}
+	if (workingRRheight > minRRHeight) {
+		numItems = 4;
+		minRRHeight = 4700;
+	} 
+	while (workingRRheight > minRRHeight) {
+		numItems++;
+		minRRHeight+= 700;
+	}
+
+	for (var currIndex=0;currIndex<numItems;currIndex++) {
+
+		if ($.inArray(currIndex, adPositions) != -1 || currIndex >= 5) {
+			try {
+                IDG.GPT.addExtIMU();
+                var adDivString;
+                if (true) {
+                    if (currIndex < 4) {
+                    	var adString = "<code type=\"text\/javascript\">" +
+                        "<!--IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;IDG.GPT.addDisplayedAd(IDG.GPT.getIMUSlotName(), \"true\");" +
+                        "document.write('<div id=\"' +IDG.GPT.getIMUSlotName() + '\" class=\"ad-container\">');" +
+                        "consent.ads.queue.push(function(){IDG.GPT.defineGoogleTagSlot(IDG.GPT.getIMUSlotName(), [[300,250],[300,600]]);});" +
+                        "document.write('</div>');" +
+                        "consent.ads.queue.push(function(){$('#' + IDG.GPT.getIMUSlotName()).responsiveAd({screenSize:'971 1115', scriptTags: []});" +
+                        "if (Object.keys(IDG.GPT.companions).length > 0 || IDG.GPT.disableInitialLoad) { IDG.GPT.refreshAd(IDG.GPT.getIMUSlotName());}});//--></code>";
+                    	adDivString = "<div class=\"apart ad lazyload_ad_article\">" + adString + "</div>";
+                    }
+                    else { 
+                    	adDivString = getLazyLoadAdHtml();
+                    }
+                } else {
+                	consent.ads.queue.push(function(){
+	                    IDG.GPT.IMUCounter = IDG.GPT.IMUCounter + 1;
+	                    var slotName = IDG.GPT.getIMUSlotName(),
+	                        adString = "<div id='" + slotName + "'></div><script>$('#" + slotName + "').responsiveAd({screenSize:'971 1115', scriptTags: []});if (Object.keys(IDG.GPT.companions).length > 0 || IDG.GPT.disableInitialLoad) {IDG.GPT.refreshAd('" + slotName + "');}<\/script>";
+	                    adDivString = "<div class='apart ad'>" + adString + "</div>";
+	                    if (currIndex < 4) {
+	                    	IDG.GPT.defineGoogleTagSlot(slotName ,[[300,250],[300,600]],false,true);
+	                    }
+	                    else {
+	                    	IDG.GPT.defineGoogleTagSlot(slotName ,[[300,250]],false,true);
+	                    }
+                	});
+                }
+
+                //$('#drr-container > p').first().before(adDivString);
+                //$('#drr-top-ad').append(adDivString);
+                $(adDivString).appendTo('#drr-top-ad');
+                if (DEBUG) {
+                    console.log("-----Just placed an AD currIndex = " + currIndex);
+                }
+            }
+            catch (e) {
+			    console.log("Error: "+ e);
+            }
+		} 
+		else if (moduleCounter < articleDRRModuleList.length){
+			var elementId = "drr-mod-"+moduleCounter;
+			var moduleDivString = "<div id=\"" + elementId + "\" />";
+			modules.push(elementId);
+			
+			//$('#drr-container > p').first().before(moduleDivString);
+			$('#drr-top-ad').append(moduleDivString);
+			if (DEBUG) {
+				console.log("-----Just placed a MODULE and currIndex =  " + currIndex);
+			}
+			moduleCounter++;
+		}
+
+	} //end for loop	
+		
+	
+	// Add Right rail module content
+	var placeModule = function( data ) {
+		var placementId = $(data).filter('div').attr('data-placement-id');
+		$( "#"+placementId ).html( data );
+	};
+	for (i=0; i<modules.length; i++) {
+		if (moduleUrls[i] !== undefined) {
+			$.get(moduleUrls[i]+"&divId="+modules[i], placeModule);
+		}
+	}
+	
+	
+	$("div.lazyload_ad_article").lazyLoadAd({
+		threshold    : 0,
+		forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+		onLoad       : false,       // Callback function on call ad loading
+		onComplete   : false,       // Callback function when load is loaded
+		timeout      : 1500,        // Timeout ad load
+		debug        : false,       // For debug use : draw colors border depends on load status
+		xray         : false      // For debug use : display a complete page view with ad placements
+	});
+		
+	/*
+	* Increments imu counter and generates a 'name' based on count like imu2, imu3, etc.
+	* Returns the html and code script needed for the lazy load ad js.
+	*/
+	function getLazyLoadAdHtml() {
+		try {
+            var adString = IDG.GPT.getLazyAdCode(true);
+            return "<div class=\"apart ad lazyload_ad_article\">" + adString + "</div>";
+        }
+        catch (e){
+		    console.log("Error: " + e);
+        }
+	}
+	
+
+} // end function executeDRRDesktop()
+</script>
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+
+
+	
+		
+			
+			
+			
+				
+			
+			
+		
+	
+	
+
+
+	
+	
+		<div id="drr-container" class='cat ' itemprop="articleBody">
+	
+	
+	
+	
+
+	<p>“The Mac keeps going forever.”</p><p>So said Apple senior vice president Phil Schiller in <a href="https://www.macworld.com/article/2090829/macs/apple-executives-on-the-mac-at-30-the-mac-keeps-going-forever.html">an interview in this very publication</a> on the occasion of the computing platform’s 30th anniversary in 2014. With this week’s <a href="https://www.macworld.com/article/3307111/os-x/how-to-upgrade-to-macos-mojave.html" rel="noopener" target="_blank">release of macOS Mojave</a>, the modern version of the Mac’s operating system hit its fifteenth major release, and celebrated its seventeen-and-a-half birthday—quickly closing in on outliving its predecessor, the classic Mac OS.</p><p>Mojave charts some new directions for the Mac, most notable of which is the ability to run iOS apps with little to no modification. That feature has its fair share of shortcomings and has also caused a degree of consternation from some longtime Mac users who don’t want peanut butter in their chocolate.</p><p>But it seems unlikely Apple’s going to back away from the idea of bringing more iOS into the Mac—the former is, after all, the more popular of the company’s two platforms, and with more than 1.3 billion active devices overall, it’d be strange for Apple <em>not</em> to figure out a way to bring them together. But what’s equally clear is that Apple is trying to balance incorporating iOS with keeping the Mac the Mac.</p><h2>Interfaces</h2><p>The biggest criticism levied against the iOS apps that Apple has brought to the Mac—News, Voice Memos, Home, and Stocks—is that they don’t feel particularly Mac-like. They’re one-window apps with too-big buttons that seem clearly designed for a touch-based interface. In particular, many have seized upon the incongruity and inutility of something like iOS’s date picker when used with a keyboard and pointing device.</p><figure class="large "><a class="zoom" href="https://images.idgesg.net/images/article/2018/09/applew-news-mojave-100774389-orig.jpg" rel="nofollow"><img src="https://images.idgesg.net/images/article/2018/09/applew-news-mojave-100774389-large.jpg" border="0" alt="applew news mojave" width="700" height="410" data-imageid="100774389"/></a> <small class="credit">Apple</small>
+<figcaption>
+<p>Apple News Mac app</p>
+</figcaption>
+</figure><p>Meanwhile, others have wondered if the addition of these iOS apps, with little in the way of interface changes, might presage a touch interface coming to the Mac. I’m <a href="https://www.macworld.com/article/3159583/macs/the-case-for-a-touchscreen-mac.html">far from opposed to such a thing</a>—touch is the default way most people interact with their technology these days; if the Mac is to keep going forever, it can’t remain an unchanging monolith. As others beside me have noted, you only have to work with an iPad and a physical keyboard for a little while to realize how instinctive it becomes to reach up and touch the screen. (And I know I’m not the only one to restrain themselves from such an impulse when jumping between my iPad and my MacBook Air.)</p><p>What we’ve seen from Apple with these apps so far is only a proof of concept. Yes, you can move these simple apps over and they’ll run. They aren’t optimized or really even designed for the Mac. None of which is to say they <em>can’t</em> be. Over the next couple years as Apple no doubt refines this system we’ll get a better idea of what additional changes can be made to iOS apps that jump to the Mac and how they can be good citizens on this new platform.</p><h2>The Mac stays in the picture</h2><p>At the same time that iOS is encroaching on the Mac’s territory, Apple is making it perfectly clear that Mojave and the progression of the macOS isn’t about taking away features from the Mac. Hence the renewed prominence of Quick Actions (née Services), which not only let you perform tasks without launching an application, but also bring the Mac’s automation powers to the forefront. Likewise, the ability to customize which metadata is displayed in the Finder’s preview pane. Both of these are indications that Apple realizes who most of its Mac users are.</p><aside class="nativo-promo nativo-promo-1 smartphone tablet desktop" id=""> </aside><p>Similarly, some of the under-the-hood changes to Mojave demonstrate that Apple has been giving more thought to how the Mac distinguishes itself from iOS. During this year’s Worldwide Developers Conference keynote, Apple announced that some developers—including Bare Bones Software, in whose BBEdit I’m writing this very column—would be coming to the Mac App Store.</p><figure class="large "><img src="https://images.idgesg.net/images/article/2018/09/bare-bones-wwdc-2018-100774397-large.jpg" border="0" alt="bare bones wwdc 2018" width="700" height="467" data-imageid="100774397"/> <small class="credit">Apple</small>
+<figcaption>
+<p>Apple announced at WWDC 2018 that Bare Bones is bringing BBEdit back to the Mac App Store.</p>
+</figcaption>
+</figure><p>Bare Bones had previously left the Mac App Store in part because of the more onerous requirements of macOS’s iOS-inspired sandboxing system, which required compromising certain powerful features of the application. The fact that Bare Bones is returning, and that other vendors like Panic, Microsoft, and Adobe are coming along with it, suggests that Apple may have loosened up those restrictions.</p><p>More importantly, it points to the fact that Apple realizes what’s important to Mac users: the programs that they run and care about. If the Mac is the truck to iOS devices’ car in Steve Jobs’s old analogy, well, the people buying a truck want a <em>truck</em>. A Mac without these complex, long-standing applications, or in which power features are ignored or pushed to the back in favor of newer and shinier apps that appeal to consumers might indeed keep going forever, as per Schiller’s statement, but it wouldn’t be a Mac so much as a hollow shell of one.</p>
+
+	
+	
+		
+	
+	
+	
+	
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+<div class="end-note">
+	
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<!-- blx4 #2007 blox4.html  -->
+			
+
+		
+			
+				
+					
+					
+					
+						
+							
+					
+						
+					
+					
+					
+					
+					
+				
+				
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+			<div id="" class="blx blxParticleendnote blxM2007  blox4_html  blxC24067"><aside>
+To comment on this article and other Macworld content, visit our <a href="https://www.facebook.com/Macworld/" target="_blank">Facebook</a> page or our <a href="https://twitter.com/macworld" target="_blank">Twitter</a> feed. 
+</aside></div>
+		
+	
+
+	
+
+
+</div>
+	
+	
+</div>
+
+
+
+
+
+<script>
+$("a[data-product-id]").on('click',function(e){
+	var e = e || window.event;
+	var dataLayer = window.dataLayer = window.dataLayer || [];
+	var prodName = $(this).attr("data-product-name");
+	prodName = prodName.replace("\\'","'"); // to counter the effects of over-escaping
+	
+	if ( $(this).parents('.slideshow').length > 0 ) {
+		var productLinkPosition = "Slideshow";
+	} else if ( $(this).parents('.emo-sb').length > 0 ) {
+		var productLinkPosition = "Product Sidebar";
+	} else if ( $(this).parents('.at-a-glance.top').length > 0 ) {
+		var productLinkPosition = "AAG Top";
+	} else if ( $(this).parents('.at-a-glance').length > 0 ) {
+		var productLinkPosition = "AAG Bottom";
+	} else if ( $(this).parents('.quick-hits.medium').length > 0 ) {
+		var productLinkPosition = "Quick Hit Medium";
+	} else if ( $(this).parents('.quick-hits').length > 0 ) {
+		var productLinkPosition = "Quick Hit Full";
+	} else if ( $(this).parents('.product-chart').length > 0 ) {
+		var productLinkPosition = "Product Chart";
+	} else if ( $(this).parents('.emo-list').length > 0 ) {
+		var productLinkPosition = "Product List";
+	} else {
+		var productLinkPosition = "Body Text";
+	}
+	
+	dataLayer.push({
+		'event': 'affiliateLink', 
+	  	'eventCategory': 'Affiliate Link', // Hardcoded, not dynamic
+	  	'eventAction': 'Click', // Hardcoded, not dynamic
+	  	'eventLabel': ''+e.target+'', // The URL the affiliate link leads to
+	  	'productVendor': $(this).attr("data-bkvndr"), // The vendor of the product
+	  	'productManufacturer': $(this).attr("data-bkmfr"), // The manufacturer of the product
+	  	'productName': prodName, // The name of the product
+	  	'productId': $(this).attr("data-product-id"), // The ID of the product
+	  	'productLinkPosition': productLinkPosition // location of product link (Product Sidebar, Product Chart, etc.)
+	});
+});
+</script>
+
+
+	<script>
+$("#drr-container a:not('[data-product-id]')").on('click',function(e){
+	var dataLayer = window.dataLayer = window.dataLayer || [];
+	
+	var $clickEl = $(this);
+	var clickUrl = $clickEl.attr("href");
+	var clickParentsUntilDrr = $clickEl.parentsUntil("#drr-container");
+	var clickText = $clickEl.text().trim();
+	var linkLocation;
+	var linkType;
+	var regex = new RegExp("cio.com|csoonline.com|computerworld.com|itnews.com|itworld.com|infoworld.com|networkworld.com|javaworld.com|techconnect.com|techhive.com|macworld.com|pcworld.com|greenbot.com|gamestar.com", "i");
+	
+	if (clickParentsUntilDrr.hasClass("fakesidebar")) {
+		linkLocation = "FSB";
+	}
+	else if (clickParentsUntilDrr.hasClass("end-note")) {
+     	 linkLocation = "End Note";
+   }
+	else {
+		linkLocation = "Body";
+	}
+	
+	if (regex.test(clickUrl)) {
+	      linkType = "Internal";
+	    }
+	else {
+		linkType = "External";
+	}
+		
+	
+	dataLayer.push({
+		'event': 'editBodyLink', 
+	  	'eventCategory': 'Editorial Body Links',
+	  	'eventAction': linkType,
+	  	'eventLabel': linkLocation+" | "+clickText+" | "+clickUrl
+	});
+});
+</script>
+
+
+<script>
+$("#drr-top-ad .related-promo-wrapper .title > a").on('click',function(e){
+	var dataLayer = window.dataLayer = window.dataLayer || [];
+	
+	var $clickEl = $(this);
+	var clickUrl = $clickEl.attr("href");
+	var clickText = $clickEl.text().trim();
+	var linkLocation = "Promo";		
+	
+	dataLayer.push({
+		'event': 'promoModuleLink', 
+	  	'eventCategory': 'Promotion module',
+	  	'eventAction': 'Click',
+	  	'eventLabel': linkLocation+" | "+clickText+" | "+clickUrl
+	});
+});
+</script>
+
+
+
+
+
+
+    <div class="apart-alt tags">
+    <span class="related">Related: </span>
+    <ul>
+		
+			<li><a href="/category/os-x">macOS</a></li>
+		
+			<li><a href="/category/macs">Macs</a></li>
+		
+			<li><a href="/category/software">Software</a></li>
+		 
+		
+			
+			
+				 
+					 
+			    	
+			    		<li><a href="/tag/macappstore/" rel="nofollow">Mac App Store</a></li>
+			    	
+			    		<li><a href="/tag/macos-mojave/" rel="nofollow">MacOS Mojave</a></li>
+			    				
+				
+			
+				
+		
+    </ul>
+   
+	</div>
+
+
+
+
+
+
+
+
+
+		
+   		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	
+	
+	
+	<div class="byline vcard author end-byline">	
+		<div class="author-info" id="danmoren">		
+			
+			
+				<p>Dan has been writing about all things Apple since 2006, when he first started contributing to the MacUser blog. He's also a prolific podcaster and the author of both the upcoming sci-fi novel The Bayern Agenda, as well as The Caledonian Gambit.</p>
+					
+		</div><!-- end .author-info -->	
+		
+		<div class="brand-social">
+				<div class="follow-text">Follow</div>
+				<ul class="social-links">
+					<li>
+						<a href="/author/Dan-Moren/">
+							<i class="ss-icon ss-user"></i>
+						</a>
+					</li>
+					
+					<li>
+						<a href="https://twitter.com/dmoren" class="twitter-follow" target="_blank">
+							<i class="ss-icon ss-social ss-twitter"></i>
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a href="https://plus.google.com/u/0/116688776113333213917/" class="googleplus-follow" target="_blank">
+							<i class="ss-icon ss-social ss-googleplus"></i>
+						</a>
+					</li>
+					
+					
+				</ul>
+			</div>
+			
+	</div>
+	
+	
+		
+		
+		
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+<script src="/www/js/video/embedder-jwp.js?v=20181018112446"></script>
+
+
+					
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+		</section><!-- /.bodee -->
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="content-recommender">
+	<div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="MacWorld_1"></div>  
+	<script type="text/javascript" async="async" src="//widgets.outbrain.com/outbrain.js"></script>
+</div>
+			
+				
+		
+	
+		<div id="amazon-bottom-widget">
+			<div class="amzn-custom-header">Shop Tech Products at Amazon</div>
+			<div id="amazon-links" class="rr sector" original="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&storeId=httpwwwidgcsm-20&adInstanceId=f28f8449-ab80-4ceb-941b-6f3ebf8ef345">
+				<code type="text/javascript"><!--
+				           console.log('lazyloaded amazon widget links in footer');
+				           //-->
+				</code>
+			</div>
+		</div>
+		<script>
+		$(window).load(function() {
+			consent.adsel.queue.push(function(){
+				try {
+					$("div#amazon-links").lazyLoadAd({
+				          threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+				          forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+				          onLoad       : false,       // Callback function on call ad loading
+				          onComplete   : false,       // Callback function when load is loaded
+				          timeout      : 2000,        // Timeout ad load
+				          debug        : false,       // For debug use : draw colors border depends on load status
+				          xray         : false      // For debug use : display a complete page view with ad placements
+				    });
+				} catch (exception){
+					console.log("ERROR loading amazon widget links " + exception);
+				}
+			});
+		});
+		</script>
+	
+
+
+		</article>
+
+	</section><!-- /role=main -->
+
+</div><!-- /#page-wrapper -->
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="panel-loader"></div>
+<!-- IDGMPM-11812, category.getCategoryType() returns an integer, and 9 stands for tentpole-->
+ 
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/www.idgcsmb/css/tso-links.css?v=20181018112446" />
+
+	<div id="tso-wrapper"><div id="tso" style="display:none"></div></div>
+	<script type="text/javascript">
+	function renderTSO(ads, requireHttps) {
+		$thm.debug("renderTSO:"+ads.length);
+		if (ads && ads.length > 0) {
+			var selectedAds = selectTSOAds(ads,6);
+			if (null != selectedAds && selectedAds.length > 0) {
+				var html = "<h3>Today's Special Offers</h3>";
+				html += "<ul>";
+				for (var i=0; i<selectedAds.length;i++) {
+					html += "<li>";
+					html += "<a href='"+selectedAds[i].url+"'> "+selectedAds[i].title+"</a>";
+					html += "<span>"+selectedAds[i].body+"</span>";
+					if (null != selectedAds[i].pixel && selectedAds[i].pixel.length > 0 && selectedAds[i].pixel.indexOf('http') == 0) {
+						if(!requireHttps || selectedAds[i].pixel.indexOf('https://') == 0){
+							html += "<img src='"+selectedAds[i].pixel+"' style='height:0;width:0;'/>";
+						}
+					}
+					html += "</li>";
+				}
+				html += "</ul>";
+				$("#tso").html(html).show();
+			}
+		}
+	}
+	function selectTSOAds(ads,max) {
+		if (ads.length <= max) {
+			return ads;
+		} else {
+			var uniq = {};
+			var found = 0;
+			var selectedAds = [];
+			while (found < max) {
+				var ad = ads[Math.floor(Math.random()*ads.length)];
+				if (uniq[ad.id] != null) {
+					continue;
+				} else {
+					uniq[ad.id] = true;
+					found++;
+					selectedAds.push(ad);
+				}
+			}
+			return selectedAds;
+		}
+		return null;
+	}
+	</script>
+	
+
+	
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/www.idgcsmb/css/footer.css?v=20181018112446" />
+<link rel="stylesheet" href="/www.idgcsmb.mw/css/footer.css?v=20181018112446" />
+<div id="network"></div>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+<footer id="footer" class="clearfix">
+    <div class="container clearfix">
+    	<div class="footer-col">
+    		<a href="http://macworld.com" id="footer-logo-mw" class="ir">Macworld</a>
+    		<p>Macworld is your best source for all things Apple. We give you the scoop on what's new, what's best and how to make the most out of the products you love.</p>
+    		<ul>
+    			<li><a href="/about/about.html">About Us</a></li>
+				<li><a href="/about/contact.html">Contact Us</a></li>
+				<li><a href="http://hints.macworld.com/" rel="nofollow">Mac OS X Hints</a></li>
+				<li><a href="https://www.idg.com/about-adchoices-macworld/" rel="nofollow">Ad Choices</a></li>
+				<li><a href="/faq" rel="nofollow">Digital Magazines</a></li>
+				<li><a href="/newsletters/signup.html">Newsletters</a></li>
+				<li><a href="/about/cookie-policy.html">Cookie Policy</a></li>
+			</ul>
+			<ul class="right">
+				<li><a href="/about/member-preferences.html">Member Preferences</a></li>
+				<li><a href="/about/privacy.html" rel="nofollow">Privacy Policy</a></li>
+				<li><a href="/index.rss">RSS</a></li>
+				<li><a href="https://www.idg.com/terms-of-service-agreement/" rel="nofollow">Terms of Service Agreement</a></li>
+				<li><a href="/about/affiliates.html">E-commerce Affiliate Relationships</a></li>
+			</ul>
+    	</div>
+    	<div class="footer-col">
+    		<h2>Macworld Categories</h2>
+    		<ul>
+    			<li><a href="/category/business/">Business</a></li>
+				
+				<li><a href="/category/creative/">Creative</a></li>
+				<li><a href="/category/entertainment/">Entertainment</a></li>
+				<li><a href="/category/ios-apps/">iOS Apps</a></li>
+				<li><a href="/category/mac-apps/">Mac Apps</a></li>
+			</ul>
+			<ul class="right">
+				<li><a href="/category/macs/">MacCentral</a></li>
+				<li><a href="/category/iphone-ipad/">iPhone/iPad</a></li>
+				<li><a href="/category/os-x/">OS X</a></li>
+				<li><a href="/column/mwpodcast">Podcasts</a></li>
+				<li><a href="/video/">Video</a></li>
+			</ul>
+			<h3>IDG Network Sites</h3>
+			<ul>
+				<li><a href="http://resources.idg.com/contact/contact-idg" rel="nofollow">Advertise</a></li>
+				<li><a href="https://www.idg.com/technetwork/technetwork-permissions-guildelines/" rel="nofollow">Permissions</a></li>
+				<li><a href="http://www.pcworld.com/" rel="nofollow">PCWorld</a></li>
+				<li><a href="http://www.techadvisor.co.uk/">Tech Advisor</a></li>
+				<li><a href="http://www.techhive.com/" rel="nofollow">TechHive</a></li>
+			</ul>
+			<ul class="right">
+				<li><a href="https://www.idg.com/technetwork/" rel="nofollow">IDG TechNetwork</a></li>
+				<li><a href="https://www.idg.com/" rel="nofollow">IDG</a></li>
+				<li><a href="http://blog.idg.com/" rel="nofollow">IDG Blog</a></li>
+				<li><a href="https://www.idg.com/work-here/" rel="nofollow">Careers at IDG</a></li>
+			</ul>			
+    	</div>
+    	<div class="footer-col">
+    		<div id="footer-subscribe" class="clearfix">
+	    		<a href="https://ssl.palmcoastd.com/31401/apps/MCWDIGITAL?ikey=I**A03" rel="nofollow">
+	    			<img src="//alt.idgesg.net/images/furniture/macworld/footer-subscribe-mag-mw.png" alt="Macworld Magazine Cover">
+	    			<h2>Try Macworld <span>Risk-Free</span></h2>
+	    			<span class="btn-link">Subscribe Now</span>
+	    		</a>
+    		</div>
+    		<div id="footer-social">
+    			<span>Follow us</span> <a href="http://www.facebook.com/Macworld" class="network-fb ss-icon ss-social-circle banner-social banner-fb" alt="Facebook" itemprop="sameAs" rel="nofollow">
+						&#xF610;
+					</a>
+					<a href="https://twitter.com/macworld" class="network-tw ss-icon ss-social-circle banner-social banner-tw" alt="Twitter" itemprop="sameAs" rel="nofollow">
+						&#xF611;
+					</a>
+					<a href="https://plus.google.com/+macworld/posts" class="network-google ss-icon ss-social-circle banner-social banner-google" alt="Google+" itemprop="sameAs" rel="publisher">
+						&#xF613;
+					</a> 
+					
+						<a href="https://www.youtube.com/user/macworld" class="network-youtube ss-icon ss-social-circle banner-social banner-youtube" alt="YouTube">
+							&#xF630;
+						</a>
+					 			
+    		</div>
+    		
+    		 <p>Visit other IDG sites:</p>
+    		
+    		<div id="idgInfo" class="styled-select">		
+		            <select onchange="location = this.options[this.selectedIndex].value;" id="jumpMenu" name="jumpMenu" d30tagged="1" style="visibility: visible;">
+		                <option value="">Select One</option>
+						
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		<option value="https://www.cio.com">CIO</option>
+	
+		<option value="https://www.cio-asia.com">CIO Asia</option>
+	
+		<option value="https://www.computerworld.com">Computerworld</option>
+	
+		<option value="https://www.csoonline.com">CSO</option>
+	
+		<option value="https://www.gamestar.com">Gamestar</option>
+	
+		<option value="https://www.greenbot.com">Greenbot</option>
+	
+		<option value="https://www.idgconnect.com">IDG Connect</option>
+	
+		<option value="https://www.idg.tv">IDG.tv</option>
+	
+		<option value="https://www.infoworld.com">InfoWorld</option>
+	
+		<option value="https://www.itnews.com">IT News</option>
+	
+		<option value="https://www.itworld.com">ITworld</option>
+	
+		<option value="https://www.javaworld.com">JavaWorld</option>
+	
+		<option value="https://www.macworld.com">Macworld</option>
+	
+		<option value="https://www.networkworld.com">Network World</option>
+	
+		<option value="https://www.pcworld.com">PCWorld</option>
+	
+		<option value="https://www.techhive.com">TechHive</option>
+	
+		<option value="https://www.thefullnerd.com/">The Full Nerd</option>
+	
+
+		            </select>
+		    </div>
+		    
+		        <p><small><a href="http://idgcsmb.com/terms-of-service-agreement/">Copyright</a> &copy; 2018 IDG Communications, Inc.</small></p>
+    	</div>
+    </div> 
+</footer>
+ 
+
+
+		
+				
+		
+			
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+			<div id="gpt-infunnel" class=" ad-container"></div>
+    		<script type="text/javascript">
+    		consent.ads.queue.push(function(){	
+    			try {
+	    			IDG.GPT.addDisplayedAd("gpt-infunnel", "true");
+	    			$('#gpt-infunnel').responsiveAd({screenSize:'971 1115', scriptTags: []});
+	    			IDG.GPT.log("Creating ad: gpt-infunnel [971 1115]");
+	    		}
+				catch (exception) {
+					console.log("Error with IDG.GPT: " + exception);
+				}
+    		});
+    		</script>
+    	
+	
+ 
+ 
+	
+		
+		
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/www/js/analytics/mouse_down.js"></script> 
+
+
+
+<script type="text/javascript" src="/www/js/jquery/jquery_cookie.js"></script> 
+
+<script src="/www.idgcsmb/js/jquery/jquery-ui-tools.js"></script>
+
+
+	<script>
+		$(document).ready(function() {
+			if (typeof $.cookie("geoPromoDontShow") === 'undefined' && typeof $.cookie("geoPromoSeen") === 'undefined' && navigator.languages.indexOf("es") > -1 && $thm.deviceWidthAtLeast($thm.deviceBreakpoints.wide)) {
+				$.get("/napi/tile?def=international.promo", 
+					function(data) {
+						$("body").prepend(data);
+						var visitTime = new Date();
+						visitTime.setTime(visitTime.getTime()+1000*60*60*24); //24 hours
+				      	$.cookie('geoPromoSeen', 'true', { expires: visitTime, path: '/' });
+						$(".geo-promo .ss-delete, a.cont-here, a.dont-show").click(function(e) {
+							e.preventDefault();
+							if ($(this).is(".dont-show")) {
+								visitTime.setTime(visitTime.getTime()+1000*60*60*24*30); //30 days
+						      	$.cookie('geoPromoDontShow', 'true', { expires: visitTime, path: '/' });
+							}
+							$(".geo-promo").fadeOut(function() {$(".geo-promo").remove()})
+						});
+					}
+				);
+			}
+		});
+	</script>
+
+<script src="/www.idgcsmb/js/thm_post.js?v=20181018112446"></script>
+
+<script src="/www.idgcsmb/js/jquery/plug-ins/jquery.md5.js"></script>
+
+	<script src="/www.idgcsmb/js/jquery/plug-ins/jquery.colorbox-min.js"></script>
+
+
+<script src="/www.idgcsmb/js/autocomplete.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/www/js/jquery/jquery.lazyload.min.js"></script>
+<script>
+$(function() {
+    $("img.lazy").lazyload({ 
+    	effect : "fadeIn", 
+    	threshold: 200,
+    	failure_limit:25
+    });
+});
+</script>
+
+<script type="text/javascript" src="/www/js/ads/jquery.lazyload-ad.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('.articleBloxAd').filter( ":visible" ).each(function(index, item) {
+		var id = $(item).attr('id');
+		var divClass = $(item).attr('class');
+		var adString = IDG.GPT.getLazyAdCode();
+		$(item).replaceWith("<div id=\"" + id + "\" class=\"lazyload_blox_ad " + divClass + "\">" + adString + "</div>");
+	});
+	try {
+		$("div.lazyload_blox_ad").lazyLoadAd({
+	        threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+	        forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+	        onLoad       : false,       // Callback function on call ad loading
+	        onComplete   : false,       // Callback function when load is loaded
+	        timeout      : 1500,        // Timeout ad load
+	        debug        : false,       // For debug use : draw colors border depends on load status
+	        xray         : false        // For debug use : display a complete page view with ad placements
+		}) ;
+	}
+	catch (exception){
+		console.log("error loading lazyload_ad " + exception);
+	}
+});
+
+</script>
+
+<script type="text/javascript">
+// -- Load Lazy Advertisement placement as deferred
+try {
+	$("div.lazyload_ad").lazyLoadAd({
+	        threshold    : 0,         // You can set threshold on how close to the edge ad should come before it is loaded. Default is 0 (when it is visible).
+	        forceLoad    : false,       // Ad is loaded even if not visible. Default is false.
+	        onLoad       : false,       // Callback function on call ad loading
+	        onComplete   : false,       // Callback function when load is loaded
+	        timeout      : 1500,        // Timeout ad load
+	        debug        : false,       // For debug use : draw colors border depends on load status
+	        xray         : false        // For debug use : display a complete page view with ad placements
+	}) ;
+}
+catch (exception) {
+	console.log("Error with lazyLoadAd: "+exception);
+}
+</script>
+
+<script src="/www.idge/js/jquery/jquery.tablesorter.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("table.tablesorter").tablesorter({
+		widgets: ['zebra']
+	});
+	
+	$("table.tablesorter tbody tr").hover(function() {
+		$(this).toggleClass("selected");
+	});
+	
+	$("table.tablesorter thead tr th").each(function(){			
+		if ($(this).find('.ss-icon').length < 1) {
+			$(this).append('<i class="ss-icon"></i>');
+		}
+	});
+	
+});
+</script>
+
+<script>
+	//click event for BrandPost "Learn More" buttons
+	$(".learn-more").click(function(event) {
+		 var brandpost_txt = "<div class=\"about-brandposts\"><p>BrandPosts are written and edited by members of our sponsor community. BrandPosts create an opportunity for an individual sponsor to provide insight and commentary from their point-of-view directly to our audience. The editorial team does not participate in the writing or editing of BrandPosts.</p><hr/><a class=\"close-bar\" href=\"#\">Close</i></a></div>";
+		 if ($(".blog-byline.sponsored-post").length > 0) { //for Nativo sponsoredPosts
+			 brandpost_txt = "<div class=\"about-brandposts\"><p>SponsoredPosts are written and edited by members of our sponsor community. SponsoredPosts create an opportunity for an individual sponsor to provide insight and commentary from their point-of-view directly to our audience. The editorial team does not participate in the writing or editing of SponsoredPosts.</p><hr/><a class=\"close-bar\" href=\"#\">Close</i></a></div>";
+		 }
+		 $("body").append(brandpost_txt);
+		 $(".about-brandposts").css("top",event.pageY);
+		 if ($("body").width() >= 955) { // need different behavior at desktop breakpoint and above
+			 //find difference between X position clicked and body width and set as right attr 
+			 //this is so tooltip doesn't overflow window
+			 var xpos = $("body").width() - event.pageX;
+			 $(".about-brandposts").css({"right":xpos,"margin-right":"0"});
+		 }
+		 $(".about-brandposts .close-bar").click(function() {
+			 $(".about-brandposts").remove();
+			 return false;
+		 });
+		 return false;
+	});
+</script>
+
+
+
+
+
+	<!-- LiveRamp Sources -->
+	<script type="text/javascript"src="//storage.googleapis.com/cdn.pippio.com/sdk/pippio.min.js" async></script>
+	<script src="/www/js/utils/liveRamp.js"></script>
+	<!-- End of LiveRamp -->
+
+
+<script type='text/javascript'>
+
+	
+	$(document).ready(function(){
+
+	$('#extra-nav-toggle a').click(function(){
+		if($(this).hasClass('open')){
+			$('#extra-nav').hide();
+			$(this).removeClass('open');
+			$('#extra-nav-toggle a').removeClass('ss-delete');
+			$('#extra-nav-toggle a').addClass('ss-dropdown');		
+		} else {
+			$('#extra-nav').show();
+			$(this).addClass('open');
+			$('#extra-nav-toggle a').removeClass('ss-dropdown');
+			$('#extra-nav-toggle a').addClass('ss-delete');					
+		}
+		return false;
+	});
+		   
+						  
+	});//-- end document Ready
+		
+	
+
+
+	g_bRequireHttps = true;
+	 
+		$.ajax('/ads/tso',{
+			dataType: 'json',
+			success: function(data){
+				renderTSO(data.tsoLinks, g_bRequireHttps);
+			},
+			error: function(jqXHR,error,thrown){
+				$thm.debug("TSO AJAX Status: "+error+": "+thrown,true);
+			}
+		});
+	
+</script>
+
+		
+		<script type="text/javascript">
+			a=top;f=self;
+			var acceptedDomains = ["lookbookhq.com"];
+			var cleanedHost = a.location.hostname.split(".").slice(-2).join(".");
+			if(a!=f && acceptedDomains.indexOf(cleanedHost) < 0) {
+				a.location=f.location;
+			}
+		</script>	
+
+ 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	    
+	    
+		   	
+		   	
+		   	
+	    
+    	
+    	
+	    
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+<!-- Begin BlueKai Tag-->
+<iframe name="__bkframe" height="0" width="0" frameborder="0" src="javascript:void(0)"></iframe>
+<script type="text/javascript" src="https://tags.bkrtx.com/js/bk-coretag.js"></script>
+<!-- CryptoJS -->
+<script src="/www/js/utils/md5.js"></script>
+<script type="text/javascript" src="/www/js/analytics/idg_bk_coreapi.js"></script>
+
+<script type="text/javascript">
+bk_allow_multiple_calls=true;
+var blueKaiId=13977;
+var blueKaiPort=10;
+var brandCode = "mw";
+var regUrl="https://regdev.idge.int/api/"
+var daysToRefresh=30;
+var bk_debug_log=false;
+
+
+regUrl="https://reg.idgenterprise.com/api/";
+
+
+
+daysToRefresh=30;
+
+
+	
+
+
+
+
+//CMS-Specific
+bk_addPageCtx("cmscatids", "[3675,3800,3029]");
+
+
+
+	bk_addPageCtx("goldenIds", "[229,740,2]");
+
+
+bk_addPageCtx("cmpy", "[]");
+
+bk_addPageCtx('tid', '5');
+
+	
+
+
+
+
+
+
+
+
+
+
+try{
+	consent.adsel.queue.push(function(){
+		console.log('*****GDPR: running queue for bluekai ad selection');
+		IDG.bkCoreApi.start();
+	});
+}
+catch(e){
+	//alert("Triggering catch")
+	consent.adsel.queue.push(function(){
+		bk_doJSTag(blueKaiId ,blueKaiPort);
+	});
+	if (window.console && window.console.log){
+		window.console.log("Error Occured While Processing Profile Siubmission")
+	}
+}
+
+
+
+//bk_doJSTag(13977, 10);
+
+
+
+
+
+
+
+
+
+
+
+$('article, #slideshowCarousel').on('click', '.product-list-price, .btn-amazon, .productLink', function(e) {
+	var $linkEl = $(e.target);
+	var po = $linkEl.data('po');
+	if ($.inArray(po, ['amazon', 'vendor', 'other']) >= 0) {
+		if (po == 'amazon') {
+			var prCat = $linkEl.data('bkc');
+			if (typeof prCat != 'undefined') {
+				bk_addPageCtx('event', 'AmazonClick'+prCat);
+			}
+			
+			bk_addPageCtx('event', 'AmazonClickmacOS');
+			
+			bk_addPageCtx('event', 'AmazonClickMacs');
+			
+			bk_addPageCtx('event', 'AmazonClickSoftware');
+			
+		}
+		var prMfr = $linkEl.data('bkmfr');
+		if (typeof prMfr != 'undefined') {
+			bk_addPageCtx('event', 'eCommerceMFR'+prMfr);
+		}
+		var prVndr = $linkEl.data('bkvndr');
+		if (typeof prVndr != 'undefined') {
+			bk_addPageCtx('event', 'eCommerceClickVendor'+prVndr);
+		}
+		consent.adsel.queue.push(function(){
+			bk_doJSTag(34202, 1);
+		});
+	}
+});
+</script>
+<!-- End BlueKai Tag -->
+
+ 		
+		
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$thm.logPlEvent({"b":"mw","e":"view","t":"article","id":"3309580"});
+</script>
+
+
+	
+	
+		<div id="loginModal"></div>
+		<div id="logoffModal"></div>
+		<div id="abuseModal"></div>
+
+		
+			<!-- rev: 20181018112446  -->
+		
+		
+		
+		
+			
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			<div id="gpt-skin" class=" ad-container"></div>
+    			<script type="text/javascript">
+    			consent.ads.queue.push(function(){
+    				try {
+	    				IDG.GPT.addDisplayedAd("gpt-skin", "true");
+	    				IDG.GPT.displayGoogleTagSlot('gpt-skin');
+	    			}
+	    			catch (exception) {
+	    				console.log("Error with IDG.GPT: " + exception);
+	    			}
+    			});
+    			</script>
+		
+		
+		
+		
+	
+ 
+ 
+			
+			
+	</body>
+</html>

@@ -11,6 +11,9 @@
 		5130A0242159B525009205CB /* NYTimesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130A0232159B525009205CB /* NYTimesTest.swift */; };
 		5130A0272159B5A9009205CB /* nytimes-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A0252159B5A9009205CB /* nytimes-expected.html */; };
 		5130A0282159B5A9009205CB /* nytimes-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 5130A0262159B5A9009205CB /* nytimes-input.html */; };
+		514A6D52217A15AA003BF3E1 /* MacworldTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A6D50217A1517003BF3E1 /* MacworldTest.swift */; };
+		514A6D53217A15CC003BF3E1 /* macworld-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 514A6D4C217A14FA003BF3E1 /* macworld-expected.html */; };
+		514A6D56217A17F7003BF3E1 /* macworld-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 514A6D4D217A14FB003BF3E1 /* macworld-input.html */; };
 		516EB25E215CFDB3005B31DB /* incompatible_hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = 516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */; };
 		516EB261215CFF4F005B31DB /* ContentExtractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */; };
 		51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B8A074215425E900EEA621 /* VinXML.framework */; };
@@ -50,6 +53,9 @@
 		5130A0232159B525009205CB /* NYTimesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesTest.swift; sourceTree = "<group>"; };
 		5130A0252159B5A9009205CB /* nytimes-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "nytimes-expected.html"; sourceTree = "<group>"; };
 		5130A0262159B5A9009205CB /* nytimes-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "nytimes-input.html"; sourceTree = "<group>"; };
+		514A6D4C217A14FA003BF3E1 /* macworld-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "macworld-expected.html"; sourceTree = "<group>"; };
+		514A6D4D217A14FB003BF3E1 /* macworld-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "macworld-input.html"; sourceTree = "<group>"; };
+		514A6D50217A1517003BF3E1 /* MacworldTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacworldTest.swift; sourceTree = "<group>"; };
 		516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = incompatible_hosts.txt; sourceTree = "<group>"; };
 		516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractorTest.swift; sourceTree = "<group>"; };
 		51B8A074215425E900EEA621 /* VinXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VinXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +105,8 @@
 		516EB25F215CFE25005B31DB /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				514A6D4C217A14FA003BF3E1 /* macworld-expected.html */,
+				514A6D4D217A14FB003BF3E1 /* macworld-input.html */,
 				51B8A10D215706B700EEA621 /* wired-input.html */,
 				5130A00F21571965009205CB /* wired-expected.html */,
 				5130A0252159B5A9009205CB /* nytimes-expected.html */,
@@ -132,6 +140,7 @@
 				51B8A1102157071700EEA621 /* VinContentBaseTest.swift */,
 				OBJ_27 /* WiredTest.swift */,
 				5130A0232159B525009205CB /* NYTimesTest.swift */,
+				514A6D50217A1517003BF3E1 /* MacworldTest.swift */,
 			);
 			name = VinContentTests;
 			path = Tests/VinContentTests;
@@ -268,6 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5130A01021571965009205CB /* wired-expected.html in Resources */,
+				514A6D53217A15CC003BF3E1 /* macworld-expected.html in Resources */,
+				514A6D56217A17F7003BF3E1 /* macworld-input.html in Resources */,
 				51B8A10F215706B700EEA621 /* wired-input.html in Resources */,
 				5130A0272159B5A9009205CB /* nytimes-expected.html in Resources */,
 				5130A0282159B5A9009205CB /* nytimes-input.html in Resources */,
@@ -301,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				514A6D52217A15AA003BF3E1 /* MacworldTest.swift in Sources */,
 				516EB261215CFF4F005B31DB /* ContentExtractorTest.swift in Sources */,
 				51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */,
 				OBJ_71 /* WiredTest.swift in Sources */,
