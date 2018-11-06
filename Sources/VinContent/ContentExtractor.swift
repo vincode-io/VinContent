@@ -45,6 +45,7 @@ public class ContentExtractor {
     
     
     public var state: ContentExtractorState!
+    public var article: ExtractedArticle?
     public var delegate: ContentExtractorDelegate?
     
     private var url: URL!
@@ -81,6 +82,7 @@ public class ContentExtractor {
             do {
                 let article = try strongSelf.extractArticle(from: html, source: strongSelf.url)
                 strongSelf.state = .complete
+                strongSelf.article = article
                 DispatchQueue.main.async {
                     strongSelf.delegate?.processDidComplete(article: article)
                 }
