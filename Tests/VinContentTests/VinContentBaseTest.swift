@@ -13,12 +13,12 @@ class TestDelegate: ContentExtractorDelegate {
         self.baseTest = baseTest
     }
     
-    func processDidFail(with error: Error) {
+    func contentExtractionDidFail(with error: Error) {
         baseTest.errorResult = error
         baseTest.expectation!.fulfill()
     }
     
-    func processDidComplete(article: ExtractedArticle) {
+    func contentExtractionDidComplete(article: ExtractedArticle) {
         baseTest.articleResult = article
         baseTest.expectation!.fulfill()
     }

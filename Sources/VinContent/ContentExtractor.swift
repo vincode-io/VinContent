@@ -18,8 +18,8 @@ public enum ContentExtractorState {
 }
 
 public protocol ContentExtractorDelegate {
-    func processDidFail(with: Error)
-    func processDidComplete(article: ExtractedArticle)
+    func contentExtractionDidFail(with: Error)
+    func contentExtractionDidComplete(article: ExtractedArticle)
 }
 
 public enum ContentExtractorError: Error {
@@ -66,7 +66,7 @@ public class ContentExtractor {
             if let error = error {
                 strongSelf.state = .failedToParse
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.processDidFail(with: error)
+                    strongSelf.delegate?.contentExtractionDidFail(with: error)
                 }
                 return
             }
@@ -74,7 +74,7 @@ public class ContentExtractor {
             guard let data = data, let html = String(data: data, encoding: .utf8) else {
                 strongSelf.state = .failedToParse
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.processDidFail(with: ContentExtractorError.UnableToLoadURL)
+                    strongSelf.delegate?.contentExtractionDidFail(with: ContentExtractorError.UnableToLoadURL)
                 }
                 return
             }
@@ -84,12 +84,12 @@ public class ContentExtractor {
                 strongSelf.state = .complete
                 strongSelf.article = article
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.processDidComplete(article: article)
+                    strongSelf.delegate?.contentExtractionDidComplete(article: article)
                 }
             } catch {
                 strongSelf.state = .failedToParse
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.processDidFail(with: error)
+                    strongSelf.delegate?.contentExtractionDidFail(with: error)
                 }
             }
             
