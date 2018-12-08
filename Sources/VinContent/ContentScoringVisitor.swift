@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VinXML
 
 class ContentScoringVisitor: XMLVisitor {
 
@@ -17,7 +16,7 @@ class ContentScoringVisitor: XMLVisitor {
 
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let node = host as? VinXML.XMLNode else {
+        guard let node = host as? VinContent.XMLNode else {
             return false
         }
 
@@ -79,7 +78,7 @@ class ContentScoringVisitor: XMLVisitor {
             upscore = upscore + contentStopWords
         }
 
-        var elementToScore: VinXML.XMLNode? = node
+        var elementToScore: VinContent.XMLNode? = node
         while elementToScore != nil && !elementToScore!.blockElement {
             elementToScore = elementToScore!.parent
         }

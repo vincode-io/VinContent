@@ -6,9 +6,7 @@
 //  Copyright © 2017 Vincode. All rights reserved.
 //
 
-import VinXML
-
-extension VinXML.XMLNode {
+extension VinContent.XMLNode {
     
     /**
      * Store the content score as an XML attribute so that it can be used by

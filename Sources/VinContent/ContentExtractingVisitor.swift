@@ -7,17 +7,16 @@
 //
 
 import Foundation
-import VinXML
 
 class ContentExtractingVisitor: XMLVisitor {
 
     static let extractExemptTags: Set = ["html", "body", "head"]
 
-    var clusters: [VinXML.XMLNode] = []
+    var clusters: [VinContent.XMLNode] = []
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let node = host as? VinXML.XMLNode else {
+        guard let node = host as? VinContent.XMLNode else {
             return false
         }
         

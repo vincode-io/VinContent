@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VinXML
 
 public enum ContentExtractorState {
     case ready
@@ -120,7 +119,7 @@ public class ContentExtractor {
         
         var article = ExtractedArticle()
         
-        guard let doc = try VinXML.XMLDocument(html: htmlString) else {
+        guard let doc = try VinContent.XMLDocument(html: htmlString) else {
             throw ContentExtractorError.UnableToParseHTML
         }
         
@@ -159,7 +158,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractTitle(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractTitle(doc: VinContent.XMLDocument) throws -> String? {
         
         var title: String?
         
@@ -201,7 +200,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractByline(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractByline(doc: VinContent.XMLDocument) throws -> String? {
         
         if let author = try doc.metaTagContent(forName: "author") {
             return author
@@ -253,7 +252,7 @@ public class ContentExtractor {
         return candidate.count > 0 && candidate.count < 100
     }
     
-    private func extractPublisher(doc: VinXML.XMLDocument, source: URL) throws -> String? {
+    private func extractPublisher(doc: VinContent.XMLDocument, source: URL) throws -> String? {
         
         if let publisher = try doc.metaTagContent(forName: "og:site_name") {
             return publisher
@@ -271,7 +270,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractDescription(doc: VinXML.XMLDocument) throws -> String? {
+    private func extractDescription(doc: VinContent.XMLDocument) throws -> String? {
 
         if let description = try doc.metaTagContent(forName: "description") {
             return description
@@ -285,7 +284,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractSource(doc: VinXML.XMLDocument, source: URL) throws -> URL? {
+    private func extractSource(doc: VinContent.XMLDocument, source: URL) throws -> URL? {
         
         if let ogURL = try doc.metaTagContent(forName: "og:url") {
             if let result = URL(string: ogURL) {
@@ -297,7 +296,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractPublishDate(doc: VinXML.XMLDocument) throws -> Date? {
+    private func extractPublishDate(doc: VinContent.XMLDocument) throws -> Date? {
         
         if let published = try doc.metaTagContent(forName: "article:published_time") {
             return try? Date(iso8601: published)
@@ -307,7 +306,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractImage(doc: VinXML.XMLDocument) throws -> URL? {
+    private func extractImage(doc: VinContent.XMLDocument) throws -> URL? {
         
         if let image = try doc.metaTagContent(forName: "og:image") {
             return URL(string: image)

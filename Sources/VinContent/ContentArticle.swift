@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VinXML
 
 public struct ExtractedArticle {
     
@@ -20,8 +19,8 @@ public struct ExtractedArticle {
     public var publishDate: Date?
     public var image: URL?
     public var length: Int?
-    public var mangledDocument: VinXML.XMLDocument?
-    public var content: [VinXML.XMLNode]?
+    public var mangledDocument: VinContent.XMLDocument?
+    public var content: [VinContent.XMLNode]?
     
     public var wrappedContent: String? {
         

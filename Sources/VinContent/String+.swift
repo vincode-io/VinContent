@@ -7,15 +7,3 @@ extension String: LocalizedError {
         return self
     }
 }
-
-extension String {
-    
-    func trimmed() -> String? {
-        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty {
-            return nil
-        }
-        return trimmed
-    }
-    
-}

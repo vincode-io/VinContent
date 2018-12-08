@@ -6,9 +6,7 @@
 //
 //
 
-import VinXML
-
-extension VinXML.XMLDocument {
+extension VinContent.XMLDocument {
 
     func metaTagContent(forName tagName: String) throws -> String? {
         let xpath = "//*/meta[@name='\(tagName)' or @property='\(tagName)']"

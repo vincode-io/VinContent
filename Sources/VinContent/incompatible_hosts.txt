@@ -4,3 +4,4 @@ youtu.be
 youtube-nocookie.com
 vimeo.com
 dailymotion.com
+micro.blog

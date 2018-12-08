@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import VinXML
 
 class ContentPostScrubbingVisitor: XMLVisitor {
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let node = host as? VinXML.XMLNode else {
+        guard let node = host as? VinContent.XMLNode else {
             return false
         }
      
@@ -34,7 +33,7 @@ class ContentPostScrubbingVisitor: XMLVisitor {
         
     }
     
-    private func remove(_ node: VinXML.XMLNode) throws {
+    private func remove(_ node: VinContent.XMLNode) throws {
 //        if let classValue = node.attributes["class"] {
 //            print("--- postscrubber \(node.name ?? "n/a") *** \(classValue)")
 //        } else {

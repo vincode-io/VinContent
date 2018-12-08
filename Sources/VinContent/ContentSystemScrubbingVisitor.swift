@@ -1,13 +1,12 @@
 //  Copyright © 2018 Vincode. All rights reserved.
 
 import Foundation
-import VinXML
 
 class ContentSystemScrubbingVisitor: XMLVisitor {
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let node = host as? VinXML.XMLNode else {
+        guard let node = host as? VinContent.XMLNode else {
             return false
         }
         

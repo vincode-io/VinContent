@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VinXML
 
 class ContentPreScrubbingVisitor: XMLVisitor {
     
@@ -31,7 +30,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
     
     func visit(host: XMLVisitorHost) throws -> Bool {
         
-        guard let node = host as? VinXML.XMLNode else {
+        guard let node = host as? VinContent.XMLNode else {
             return false
         }
         
@@ -126,7 +125,7 @@ class ContentPreScrubbingVisitor: XMLVisitor {
         
     }
     
-    private func remove(_ node: VinXML.XMLNode) throws {
+    private func remove(_ node: VinContent.XMLNode) throws {
 //        if let classValue = node.attributes["class"] {
 //            print("--- prescrubber removing --- \(node.name ?? "n/a") *** \(classValue)")
 //        } else {

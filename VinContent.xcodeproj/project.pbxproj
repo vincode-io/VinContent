@@ -16,10 +16,18 @@
 		514A6D56217A17F7003BF3E1 /* macworld-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 514A6D4D217A14FB003BF3E1 /* macworld-input.html */; };
 		516EB25E215CFDB3005B31DB /* incompatible_hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = 516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */; };
 		516EB261215CFF4F005B31DB /* ContentExtractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */; };
-		51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B8A074215425E900EEA621 /* VinXML.framework */; };
 		51B8A08821542E7400EEA621 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08621542E5400EEA621 /* stopwords.txt */; };
 		51B8A10F215706B700EEA621 /* wired-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A10D215706B700EEA621 /* wired-input.html */; };
 		51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B8A1102157071700EEA621 /* VinContentBaseTest.swift */; };
+		51BBF2F521BC2693007E79DC /* XMLAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2EA21BC2693007E79DC /* XMLAttributes.swift */; };
+		51BBF2F621BC2693007E79DC /* XMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2EB21BC2693007E79DC /* XMLDocument.swift */; };
+		51BBF2F721BC2693007E79DC /* XMLNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2EC21BC2693007E79DC /* XMLNodes.swift */; };
+		51BBF2F821BC2693007E79DC /* XMLNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2EE21BC2693007E79DC /* XMLNodeType.swift */; };
+		51BBF2F921BC2693007E79DC /* String+VinXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2EF21BC2693007E79DC /* String+VinXML.swift */; };
+		51BBF2FA21BC2693007E79DC /* XMLVisitorHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2F021BC2693007E79DC /* XMLVisitorHost.swift */; };
+		51BBF2FB21BC2693007E79DC /* XMLVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2F121BC2693007E79DC /* XMLVisitor.swift */; };
+		51BBF2FC21BC2693007E79DC /* XMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2F221BC2693007E79DC /* XMLNode.swift */; };
+		51BBF2FD21BC2693007E79DC /* XMLXPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBF2F421BC2693007E79DC /* XMLXPath.swift */; };
 		OBJ_38 /* ContentArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ContentArticle.swift */; };
 		OBJ_39 /* ContentExtractingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ContentExtractingVisitor.swift */; };
 		OBJ_40 /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ContentExtractor.swift */; };
@@ -63,6 +71,17 @@
 		51B8A08621542E5400EEA621 /* stopwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stopwords.txt; sourceTree = "<group>"; };
 		51B8A10D215706B700EEA621 /* wired-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "wired-input.html"; sourceTree = "<group>"; };
 		51B8A1102157071700EEA621 /* VinContentBaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinContentBaseTest.swift; sourceTree = "<group>"; };
+		51BBF2EA21BC2693007E79DC /* XMLAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLAttributes.swift; sourceTree = "<group>"; };
+		51BBF2EB21BC2693007E79DC /* XMLDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLDocument.swift; sourceTree = "<group>"; };
+		51BBF2EC21BC2693007E79DC /* XMLNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLNodes.swift; sourceTree = "<group>"; };
+		51BBF2ED21BC2693007E79DC /* libxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libxml2.h; sourceTree = "<group>"; };
+		51BBF2EE21BC2693007E79DC /* XMLNodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLNodeType.swift; sourceTree = "<group>"; };
+		51BBF2EF21BC2693007E79DC /* String+VinXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+VinXML.swift"; sourceTree = "<group>"; };
+		51BBF2F021BC2693007E79DC /* XMLVisitorHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLVisitorHost.swift; sourceTree = "<group>"; };
+		51BBF2F121BC2693007E79DC /* XMLVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLVisitor.swift; sourceTree = "<group>"; };
+		51BBF2F221BC2693007E79DC /* XMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLNode.swift; sourceTree = "<group>"; };
+		51BBF2F321BC2693007E79DC /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		51BBF2F421BC2693007E79DC /* XMLXPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLXPath.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ContentExtractingVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractingVisitor.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ContentExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; };
 		OBJ_13 /* ContentPostScrubbingVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPostScrubbingVisitor.swift; sourceTree = "<group>"; };
@@ -87,7 +106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				51B8A08521542B5400EEA621 /* VinXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +140,25 @@
 				51B8A074215425E900EEA621 /* VinXML.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51BBF2E921BC2693007E79DC /* VinXML */ = {
+			isa = PBXGroup;
+			children = (
+				51BBF2EA21BC2693007E79DC /* XMLAttributes.swift */,
+				51BBF2EB21BC2693007E79DC /* XMLDocument.swift */,
+				51BBF2EC21BC2693007E79DC /* XMLNodes.swift */,
+				51BBF2ED21BC2693007E79DC /* libxml2.h */,
+				51BBF2EE21BC2693007E79DC /* XMLNodeType.swift */,
+				51BBF2EF21BC2693007E79DC /* String+VinXML.swift */,
+				51BBF2F021BC2693007E79DC /* XMLVisitorHost.swift */,
+				51BBF2F121BC2693007E79DC /* XMLVisitor.swift */,
+				51BBF2F221BC2693007E79DC /* XMLNode.swift */,
+				51BBF2F321BC2693007E79DC /* module.modulemap */,
+				51BBF2F421BC2693007E79DC /* XMLXPath.swift */,
+			);
+			name = VinXML;
+			path = Sources/VinXML;
 			sourceTree = "<group>";
 		};
 		OBJ_25 /* Tests */ = {
@@ -171,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_8 /* VinContent */,
+				51BBF2E921BC2693007E79DC /* VinXML */,
 			);
 			name = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -292,19 +330,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				51BBF2F621BC2693007E79DC /* XMLDocument.swift in Sources */,
+				51BBF2F521BC2693007E79DC /* XMLAttributes.swift in Sources */,
 				OBJ_38 /* ContentArticle.swift in Sources */,
+				51BBF2F721BC2693007E79DC /* XMLNodes.swift in Sources */,
 				OBJ_39 /* ContentExtractingVisitor.swift in Sources */,
 				OBJ_40 /* ContentExtractor.swift in Sources */,
 				OBJ_42 /* ContentPostScrubbingVisitor.swift in Sources */,
 				OBJ_43 /* ContentPreScrubbingVisitor.swift in Sources */,
+				51BBF2FB21BC2693007E79DC /* XMLVisitor.swift in Sources */,
 				OBJ_44 /* ContentScoringVisitor.swift in Sources */,
 				OBJ_45 /* ContentSystemScrubbingVisitor.swift in Sources */,
+				51BBF2F921BC2693007E79DC /* String+VinXML.swift in Sources */,
 				OBJ_46 /* Date+.swift in Sources */,
 				OBJ_47 /* DateFormatter+.swift in Sources */,
 				OBJ_48 /* StopWords.swift in Sources */,
 				OBJ_49 /* String+.swift in Sources */,
+				51BBF2FC21BC2693007E79DC /* XMLNode.swift in Sources */,
+				51BBF2FD21BC2693007E79DC /* XMLXPath.swift in Sources */,
+				51BBF2F821BC2693007E79DC /* XMLNodeType.swift in Sources */,
 				OBJ_52 /* XMLDocument+.swift in Sources */,
 				OBJ_53 /* XMLNode+.swift in Sources */,
+				51BBF2FA21BC2693007E79DC /* XMLVisitorHost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +401,7 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE DEBUG";
 				SWIFT_ENABLE_BATCH_MODE = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USE_HEADERMAP = NO;
@@ -380,6 +428,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_ENABLE_BATCH_MODE = "";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Sources/VinXML";
 				SWIFT_VERSION = 4.2;
 				TARGET_NAME = VinContent;
 			};
@@ -405,6 +454,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_ENABLE_BATCH_MODE = "";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Sources/VinXML";
 				SWIFT_VERSION = 4.2;
 				TARGET_NAME = VinContent;
 			};
@@ -427,6 +477,7 @@
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_ENABLE_BATCH_MODE = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				USE_HEADERMAP = NO;
