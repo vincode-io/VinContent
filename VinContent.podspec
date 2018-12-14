@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "VinContent"
-  s.version      = "0.0.1"
+  s.version      = "1.2"
   s.summary      = "HTML main content extraction for Swift"
 
   # This description is used to generate tags and improve search results.
