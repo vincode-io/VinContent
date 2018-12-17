@@ -66,7 +66,6 @@
 		514A6D50217A1517003BF3E1 /* MacworldTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacworldTest.swift; sourceTree = "<group>"; };
 		516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = incompatible_hosts.txt; sourceTree = "<group>"; };
 		516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractorTest.swift; sourceTree = "<group>"; };
-		51B8A074215425E900EEA621 /* VinXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VinXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B8A07F215429E500EEA621 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		51B8A08621542E5400EEA621 /* stopwords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stopwords.txt; sourceTree = "<group>"; };
 		51B8A10D215706B700EEA621 /* wired-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "wired-input.html"; sourceTree = "<group>"; };
@@ -137,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				51B8A07F215429E500EEA621 /* libxml2.2.tbd */,
-				51B8A074215425E900EEA621 /* VinXML.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

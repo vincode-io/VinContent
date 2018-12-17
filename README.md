@@ -1,5 +1,5 @@
 # VinContent
-============
+------------
 
 ### HTML Main content extractor for Swift
 
