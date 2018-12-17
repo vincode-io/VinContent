@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "VinContent"
-  s.version      = "1.2"
+  s.version      = "1.0"
   s.summary      = "HTML main content extraction for Swift"
   s.description  = <<-DESC
 VinContent is a main content extraction library for Swift.  Main content extraction is
