@@ -172,7 +172,8 @@ public class ContentExtractor {
         article.image = try extractImage(doc: doc)
         
         try doc.root?.host(visitor: ContentPreScrubbingVisitor(articleTitle: article.title))
-        try doc.root?.host(visitor: ContentScoringVisitor())
+        let contentScoringVisitor = ContentScoringVisitor()
+        try doc.root?.host(visitor: contentScoringVisitor)
 
         let contentExtractingVisitor = ContentExtractingVisitor()
         try doc.root?.host(visitor: contentExtractingVisitor)
@@ -188,7 +189,8 @@ public class ContentExtractor {
             try cluster.host(visitor: postScrubber)
         }
         
-        try doc.root?.host(visitor: ContentSystemScrubbingVisitor())
+        let contentSystemScrubbingVisitor = ContentSystemScrubbingVisitor()
+        try doc.root?.host(visitor: contentSystemScrubbingVisitor)
         
         article.mangledDocument = doc
         article.content = clusters
