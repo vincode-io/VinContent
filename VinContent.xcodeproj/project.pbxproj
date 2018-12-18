@@ -14,6 +14,12 @@
 		514A6D52217A15AA003BF3E1 /* MacworldTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A6D50217A1517003BF3E1 /* MacworldTest.swift */; };
 		514A6D53217A15CC003BF3E1 /* macworld-expected.html in Resources */ = {isa = PBXBuildFile; fileRef = 514A6D4C217A14FA003BF3E1 /* macworld-expected.html */; };
 		514A6D56217A17F7003BF3E1 /* macworld-input.html in Resources */ = {isa = PBXBuildFile; fileRef = 514A6D4D217A14FB003BF3E1 /* macworld-input.html */; };
+		514C5E8521C931FD00FF8255 /* XMLBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C5E7E21C931FD00FF8255 /* XMLBaseTest.swift */; };
+		514C5E8621C931FD00FF8255 /* XMLElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C5E7F21C931FD00FF8255 /* XMLElementTests.swift */; };
+		514C5E8721C931FD00FF8255 /* vincode.io.html in Resources */ = {isa = PBXBuildFile; fileRef = 514C5E8121C931FD00FF8255 /* vincode.io.html */; };
+		514C5E8821C931FD00FF8255 /* XMLAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C5E8221C931FD00FF8255 /* XMLAttributesTests.swift */; };
+		514C5E8921C931FD00FF8255 /* XMLDocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C5E8321C931FD00FF8255 /* XMLDocTests.swift */; };
+		514C5E8A21C931FD00FF8255 /* XPathQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C5E8421C931FD00FF8255 /* XPathQueryTests.swift */; };
 		516EB25E215CFDB3005B31DB /* incompatible_hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = 516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */; };
 		516EB261215CFF4F005B31DB /* ContentExtractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */; };
 		51B8A08821542E7400EEA621 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 51B8A08621542E5400EEA621 /* stopwords.txt */; };
@@ -64,6 +70,12 @@
 		514A6D4C217A14FA003BF3E1 /* macworld-expected.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "macworld-expected.html"; sourceTree = "<group>"; };
 		514A6D4D217A14FB003BF3E1 /* macworld-input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "macworld-input.html"; sourceTree = "<group>"; };
 		514A6D50217A1517003BF3E1 /* MacworldTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacworldTest.swift; sourceTree = "<group>"; };
+		514C5E7E21C931FD00FF8255 /* XMLBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLBaseTest.swift; sourceTree = "<group>"; };
+		514C5E7F21C931FD00FF8255 /* XMLElementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLElementTests.swift; sourceTree = "<group>"; };
+		514C5E8121C931FD00FF8255 /* vincode.io.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = vincode.io.html; sourceTree = "<group>"; };
+		514C5E8221C931FD00FF8255 /* XMLAttributesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLAttributesTests.swift; sourceTree = "<group>"; };
+		514C5E8321C931FD00FF8255 /* XMLDocTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLDocTests.swift; sourceTree = "<group>"; };
+		514C5E8421C931FD00FF8255 /* XPathQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XPathQueryTests.swift; sourceTree = "<group>"; };
 		516EB25D215CFDB3005B31DB /* incompatible_hosts.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = incompatible_hosts.txt; sourceTree = "<group>"; };
 		516EB260215CFF4F005B31DB /* ContentExtractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractorTest.swift; sourceTree = "<group>"; };
 		51B8A07F215429E500EEA621 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
@@ -119,6 +131,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		514C5E7D21C931C400FF8255 /* VinXMLTests */ = {
+			isa = PBXGroup;
+			children = (
+				514C5E8021C931FD00FF8255 /* Resources */,
+				514C5E8221C931FD00FF8255 /* XMLAttributesTests.swift */,
+				514C5E7E21C931FD00FF8255 /* XMLBaseTest.swift */,
+				514C5E8321C931FD00FF8255 /* XMLDocTests.swift */,
+				514C5E7F21C931FD00FF8255 /* XMLElementTests.swift */,
+				514C5E8421C931FD00FF8255 /* XPathQueryTests.swift */,
+			);
+			path = VinXMLTests;
+			sourceTree = "<group>";
+		};
+		514C5E8021C931FD00FF8255 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				514C5E8121C931FD00FF8255 /* vincode.io.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		516EB25F215CFE25005B31DB /* HTML */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_26 /* VinContentTests */,
+				514C5E7D21C931C400FF8255 /* VinXMLTests */,
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;
@@ -312,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				514C5E8721C931FD00FF8255 /* vincode.io.html in Resources */,
 				5130A01021571965009205CB /* wired-expected.html in Resources */,
 				514A6D53217A15CC003BF3E1 /* macworld-expected.html in Resources */,
 				514A6D56217A17F7003BF3E1 /* macworld-input.html in Resources */,
@@ -357,10 +392,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				514C5E8A21C931FD00FF8255 /* XPathQueryTests.swift in Sources */,
 				514A6D52217A15AA003BF3E1 /* MacworldTest.swift in Sources */,
+				514C5E8621C931FD00FF8255 /* XMLElementTests.swift in Sources */,
+				514C5E8921C931FD00FF8255 /* XMLDocTests.swift in Sources */,
 				516EB261215CFF4F005B31DB /* ContentExtractorTest.swift in Sources */,
+				514C5E8521C931FD00FF8255 /* XMLBaseTest.swift in Sources */,
 				51B8A1112157071700EEA621 /* VinContentBaseTest.swift in Sources */,
 				OBJ_71 /* WiredTest.swift in Sources */,
+				514C5E8821C931FD00FF8255 /* XMLAttributesTests.swift in Sources */,
 				5130A0242159B525009205CB /* NYTimesTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,7 +16,7 @@ class MacworldTest: VinContentBaseTest {
         expectedSource = "https://www.macworld.com/article/3309580/os-x/article.html"
     }
     
-    func testWired() {
+    func testMacworld() {
         super.commonTest()
     }
     

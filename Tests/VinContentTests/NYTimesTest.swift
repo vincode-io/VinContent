@@ -16,7 +16,7 @@ class NYTimesTest: VinContentBaseTest {
         expectedSource = "https://www.nytimes.com/2018/09/24/world/middleeast/iran-attack-military-parade.html"
     }
     
-    func testWired() {
+    func testTheTimes() {
         super.commonTest()
     }
     

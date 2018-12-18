@@ -48,16 +48,32 @@ public class ContentExtractor {
     public var delegate: ContentExtractorDelegate?
     
     private var url: URL!
+    private var html: String!
     
     public init(_ url: URL) {
         self.url = url
         state = compatibleURL(url) ? .ready : .unableToParse
     }
     
+    public init(_ html: String) {
+        self.html = html
+        state = .ready
+    }
+    
     public func process() {
         
         state = .processing
 
+        if url != nil {
+            processURL()
+        } else {
+            processHTML()
+        }
+        
+    }
+    
+    private func processURL() {
+        
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
             guard let strongSelf = self else { return }
@@ -77,7 +93,7 @@ public class ContentExtractor {
                 }
                 return
             }
- 
+            
             do {
                 let article = try strongSelf.extractArticle(from: html, source: strongSelf.url)
                 strongSelf.state = .complete
@@ -95,6 +111,29 @@ public class ContentExtractor {
         }
         
         dataTask.resume()
+    }
+    
+    private func processHTML() {
+        
+        DispatchQueue.global().async { [weak self] in
+
+            guard let strongSelf = self else { return }
+            
+            do {
+                let article = try strongSelf.extractArticle(from: strongSelf.html)
+                strongSelf.state = .complete
+                strongSelf.article = article
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.contentExtractionDidComplete(article: article)
+                }
+            } catch {
+                strongSelf.state = .failedToParse
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.contentExtractionDidFail(with: error)
+                }
+            }
+            
+        }
         
     }
     
@@ -115,7 +154,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractArticle(from htmlString: String, source: URL) throws -> ExtractedArticle {
+    private func extractArticle(from htmlString: String, source: URL? = nil) throws -> ExtractedArticle {
         
         var article = ExtractedArticle()
         
@@ -252,7 +291,7 @@ public class ContentExtractor {
         return candidate.count > 0 && candidate.count < 100
     }
     
-    private func extractPublisher(doc: VinContent.XMLDocument, source: URL) throws -> String? {
+    private func extractPublisher(doc: VinContent.XMLDocument, source: URL?) throws -> String? {
         
         if let publisher = try doc.metaTagContent(forName: "og:site_name") {
             return publisher
@@ -266,7 +305,7 @@ public class ContentExtractor {
             return publisher
         }
         
-        return source.host
+        return source?.host
         
     }
     
@@ -284,7 +323,7 @@ public class ContentExtractor {
         
     }
     
-    private func extractSource(doc: VinContent.XMLDocument, source: URL) throws -> URL? {
+    private func extractSource(doc: VinContent.XMLDocument, source: URL?) throws -> URL? {
         
         if let ogURL = try doc.metaTagContent(forName: "og:url") {
             if let result = URL(string: ogURL) {
