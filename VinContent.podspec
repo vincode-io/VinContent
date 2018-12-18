@@ -16,7 +16,7 @@ What isn't relavant, advertisements and other junk, is discarded.
   s.osx.deployment_target = "10.10"
   s.swift_version = '4.0'
   s.source       = { :git => "https://github.com/vincode-io/VinContent.git", :tag => "#{s.version}" }
-  s.source_files  = "Sources", "Sources/**/*.{swift,h,m}"
+  s.source_files  = "Sources", "Sources/**/*.{swift,h,m,txt}"
    s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2', 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/VinContent/Sources/VinXML' }
    s.preserve_paths = 'Sources/VinXML/module.modulemap'
 
