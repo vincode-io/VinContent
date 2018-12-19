@@ -48,7 +48,7 @@ class VinContentBaseTest: XCTestCase {
         let bundleURL = Bundle(for: type(of: self)).resourceURL
         let inputURL = bundleURL!.appendingPathComponent("\(testHandle!)-input.html")
         
-        let contentExtractor = ContentExtractor(inputURL)
+        let contentExtractor = ContentExtractor(url: inputURL)
         contentExtractor.delegate = delegate
         contentExtractor.process()
         

@@ -50,24 +50,54 @@ public class ContentExtractor {
     private var url: URL!
     private var html: String!
     
-    public init(_ url: URL) {
+    public init(url: URL) {
         self.url = url
         state = compatibleURL(url) ? .ready : .unableToParse
     }
     
-    public init(_ html: String) {
+    public init(html: String) {
         self.html = html
         state = .ready
     }
     
+    public init(url: URL, html: String) {
+        self.url = url
+        self.html = html
+        state = compatibleURL(url) ? .ready : .unableToParse
+    }
+
     public func process() {
         
         state = .processing
 
-        if url != nil {
-            processURL()
-        } else {
+        if html != nil {
             processHTML()
+        } else {
+            processURL()
+        }
+        
+    }
+    
+    private func processHTML() {
+        
+        DispatchQueue.global().async { [weak self] in
+
+            guard let strongSelf = self else { return }
+            
+            do {
+                let article = try strongSelf.extractArticle(from: strongSelf.html)
+                strongSelf.state = .complete
+                strongSelf.article = article
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.contentExtractionDidComplete(article: article)
+                }
+            } catch {
+                strongSelf.state = .failedToParse
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.contentExtractionDidFail(with: error)
+                }
+            }
+            
         }
         
     }
@@ -111,30 +141,6 @@ public class ContentExtractor {
         }
         
         dataTask.resume()
-    }
-    
-    private func processHTML() {
-        
-        DispatchQueue.global().async { [weak self] in
-
-            guard let strongSelf = self else { return }
-            
-            do {
-                let article = try strongSelf.extractArticle(from: strongSelf.html)
-                strongSelf.state = .complete
-                strongSelf.article = article
-                DispatchQueue.main.async {
-                    strongSelf.delegate?.contentExtractionDidComplete(article: article)
-                }
-            } catch {
-                strongSelf.state = .failedToParse
-                DispatchQueue.main.async {
-                    strongSelf.delegate?.contentExtractionDidFail(with: error)
-                }
-            }
-            
-        }
-        
     }
     
     private func compatibleURL(_ url: URL) -> Bool {
