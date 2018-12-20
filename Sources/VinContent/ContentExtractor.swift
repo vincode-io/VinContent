@@ -60,10 +60,19 @@ public class ContentExtractor {
         state = .ready
     }
     
-    public init(url: URL, html: String) {
+    public init(url: URL?, html: String?) {
+        
         self.url = url
         self.html = html
-        state = compatibleURL(url) ? .ready : .unableToParse
+        
+        if url != nil {
+            state = compatibleURL(url!) ? .ready : .unableToParse
+        } else if html != nil {
+            state = .ready
+        } else {
+            state = .unableToParse
+        }
+        
     }
 
     public func process() {
