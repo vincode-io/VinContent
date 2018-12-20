@@ -19,6 +19,6 @@ What isn't relavant, advertisements and other junk, is discarded.
   s.source_files  = "Sources", "Sources/**/*.{swift,h,m}"
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2', 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/VinContent/Sources/VinXML' }
   s.preserve_paths = 'Sources/VinXML/module.modulemap'
-  s.resource = 'Sources/VinContent/stopwords.txt'
+  s.resources = ['Sources/VinContent/stopwords.txt', 'Sources/VinContent/incompatible_hosts.txt']
 
 end
