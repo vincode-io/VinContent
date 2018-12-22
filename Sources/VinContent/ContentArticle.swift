@@ -18,7 +18,6 @@ public struct ContentArticle {
     public var sourceHTML: String?
     public var publishDate: Date?
     public var image: URL?
-    public var length: Int?
     public var mangledDocument: VinContent.XMLDocument?
     public var content: [VinContent.XMLNode]?
     
