@@ -21,7 +21,7 @@ public struct ContentArticle {
     public var mangledDocument: VinContent.XMLDocument?
     public var content: [VinContent.XMLNode]?
     
-    public var wrappedContent: String? {
+    public var htmlContent: String? {
         
         guard content != nil && content!.count > 0 else {
             return nil

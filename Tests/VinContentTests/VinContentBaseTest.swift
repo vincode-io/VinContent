@@ -64,7 +64,7 @@ class VinContentBaseTest: XCTestCase {
         let expectedURL = bundleURL!.appendingPathComponent("\(testHandle!)-expected.html")
         let expectedContent = try! String(contentsOf: expectedURL)
 
-        XCTAssertEqual(expectedContent, articleResult!.wrappedContent)
+        XCTAssertEqual(expectedContent, articleResult!.htmlContent)
         
     }
     
