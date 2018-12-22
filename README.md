@@ -15,12 +15,28 @@ Other implementations of this are
 and many more.
 
 VinContent will also extract page metadata using Open Graph tags and other common HTML tags.
-- 
+- title
+- publisher
+- byline
+- description
+- source
+- publish date (experimental)
+- main image (experimental)
 
 Usage
 -----
 
-VinContent has a small API implemented using the delegate pattern.  
+VinContent has a small API implemented using the delegate pattern.   You will be primarily interested in
+1 class. 1 strict. and the delegate protocol you have to implement.
+
+- _ContentExtractor_ - This class is the main engine that will optionally request the web page and do
+all of the metadata and content extraction.
+- _ContentExtractorDelegate_ - This is the protocol that you have to implement to receive the error and
+completion events from ContentExtractor.  These events (callback methods) will be called on the main 
+thread.
+- _ContentArticle_ - This is a struct that contains the extracted metadata and content.
+- _ContentExtractorState_ - Optionally you can track the progress and current state of the ContentExtractor
+using its ```state``` property.
 
 Example usage:
 
@@ -59,8 +75,10 @@ class WebBrowser: ContentExtractorDelegate {
     
     // This is the second delegate method.  It will be called after the page
     // is downloaded (if necessary) and processed.
-    func contentExtractionDidComplete(article: ExtractedArticle) {
-       // Display the stripped down article here.
+    func contentExtractionDidComplete(article: ContentArticle) {
+
+       let html = article.htmlContent
+       
     }
     
 }
