@@ -1,3 +1,6 @@
+[![CocoaPods](https://img.shields.io/cocoapods/p/VinContent.svg?maxAge=3601)](#)
+[![Swift](https://img.shields.io/badge/Swift-4.0-F16D39.svg?style=flat)](#)
+
 # VinContent
 
 ### HTML Main content extractor for Swift
