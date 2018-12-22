@@ -1,5 +1,5 @@
 //
-//  ExtractedArticle.swift
+//  ContentArticle.swift
 //  VinFoundation
 //
 //  Created by Maurice Parker on 2/4/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ExtractedArticle {
+public struct ContentArticle {
     
     public var title: String?
     public var publisher: String?

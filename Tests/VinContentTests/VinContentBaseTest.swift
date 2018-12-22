@@ -18,7 +18,7 @@ class TestDelegate: ContentExtractorDelegate {
         baseTest.expectation!.fulfill()
     }
     
-    func contentExtractionDidComplete(article: ExtractedArticle) {
+    func contentExtractionDidComplete(article: ContentArticle) {
         baseTest.articleResult = article
         baseTest.expectation!.fulfill()
     }
@@ -37,7 +37,7 @@ class VinContentBaseTest: XCTestCase {
 
     var expectation: XCTestExpectation? = nil
     var errorResult: Error? = nil
-    var articleResult: ExtractedArticle? = nil
+    var articleResult: ContentArticle? = nil
     
     func commonTest() {
         

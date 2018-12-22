@@ -18,7 +18,7 @@ public enum ContentExtractorState {
 
 public protocol ContentExtractorDelegate {
     func contentExtractionDidFail(with: Error)
-    func contentExtractionDidComplete(article: ExtractedArticle)
+    func contentExtractionDidComplete(article: ContentArticle)
 }
 
 public enum ContentExtractorError: Error {
@@ -44,7 +44,7 @@ public class ContentExtractor {
     
     
     public var state: ContentExtractorState!
-    public var article: ExtractedArticle?
+    public var article: ContentArticle?
     public var delegate: ContentExtractorDelegate?
     
     private var url: URL!
@@ -169,9 +169,9 @@ public class ContentExtractor {
         
     }
     
-    private func extractArticle(from htmlString: String, source: URL? = nil) throws -> ExtractedArticle {
+    private func extractArticle(from htmlString: String, source: URL? = nil) throws -> ContentArticle {
         
-        var article = ExtractedArticle()
+        var article = ContentArticle()
         
         guard let doc = try VinContent.XMLDocument(html: htmlString) else {
             throw ContentExtractorError.UnableToParseHTML
