@@ -13,7 +13,7 @@ advertisements and other junk, is discarded.  A common usage of main content ext
 [Newspaper](https://github.com/codelucas/newspaper), 
 and many more.
 
-VinContent will also extract page metadata using Open Graph tags and other common HTML tags.
+VinContent will also extract page metadata using [Open Graph](http://ogp.me) tags and other common HTML tags.
 - title
 - publisher
 - byline
